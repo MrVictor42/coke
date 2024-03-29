@@ -1,1 +1,29 @@
-// Check GETTING_STARTED.markdown for information regarding usage.
+buildscript {
+    dependencies {
+        classpath group: "com.liferay", name: "com.liferay.gradle.plugins", version: "4.1.5"
+        classpath group: "com.liferay", name: "com.liferay.gradle.plugins.deployment.helper", version: "1.0.5"
+    }
+
+    repositories {
+        maven {
+            url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+        }
+    }
+}
+
+apply plugin: "com.liferay.deployment.helper"
+
+buildDeploymentHelper {
+    deploymentFiles = fileTree('modules'){include '**/build/libs/*.jar'} +
+            fileTree('modules'){include '**/dist/*.jar'} +
+            fileTree('themes'){include '**/dist/*.war'}
+
+    if (project.hasProperty('deployFileName') && project.deployFileName) {
+        outputFile = "${buildDir}/${deployFileName}";
+    }
+}
+
+def getTimestamp() {
+    def date = new Date()
+    return date.format('yyyyMMddHHmm')
+}

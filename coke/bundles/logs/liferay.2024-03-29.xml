@@ -1,0 +1,1638 @@
+<log4j:event logger="com.liferay.portal.spring.context.PortalContextLoaderListener" timestamp="1711721138110" level="INFO" thread="main">
+<log4j:message><![CDATA[JVM arguments: -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:38215,suspend=y,server=n -Dcatalina.base=/home/victor/workspace/coke/bundles/tomcat-9.0.56 -Dcatalina.home=/home/victor/workspace/coke/bundles/tomcat-9.0.56 -Dfile.encoding=UTF8 -Djava.io.tmpdir=/home/victor/workspace/coke/bundles/tomcat-9.0.56/temp -Djava.net.preferIPv4Stack=true -Djava.util.logging.config.file=/home/victor/workspace/coke/bundles/tomcat-9.0.56/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Duser.timezone=GMT -Djdk.util.zip.disableZip64ExtraFieldValidation=true -Xmx2560m -XX:MaxMetaspaceSize=768m -XX:MetaspaceSize=768m]]></log4j:message>
+<log4j:locationInfo class="com.liferay.portal.kernel.log.LogWrapper" method="info" file="LogWrapper.java" line="123"/>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.hibernate.DialectDetector" timestamp="1711721138575" level="INFO" thread="main">
+<log4j:message><![CDATA[Using dialect org.hibernate.dialect.MySQLDialect for MySQL 8.0]]></log4j:message>
+<log4j:locationInfo class="com.liferay.portal.spring.hibernate.DialectDetector" method="getDialect" file="DialectDetector.java" line="148"/>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.bootstrap.ModuleFrameworkImpl" timestamp="1711721139946" level="INFO" thread="main">
+<log4j:message><![CDATA[Starting initial bundles]]></log4j:message>
+<log4j:locationInfo class="com.liferay.portal.bootstrap.ModuleFrameworkImpl" method="_setUpInitialBundles" file="ModuleFrameworkImpl.java" line="1238"/>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalContextLoaderListener" timestamp="1711721140029" level="ERROR" thread="main">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[java.lang.NullPointerException
+	at com.liferay.portal.kernel.servlet.DirectServletRegistryUtil.clearServlets(DirectServletRegistryUtil.java:25)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.contextDestroyed(PortalContextLoaderListener.java:127)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.liferay.shielded.container.internal.proxy.ContextClassLoaderInvocationHandler.invoke(ContextClassLoaderInvocationHandler.java:43)
+	at com.liferay.shielded.container.internal.proxy.EventListenerInvocationHandler.invoke(EventListenerInvocationHandler.java:64)
+	at com.sun.proxy.$Proxy5.contextDestroyed(Unknown Source)
+	at org.apache.catalina.core.StandardContext.listenerStop(StandardContext.java:4814)
+	at org.apache.catalina.core.StandardContext.stopInternal(StandardContext.java:5477)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:257)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:187)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:726)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:698)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:696)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:690)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1889)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:112)
+	at org.apache.catalina.startup.HostConfig.deployDescriptors(HostConfig.java:583)
+	at org.apache.catalina.startup.HostConfig.deployApps(HostConfig.java:473)
+	at org.apache.catalina.startup.HostConfig.start(HostConfig.java:1618)
+	at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:319)
+	at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:123)
+	at org.apache.catalina.util.LifecycleBase.setStateInternal(LifecycleBase.java:423)
+	at org.apache.catalina.util.LifecycleBase.setState(LifecycleBase.java:366)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:946)
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:835)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1396)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1386)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:919)
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:263)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:432)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:927)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.startup.Catalina.start(Catalina.java:772)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:345)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:476)
+]]></log4j:throwable>
+<log4j:locationInfo class="com.liferay.portal.kernel.log.LogWrapper" method="error" file="LogWrapper.java" line="79"/>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalContextLoaderListener" timestamp="1711721140034" level="ERROR" thread="main">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[java.lang.NullPointerException
+	at com.liferay.portal.kernel.deploy.hot.HotDeployUtil.reset(HotDeployUtil.java:50)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.contextDestroyed(PortalContextLoaderListener.java:134)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.liferay.shielded.container.internal.proxy.ContextClassLoaderInvocationHandler.invoke(ContextClassLoaderInvocationHandler.java:43)
+	at com.liferay.shielded.container.internal.proxy.EventListenerInvocationHandler.invoke(EventListenerInvocationHandler.java:64)
+	at com.sun.proxy.$Proxy5.contextDestroyed(Unknown Source)
+	at org.apache.catalina.core.StandardContext.listenerStop(StandardContext.java:4814)
+	at org.apache.catalina.core.StandardContext.stopInternal(StandardContext.java:5477)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:257)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:187)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:726)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:698)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:696)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:690)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1889)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:112)
+	at org.apache.catalina.startup.HostConfig.deployDescriptors(HostConfig.java:583)
+	at org.apache.catalina.startup.HostConfig.deployApps(HostConfig.java:473)
+	at org.apache.catalina.startup.HostConfig.start(HostConfig.java:1618)
+	at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:319)
+	at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:123)
+	at org.apache.catalina.util.LifecycleBase.setStateInternal(LifecycleBase.java:423)
+	at org.apache.catalina.util.LifecycleBase.setState(LifecycleBase.java:366)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:946)
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:835)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1396)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1386)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:919)
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:263)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:432)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:927)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.startup.Catalina.start(Catalina.java:772)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:345)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:476)
+]]></log4j:throwable>
+<log4j:locationInfo class="com.liferay.portal.kernel.log.LogWrapper" method="error" file="LogWrapper.java" line="79"/>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.kernel.bean.PortalBeanLocatorUtil" timestamp="1711721140037" level="ERROR" thread="main">
+<log4j:message><![CDATA[BeanLocator is null]]></log4j:message>
+<log4j:locationInfo class="com.liferay.portal.kernel.bean.PortalBeanLocatorUtil" method="locate" file="PortalBeanLocatorUtil.java" line="66"/>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140061" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/company-provider-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140065" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/document-library-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140070" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/layout-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140074" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/model-listener-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140079" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/notifications-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140084" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/poller-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140088" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/prefs-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140093" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/repository-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140098" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/search-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140102" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/social-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140107" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/workflow-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140112" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/counter-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140117" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/mail-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140122" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/portal-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140127" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/portlet-container-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140131" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/staging-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140136" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/virtual-layouts-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721140140" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.doFindAllClassPathResources(PathMatchingResourcePatternResolver.java:338)
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.findAllClassPathResources(PathMatchingResourcePatternResolver.java:321)
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.getResources(PathMatchingResourcePatternResolver.java:288)
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.findPathMatchingResources(PathMatchingResourcePatternResolver.java:494)
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.getResources(PathMatchingResourcePatternResolver.java:284)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:223)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="org.springframework.web.context.ContextLoader" timestamp="1711721140221" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[Context initialization failed]]></log4j:message>
+<log4j:throwable><![CDATA[java.lang.IllegalStateException: Failed to introspect Class [com.liferay.portlet.RestrictPortletContainerWrapper] from ClassLoader [com.liferay.shielded.container.internal.ShieldedContainerClassLoader@130161f7]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:481)
+	at org.springframework.util.ReflectionUtils.doWithMethods(ReflectionUtils.java:358)
+	at org.springframework.util.ReflectionUtils.getUniqueDeclaredMethods(ReflectionUtils.java:414)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.lambda$getTypeForFactoryMethod$2(AbstractAutowireCapableBeanFactory.java:742)
+	at java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1660)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.getTypeForFactoryMethod(AbstractAutowireCapableBeanFactory.java:741)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineTargetType(AbstractAutowireCapableBeanFactory.java:680)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.predictBeanType(AbstractAutowireCapableBeanFactory.java:648)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.isFactoryBean(AbstractBeanFactory.java:1614)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doGetBeanNamesForType(DefaultListableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanNamesForType(DefaultListableBeanFactory.java:495)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:87)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:707)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:533)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.NoClassDefFoundError: javax/servlet/http/HttpServletResponse
+	at java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
+	at java.lang.Class.getDeclaredMethods(Class.java:1975)
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:463)
+	... 19 more
+Caused by: java.lang.ClassNotFoundException: Illegal access: this web application instance has been stopped already. Could not load [javax.servlet.http.HttpServletResponse]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForClassLoading(WebappClassLoaderBase.java:1417)
+	at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1254)
+	at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1215)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findClass(ShieldedContainerClassLoader.java:79)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:418)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+	... 23 more
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [javax.servlet.http.HttpServletResponse]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForClassLoading(WebappClassLoaderBase.java:1415)
+	... 28 more
+]]></log4j:throwable>
+<log4j:locationInfo class="org.apache.commons.logging.impl.SLF4JLocationAwareLog" method="error" file="SLF4JLocationAwareLog.java" line="225"/>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalContextLoaderListener" timestamp="1711721176278" level="INFO" thread="main">
+<log4j:message><![CDATA[JVM arguments: -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:42213,suspend=y,server=n -Dcatalina.base=/home/victor/workspace/coke/bundles/tomcat-9.0.56 -Dcatalina.home=/home/victor/workspace/coke/bundles/tomcat-9.0.56 -Dfile.encoding=UTF8 -Djava.io.tmpdir=/home/victor/workspace/coke/bundles/tomcat-9.0.56/temp -Djava.net.preferIPv4Stack=true -Djava.util.logging.config.file=/home/victor/workspace/coke/bundles/tomcat-9.0.56/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Duser.timezone=GMT -Djdk.util.zip.disableZip64ExtraFieldValidation=true -Xmx2560m -XX:MaxMetaspaceSize=768m -XX:MetaspaceSize=768m]]></log4j:message>
+<log4j:locationInfo class="com.liferay.portal.kernel.log.LogWrapper" method="info" file="LogWrapper.java" line="123"/>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.hibernate.DialectDetector" timestamp="1711721176734" level="INFO" thread="main">
+<log4j:message><![CDATA[Using dialect org.hibernate.dialect.MySQLDialect for MySQL 8.0]]></log4j:message>
+<log4j:locationInfo class="com.liferay.portal.spring.hibernate.DialectDetector" method="getDialect" file="DialectDetector.java" line="148"/>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.bootstrap.ModuleFrameworkImpl" timestamp="1711721178202" level="INFO" thread="main">
+<log4j:message><![CDATA[Starting initial bundles]]></log4j:message>
+<log4j:locationInfo class="com.liferay.portal.bootstrap.ModuleFrameworkImpl" method="_setUpInitialBundles" file="ModuleFrameworkImpl.java" line="1238"/>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalContextLoaderListener" timestamp="1711721178310" level="ERROR" thread="main">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[java.lang.NullPointerException
+	at com.liferay.portal.kernel.servlet.DirectServletRegistryUtil.clearServlets(DirectServletRegistryUtil.java:25)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.contextDestroyed(PortalContextLoaderListener.java:127)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.liferay.shielded.container.internal.proxy.ContextClassLoaderInvocationHandler.invoke(ContextClassLoaderInvocationHandler.java:43)
+	at com.liferay.shielded.container.internal.proxy.EventListenerInvocationHandler.invoke(EventListenerInvocationHandler.java:64)
+	at com.sun.proxy.$Proxy5.contextDestroyed(Unknown Source)
+	at org.apache.catalina.core.StandardContext.listenerStop(StandardContext.java:4814)
+	at org.apache.catalina.core.StandardContext.stopInternal(StandardContext.java:5477)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:257)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:187)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:726)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:698)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:696)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:690)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1889)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:112)
+	at org.apache.catalina.startup.HostConfig.deployDescriptors(HostConfig.java:583)
+	at org.apache.catalina.startup.HostConfig.deployApps(HostConfig.java:473)
+	at org.apache.catalina.startup.HostConfig.start(HostConfig.java:1618)
+	at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:319)
+	at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:123)
+	at org.apache.catalina.util.LifecycleBase.setStateInternal(LifecycleBase.java:423)
+	at org.apache.catalina.util.LifecycleBase.setState(LifecycleBase.java:366)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:946)
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:835)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1396)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1386)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:919)
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:263)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:432)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:927)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.startup.Catalina.start(Catalina.java:772)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:345)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:476)
+]]></log4j:throwable>
+<log4j:locationInfo class="com.liferay.portal.kernel.log.LogWrapper" method="error" file="LogWrapper.java" line="79"/>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalContextLoaderListener" timestamp="1711721178316" level="ERROR" thread="main">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[java.lang.NullPointerException
+	at com.liferay.portal.kernel.deploy.hot.HotDeployUtil.reset(HotDeployUtil.java:50)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.contextDestroyed(PortalContextLoaderListener.java:134)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.liferay.shielded.container.internal.proxy.ContextClassLoaderInvocationHandler.invoke(ContextClassLoaderInvocationHandler.java:43)
+	at com.liferay.shielded.container.internal.proxy.EventListenerInvocationHandler.invoke(EventListenerInvocationHandler.java:64)
+	at com.sun.proxy.$Proxy5.contextDestroyed(Unknown Source)
+	at org.apache.catalina.core.StandardContext.listenerStop(StandardContext.java:4814)
+	at org.apache.catalina.core.StandardContext.stopInternal(StandardContext.java:5477)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:257)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:187)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:726)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:698)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:696)
+	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:690)
+	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1889)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:112)
+	at org.apache.catalina.startup.HostConfig.deployDescriptors(HostConfig.java:583)
+	at org.apache.catalina.startup.HostConfig.deployApps(HostConfig.java:473)
+	at org.apache.catalina.startup.HostConfig.start(HostConfig.java:1618)
+	at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:319)
+	at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:123)
+	at org.apache.catalina.util.LifecycleBase.setStateInternal(LifecycleBase.java:423)
+	at org.apache.catalina.util.LifecycleBase.setState(LifecycleBase.java:366)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:946)
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:835)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1396)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1386)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:919)
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:263)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:432)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:927)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.startup.Catalina.start(Catalina.java:772)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:345)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:476)
+]]></log4j:throwable>
+<log4j:locationInfo class="com.liferay.portal.kernel.log.LogWrapper" method="error" file="LogWrapper.java" line="79"/>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.kernel.bean.PortalBeanLocatorUtil" timestamp="1711721178318" level="ERROR" thread="main">
+<log4j:message><![CDATA[BeanLocator is null]]></log4j:message>
+<log4j:locationInfo class="com.liferay.portal.kernel.bean.PortalBeanLocatorUtil" method="locate" file="PortalBeanLocatorUtil.java" line="66"/>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721178329" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/poller-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721178332" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/prefs-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721178335" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/repository-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721178340" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/search-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721178343" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/social-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721178345" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/workflow-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721178348" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/counter-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721178351" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/mail-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721178354" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/portal-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721178358" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/portlet-container-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721178360" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/staging-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721178363" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[org.springframework.beans.factory.BeanDefinitionStoreException: Unexpected exception parsing XML document from class path resource [META-INF/virtual-layouts-spring.xml]; nested exception is java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:417)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:338)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:188)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:224)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/services/javax.xml.parsers.DocumentBuilderFactory]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at java.util.ServiceLoader$LazyIterator.hasNextService(ServiceLoader.java:348)
+	at java.util.ServiceLoader$LazyIterator.hasNext(ServiceLoader.java:393)
+	at java.util.ServiceLoader$1.hasNext(ServiceLoader.java:474)
+	at javax.xml.parsers.FactoryFinder$1.run(FactoryFinder.java:293)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.xml.parsers.FactoryFinder.findServiceProvider(FactoryFinder.java:289)
+	at javax.xml.parsers.FactoryFinder.find(FactoryFinder.java:267)
+	at javax.xml.parsers.DocumentBuilderFactory.newInstance(DocumentBuilderFactory.java:119)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.createDocumentBuilderFactory(DefaultDocumentLoader.java:91)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:72)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:432)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 16 more
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="com.liferay.portal.spring.context.PortalApplicationContext" timestamp="1711721178365" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[null]]></log4j:message>
+<log4j:throwable><![CDATA[java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [META-INF/]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.findResources(WebappClassLoaderBase.java:998)
+	at org.apache.catalina.loader.WebappClassLoaderBase.getResources(WebappClassLoaderBase.java:1105)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findResources(ShieldedContainerClassLoader.java:64)
+	at java.lang.ClassLoader.getResources(ClassLoader.java:1135)
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.doFindAllClassPathResources(PathMatchingResourcePatternResolver.java:338)
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.findAllClassPathResources(PathMatchingResourcePatternResolver.java:321)
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.getResources(PathMatchingResourcePatternResolver.java:288)
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.findPathMatchingResources(PathMatchingResourcePatternResolver.java:494)
+	at org.springframework.core.io.support.PathMatchingResourcePatternResolver.getResources(PathMatchingResourcePatternResolver.java:284)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:223)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:195)
+	at com.liferay.portal.spring.context.PortalApplicationContext.loadBeanDefinitions(PortalApplicationContext.java:92)
+	at org.springframework.web.context.support.XmlWebApplicationContext.loadBeanDefinitions(XmlWebApplicationContext.java:94)
+	at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+	at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:523)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+]]></log4j:throwable>
+</log4j:event>
+
+<log4j:event logger="org.springframework.web.context.ContextLoader" timestamp="1711721178420" level="ERROR" thread="Portal Spring Init Thread">
+<log4j:message><![CDATA[Context initialization failed]]></log4j:message>
+<log4j:throwable><![CDATA[java.lang.IllegalStateException: Failed to introspect Class [com.liferay.portlet.RestrictPortletContainerWrapper] from ClassLoader [com.liferay.shielded.container.internal.ShieldedContainerClassLoader@130161f7]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:481)
+	at org.springframework.util.ReflectionUtils.doWithMethods(ReflectionUtils.java:358)
+	at org.springframework.util.ReflectionUtils.getUniqueDeclaredMethods(ReflectionUtils.java:414)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.lambda$getTypeForFactoryMethod$2(AbstractAutowireCapableBeanFactory.java:742)
+	at java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1660)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.getTypeForFactoryMethod(AbstractAutowireCapableBeanFactory.java:741)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineTargetType(AbstractAutowireCapableBeanFactory.java:680)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.predictBeanType(AbstractAutowireCapableBeanFactory.java:648)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.isFactoryBean(AbstractBeanFactory.java:1614)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doGetBeanNamesForType(DefaultListableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanNamesForType(DefaultListableBeanFactory.java:495)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:87)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:707)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:533)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:401)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:292)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:103)
+	at com.liferay.portal.spring.context.PortalContextLoaderListener.lambda$contextInitialized$1(PortalContextLoaderListener.java:269)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+Caused by: java.lang.NoClassDefFoundError: javax/servlet/http/HttpServletResponse
+	at java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
+	at java.lang.Class.getDeclaredMethods(Class.java:1975)
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:463)
+	... 19 more
+Caused by: java.lang.ClassNotFoundException: Illegal access: this web application instance has been stopped already. Could not load [javax.servlet.http.HttpServletResponse]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForClassLoading(WebappClassLoaderBase.java:1417)
+	at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1254)
+	at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1215)
+	at com.liferay.shielded.container.internal.ShieldedContainerClassLoader.findClass(ShieldedContainerClassLoader.java:79)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:418)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+	... 23 more
+Caused by: java.lang.IllegalStateException: Illegal access: this web application instance has been stopped already. Could not load [javax.servlet.http.HttpServletResponse]. The following stack trace is thrown for debugging purposes as well as to attempt to terminate the thread which caused the illegal access.
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForResourceLoading(WebappClassLoaderBase.java:1427)
+	at org.apache.catalina.loader.WebappClassLoaderBase.checkStateForClassLoading(WebappClassLoaderBase.java:1415)
+	... 28 more
+]]></log4j:throwable>
+<log4j:locationInfo class="org.apache.commons.logging.impl.SLF4JLocationAwareLog" method="error" file="SLF4JLocationAwareLog.java" line="225"/>
+</log4j:event>
+

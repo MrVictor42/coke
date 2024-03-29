@@ -21,7 +21,7 @@ import org.osgi.service.component.annotations.Component;
 import java.util.Date;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author victor
  */
 @Component(
 	property = "model.class.name=br.com.victor.coke.model.Coke",

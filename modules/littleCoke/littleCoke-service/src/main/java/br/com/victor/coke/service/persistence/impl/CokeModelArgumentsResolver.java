@@ -1,6 +1,15 @@
 /**
- * SPDX-FileCopyrightText: (c) 2024 Liferay, Inc. https://liferay.com
- * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  */
 
 package br.com.victor.coke.service.persistence.impl;
@@ -21,15 +30,12 @@ import org.osgi.service.component.annotations.Component;
 /**
  * The arguments resolver class for retrieving value from Coke.
  *
- * @author Brian Wing Shun Chan
+ * @author victor
  * @generated
  */
 @Component(
-	property = {
-		"class.name=br.com.victor.coke.model.impl.CokeImpl",
-		"table.name=Coke_Coke"
-	},
-	service = ArgumentsResolver.class
+	immediate = true,
+	service = {CokeModelArgumentsResolver.class, ArgumentsResolver.class}
 )
 public class CokeModelArgumentsResolver implements ArgumentsResolver {
 

@@ -2,9 +2,9 @@
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
 
 <service-builder dependency-injector="ds" package-path="br.com.victor.coke">
+	<author>victor</author>
 	<namespace>Coke</namespace>
 	<entity local-service="true" name="Coke" remote-service="true" uuid="true">
-
         <!-- PK fields -->
         <column name="cokeId" type="long" primary="true"/>
 
@@ -18,4 +18,20 @@
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
 	</entity>
+
+    <entity local-service="true" name="UserCoke" remote-service="true" uuid="true">
+        <!-- PK fields -->
+        <column name="userCokeId" type="long" primary="true"/>
+
+        <!-- Audit fields -->
+        <column name="cokeId" type="long"/>
+        <column name="userId" type="long"/>
+        <column name="addedBy" type="long"/>
+        <column name="createDate" type="Date" />
+        <column name="modifiedDate" type="Date" />
+
+        <finder name="cokeId" return-type="Collection">
+            <finder-column name="cokeId"/>
+        </finder>
+    </entity>
 </service-builder>

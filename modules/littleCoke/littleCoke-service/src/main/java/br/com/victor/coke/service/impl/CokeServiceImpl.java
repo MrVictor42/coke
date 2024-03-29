@@ -14,7 +14,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author victor
  */
 @Component(
 	property = {

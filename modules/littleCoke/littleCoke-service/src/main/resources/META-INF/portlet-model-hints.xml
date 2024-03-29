@@ -11,4 +11,13 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 	</model>
+	<model name="br.com.victor.coke.model.UserCoke">
+		<field name="uuid" type="String" />
+		<field name="userCokeId" type="long" />
+		<field name="cokeId" type="long" />
+		<field name="userId" type="long" />
+		<field name="addedBy" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+	</model>
 </model-hints>

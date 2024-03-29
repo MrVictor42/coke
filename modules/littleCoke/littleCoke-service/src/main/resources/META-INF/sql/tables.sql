@@ -8,3 +8,13 @@ create table Coke_Coke (
 	createDate DATE null,
 	modifiedDate DATE null
 );
+
+create table Coke_UserCoke (
+	uuid_ VARCHAR(75) null,
+	userCokeId LONG not null primary key,
+	cokeId LONG,
+	userId LONG,
+	addedBy LONG,
+	createDate DATE null,
+	modifiedDate DATE null
+);
