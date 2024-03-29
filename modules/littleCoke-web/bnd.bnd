@@ -1,0 +1,4 @@
+Bundle-Name: littleCoke-web
+Bundle-SymbolicName: br.com.victor.littleCoke.web
+Bundle-Version: 1.0.0
+Export-Package: br.com.victor.coke.constants

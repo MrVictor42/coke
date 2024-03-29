@@ -1,4 +1,0 @@
-Bundle-Name: coke-web
-Bundle-SymbolicName: br.com.victor.coke
-Bundle-Version: 1.0.0
-Export-Package: br.com.victor.coke.constants
