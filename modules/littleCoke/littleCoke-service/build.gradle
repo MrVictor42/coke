@@ -1,0 +1,11 @@
+dependencies {
+	api project(":modules:littleCoke:littleCoke-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+}
+
+buildService {
+	apiDir = "../littleCoke-api/src/main/java"
+}
+
+group = "br.com.victor.coke"
