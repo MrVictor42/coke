@@ -258,6 +258,10 @@ public class UserCokeLocalServiceUtil {
 		return getService().getUserCoke(userCokeId);
 	}
 
+	public static List<UserCoke> getUserCokeByCokeId(long cokeId) {
+		return getService().getUserCokeByCokeId(cokeId);
+	}
+
 	/**
 	 * Returns a range of all the user cokes.
 	 *

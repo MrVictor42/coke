@@ -16,6 +16,8 @@ package br.com.victor.coke.service;
 
 import br.com.victor.coke.model.UserCoke;
 
+import java.util.List;
+
 /**
  * Provides the remote service utility for UserCoke. This utility wraps
  * <code>br.com.victor.coke.service.impl.UserCokeServiceImpl</code> and is an
@@ -48,6 +50,10 @@ public class UserCokeServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static List<UserCoke> getUserCokeByCokeId(long cokeId) {
+		return getService().getUserCokeByCokeId(cokeId);
 	}
 
 	public static UserCokeService getService() {

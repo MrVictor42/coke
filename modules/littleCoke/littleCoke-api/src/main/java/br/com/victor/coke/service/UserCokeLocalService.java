@@ -234,6 +234,9 @@ public interface UserCokeLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public UserCoke getUserCoke(long userCokeId) throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<UserCoke> getUserCokeByCokeId(long cokeId);
+
 	/**
 	 * Returns a range of all the user cokes.
 	 *

@@ -52,6 +52,13 @@ public class UserCokeServiceWrapper
 	}
 
 	@Override
+	public java.util.List<br.com.victor.coke.model.UserCoke>
+		getUserCokeByCokeId(long cokeId) {
+
+		return _userCokeService.getUserCokeByCokeId(cokeId);
+	}
+
+	@Override
 	public UserCokeService getWrappedService() {
 		return _userCokeService;
 	}

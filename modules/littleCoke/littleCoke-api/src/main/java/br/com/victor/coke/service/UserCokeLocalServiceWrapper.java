@@ -284,6 +284,13 @@ public class UserCokeLocalServiceWrapper
 		return _userCokeLocalService.getUserCoke(userCokeId);
 	}
 
+	@Override
+	public java.util.List<br.com.victor.coke.model.UserCoke>
+		getUserCokeByCokeId(long cokeId) {
+
+		return _userCokeLocalService.getUserCokeByCokeId(cokeId);
+	}
+
 	/**
 	 * Returns a range of all the user cokes.
 	 *

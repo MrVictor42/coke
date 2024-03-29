@@ -83,9 +83,42 @@ public class UserCokeServiceHttp {
 		}
 	}
 
+	public static java.util.List<br.com.victor.coke.model.UserCoke>
+		getUserCokeByCokeId(HttpPrincipal httpPrincipal, long cokeId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserCokeServiceUtil.class, "getUserCokeByCokeId",
+				_getUserCokeByCokeIdParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, cokeId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<br.com.victor.coke.model.UserCoke>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(UserCokeServiceHttp.class);
 
 	private static final Class<?>[] _createUserCookParameterTypes0 =
 		new Class[] {long.class, long.class, long.class};
+	private static final Class<?>[] _getUserCokeByCokeIdParameterTypes1 =
+		new Class[] {long.class};
 
 }

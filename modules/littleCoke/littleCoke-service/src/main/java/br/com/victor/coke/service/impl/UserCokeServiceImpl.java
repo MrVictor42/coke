@@ -12,6 +12,8 @@ import com.liferay.portal.aop.AopService;
 
 import org.osgi.service.component.annotations.Component;
 
+import java.util.List;
+
 /**
  * @author victor
  */
@@ -26,5 +28,9 @@ public class UserCokeServiceImpl extends UserCokeServiceBaseImpl {
 
     public UserCoke createUserCook(long cokeId, long userId, long addedBy) {
         return userCokeLocalService.createUserCook(cokeId, userId, addedBy);
+    }
+
+    public List<UserCoke> getUserCokeByCokeId(long cokeId) {
+        return userCokeLocalService.getUserCokeByCokeId(cokeId);
     }
 }

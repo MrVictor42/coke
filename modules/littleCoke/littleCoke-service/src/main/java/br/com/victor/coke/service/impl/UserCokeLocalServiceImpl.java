@@ -14,6 +14,8 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import org.osgi.service.component.annotations.Component;
 
+import java.util.List;
+
 /**
  * @author victor
  */
@@ -33,5 +35,9 @@ public class UserCokeLocalServiceImpl extends UserCokeLocalServiceBaseImpl {
         userCoke.setAddedBy(addedBy);
 
         return addUserCoke(userCoke);
+    }
+
+    public List<UserCoke> getUserCokeByCokeId(long cokeId) {
+        return userCokePersistence.findBycokeId(cokeId);
     }
 }
