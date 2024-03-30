@@ -4,6 +4,7 @@
 <%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet"%>
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme"%>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
+<%@ taglib prefix="clay" uri="http://liferay.com/tld/clay" %>
 <%@ taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %>
 <%@ taglib uri="http://liferay.com/tld/security" prefix="liferay-security" %>
 
@@ -16,6 +17,7 @@
 <%@ page import="com.liferay.portal.kernel.dao.search.SearchEntry" %>
 <%@ page import="com.liferay.portal.kernel.dao.search.ResultRow" %>
 <%@ page import="com.liferay.petra.string.StringPool" %>
+<%@ page import="br.com.victor.coke.service.CokeLocalServiceUtil" %>
 <%@ page import="br.com.victor.coke.service.UserCokeLocalServiceUtil" %>
 <%@ page import="br.com.victor.coke.model.UserCoke" %>
 <%@ page import="br.com.victor.coke.model.Coke" %>

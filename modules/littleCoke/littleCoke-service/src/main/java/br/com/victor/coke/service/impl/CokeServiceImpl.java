@@ -7,9 +7,8 @@ package br.com.victor.coke.service.impl;
 
 import br.com.victor.coke.model.Coke;
 import br.com.victor.coke.service.base.CokeServiceBaseImpl;
-
 import com.liferay.portal.aop.AopService;
-
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import org.osgi.service.component.annotations.Component;
 
@@ -29,7 +28,11 @@ public class CokeServiceImpl extends CokeServiceBaseImpl {
         return cokeLocalService.createCoke(name, serviceContext);
     }
 
-    public Coke updateCoke(String name, long cokeId) {
-        return cokeLocalService.updateCoke(name, cokeId);
+    public Coke deleteCoke(long cokeId) throws PortalException {
+        return cokeLocalService.deleteCoke(cokeId);
+    }
+
+    public Coke getCoke(long cokeId) throws PortalException {
+        return cokeLocalService.getCoke(cokeId);
     }
 }

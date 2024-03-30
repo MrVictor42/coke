@@ -127,20 +127,6 @@ public interface UserCokeModel extends BaseModel<UserCoke> {
 	public void setUserUuid(String userUuid);
 
 	/**
-	 * Returns the added by of this user coke.
-	 *
-	 * @return the added by of this user coke
-	 */
-	public long getAddedBy();
-
-	/**
-	 * Sets the added by of this user coke.
-	 *
-	 * @param addedBy the added by of this user coke
-	 */
-	public void setAddedBy(long addedBy);
-
-	/**
 	 * Returns the create date of this user coke.
 	 *
 	 * @return the create date of this user coke

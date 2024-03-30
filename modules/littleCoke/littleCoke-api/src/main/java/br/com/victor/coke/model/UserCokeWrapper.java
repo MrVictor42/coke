@@ -46,7 +46,6 @@ public class UserCokeWrapper
 		attributes.put("userCokeId", getUserCokeId());
 		attributes.put("cokeId", getCokeId());
 		attributes.put("userId", getUserId());
-		attributes.put("addedBy", getAddedBy());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 
@@ -79,12 +78,6 @@ public class UserCokeWrapper
 			setUserId(userId);
 		}
 
-		Long addedBy = (Long)attributes.get("addedBy");
-
-		if (addedBy != null) {
-			setAddedBy(addedBy);
-		}
-
 		Date createDate = (Date)attributes.get("createDate");
 
 		if (createDate != null) {
@@ -101,16 +94,6 @@ public class UserCokeWrapper
 	@Override
 	public UserCoke cloneWithOriginalValues() {
 		return wrap(model.cloneWithOriginalValues());
-	}
-
-	/**
-	 * Returns the added by of this user coke.
-	 *
-	 * @return the added by of this user coke
-	 */
-	@Override
-	public long getAddedBy() {
-		return model.getAddedBy();
 	}
 
 	/**
@@ -196,16 +179,6 @@ public class UserCokeWrapper
 	@Override
 	public void persist() {
 		model.persist();
-	}
-
-	/**
-	 * Sets the added by of this user coke.
-	 *
-	 * @param addedBy the added by of this user coke
-	 */
-	@Override
-	public void setAddedBy(long addedBy) {
-		model.setAddedBy(addedBy);
 	}
 
 	/**

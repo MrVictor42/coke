@@ -16,7 +16,6 @@
 		<field name="userCokeId" type="long" />
 		<field name="cokeId" type="long" />
 		<field name="userId" type="long" />
-		<field name="addedBy" type="long" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 	</model>

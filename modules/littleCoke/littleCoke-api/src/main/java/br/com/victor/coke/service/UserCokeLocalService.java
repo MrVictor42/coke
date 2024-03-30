@@ -92,7 +92,7 @@ public interface UserCokeLocalService
 	public UserCoke createUserCoke(long userCokeId);
 
 	@Indexable(type = IndexableType.REINDEX)
-	public UserCoke createUserCook(long cokeId, long userId, long addedBy);
+	public UserCoke createUserCoke(long cokeId, long userId);
 
 	/**
 	 * @throws PortalException

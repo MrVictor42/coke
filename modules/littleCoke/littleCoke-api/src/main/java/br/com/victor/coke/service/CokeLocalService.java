@@ -323,7 +323,4 @@ public interface CokeLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Coke updateCoke(Coke coke);
 
-	@Indexable(type = IndexableType.REINDEX)
-	public Coke updateCoke(String name, long cokeId);
-
 }

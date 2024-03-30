@@ -80,10 +80,8 @@ public class UserCokeLocalServiceUtil {
 		return getService().createUserCoke(userCokeId);
 	}
 
-	public static UserCoke createUserCook(
-		long cokeId, long userId, long addedBy) {
-
-		return getService().createUserCook(cokeId, userId, addedBy);
+	public static UserCoke createUserCoke(long cokeId, long userId) {
+		return getService().createUserCoke(cokeId, userId);
 	}
 
 	/**

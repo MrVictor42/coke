@@ -76,10 +76,10 @@ public class UserCokeLocalServiceWrapper
 	}
 
 	@Override
-	public br.com.victor.coke.model.UserCoke createUserCook(
-		long cokeId, long userId, long addedBy) {
+	public br.com.victor.coke.model.UserCoke createUserCoke(
+		long cokeId, long userId) {
 
-		return _userCokeLocalService.createUserCook(cokeId, userId, addedBy);
+		return _userCokeLocalService.createUserCoke(cokeId, userId);
 	}
 
 	/**

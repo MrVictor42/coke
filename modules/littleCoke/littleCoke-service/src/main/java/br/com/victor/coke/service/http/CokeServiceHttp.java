@@ -84,16 +84,16 @@ public class CokeServiceHttp {
 		}
 	}
 
-	public static br.com.victor.coke.model.Coke updateCoke(
-		HttpPrincipal httpPrincipal, String name, long cokeId) {
+	public static br.com.victor.coke.model.Coke deleteCoke(
+			HttpPrincipal httpPrincipal, long cokeId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				CokeServiceUtil.class, "updateCoke",
-				_updateCokeParameterTypes1);
+				CokeServiceUtil.class, "deleteCoke",
+				_deleteCokeParameterTypes1);
 
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, name, cokeId);
+			MethodHandler methodHandler = new MethodHandler(methodKey, cokeId);
 
 			Object returnObj = null;
 
@@ -101,6 +101,51 @@ public class CokeServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (br.com.victor.coke.model.Coke)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static br.com.victor.coke.model.Coke getCoke(
+			HttpPrincipal httpPrincipal, long cokeId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CokeServiceUtil.class, "getCoke", _getCokeParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, cokeId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(
 					exception);
 			}
@@ -121,8 +166,11 @@ public class CokeServiceHttp {
 	private static final Class<?>[] _createCokeParameterTypes0 = new Class[] {
 		String.class, com.liferay.portal.kernel.service.ServiceContext.class
 	};
-	private static final Class<?>[] _updateCokeParameterTypes1 = new Class[] {
-		String.class, long.class
+	private static final Class<?>[] _deleteCokeParameterTypes1 = new Class[] {
+		long.class
+	};
+	private static final Class<?>[] _getCokeParameterTypes2 = new Class[] {
+		long.class
 	};
 
 }

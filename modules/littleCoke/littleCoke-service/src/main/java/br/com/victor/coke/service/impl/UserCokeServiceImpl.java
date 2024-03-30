@@ -7,9 +7,7 @@ package br.com.victor.coke.service.impl;
 
 import br.com.victor.coke.model.UserCoke;
 import br.com.victor.coke.service.base.UserCokeServiceBaseImpl;
-
 import com.liferay.portal.aop.AopService;
-
 import org.osgi.service.component.annotations.Component;
 
 import java.util.List;
@@ -26,8 +24,8 @@ import java.util.List;
 )
 public class UserCokeServiceImpl extends UserCokeServiceBaseImpl {
 
-    public UserCoke createUserCook(long cokeId, long userId, long addedBy) {
-        return userCokeLocalService.createUserCook(cokeId, userId, addedBy);
+    public UserCoke createUserCoke(long cokeId, long userId) {
+        return userCokeLocalService.createUserCoke(cokeId, userId);
     }
 
     public List<UserCoke> getUserCokeByCokeId(long cokeId) {

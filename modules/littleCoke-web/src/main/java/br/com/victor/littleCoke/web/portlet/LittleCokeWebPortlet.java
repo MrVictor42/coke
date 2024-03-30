@@ -1,16 +1,25 @@
 package br.com.victor.littleCoke.web.portlet;
 
+import br.com.victor.coke.model.Coke;
+import br.com.victor.coke.model.UserCoke;
 import br.com.victor.coke.service.CokeService;
 import br.com.victor.coke.service.UserCokeService;
-import br.com.victor.coke.service.UserCokeServiceUtil;
 import br.com.victor.littleCoke.web.constants.LittleCokeWebPortletKeys;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ParamUtil;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import javax.portlet.*;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author victor
@@ -34,15 +43,29 @@ import java.io.IOException;
 public class LittleCokeWebPortlet extends MVCPortlet {
 
     @Override
-    public void render(RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {
-        System.err.println("Chegamos");
+    public void render(RenderRequest renderRequest, RenderResponse renderResponse) {
+        try {
+            long cokeId = ParamUtil.getLong(renderRequest, "cokeId");
 
-        long cokeId = 0;
+            if(cokeId != 0) {
+                Coke coke = _cokeService.getCoke(cokeId);
+                List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
+                List<User> userList = _userLocalService.getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+                List<User> usersNotInUserCokeList =
+                        userList
+                                .stream()
+                                .filter(user -> userCokeList
+                                        .stream()
+                                        .noneMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
+                                .collect(Collectors.toList());
+                renderRequest.setAttribute("usersNotInUserCokeList", usersNotInUserCokeList);
+            }
 
-        renderRequest.setAttribute("userCokeId", 0);
-        renderRequest.setAttribute("cokeId", cokeId);
-
-        super.render(renderRequest, renderResponse);
+            super.render(renderRequest, renderResponse);
+        } catch (PortletException | IOException | PortalException e) {
+            _log.error(e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     public void addCoke(ActionRequest request, ActionResponse response) {
@@ -51,9 +74,14 @@ public class LittleCokeWebPortlet extends MVCPortlet {
         long entryId = ParamUtil.getLong(request, "userCokeId");
     }
 
+    private final Log _log = LogFactoryUtil.getLog(LittleCokeWebPortlet.class);
+
     @Reference
     private CokeService _cokeService;
 
     @Reference
     private UserCokeService _userCokeService;
+
+    @Reference
+    private UserLocalService _userLocalService;
 }

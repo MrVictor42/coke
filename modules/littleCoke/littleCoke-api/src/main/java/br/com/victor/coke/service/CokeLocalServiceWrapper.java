@@ -403,11 +403,6 @@ public class CokeLocalServiceWrapper
 	}
 
 	@Override
-	public br.com.victor.coke.model.Coke updateCoke(String name, long cokeId) {
-		return _cokeLocalService.updateCoke(name, cokeId);
-	}
-
-	@Override
 	public CokeLocalService getWrappedService() {
 		return _cokeLocalService;
 	}

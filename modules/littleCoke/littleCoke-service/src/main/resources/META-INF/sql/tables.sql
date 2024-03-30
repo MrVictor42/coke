@@ -14,7 +14,6 @@ create table Coke_UserCoke (
 	userCokeId LONG not null primary key,
 	cokeId LONG,
 	userId LONG,
-	addedBy LONG,
 	createDate DATE null,
 	modifiedDate DATE null
 );

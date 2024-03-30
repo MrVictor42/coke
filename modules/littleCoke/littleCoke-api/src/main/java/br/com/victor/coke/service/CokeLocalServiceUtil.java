@@ -359,10 +359,6 @@ public class CokeLocalServiceUtil {
 		return getService().updateCoke(coke);
 	}
 
-	public static Coke updateCoke(String name, long cokeId) {
-		return getService().updateCoke(name, cokeId);
-	}
-
 	public static CokeLocalService getService() {
 		return _service;
 	}

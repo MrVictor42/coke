@@ -42,6 +42,20 @@ public class CokeServiceWrapper
 		return _cokeService.createCoke(name, serviceContext);
 	}
 
+	@Override
+	public br.com.victor.coke.model.Coke deleteCoke(long cokeId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cokeService.deleteCoke(cokeId);
+	}
+
+	@Override
+	public br.com.victor.coke.model.Coke getCoke(long cokeId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cokeService.getCoke(cokeId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -50,11 +64,6 @@ public class CokeServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _cokeService.getOSGiServiceIdentifier();
-	}
-
-	@Override
-	public br.com.victor.coke.model.Coke updateCoke(String name, long cokeId) {
-		return _cokeService.updateCoke(name, cokeId);
 	}
 
 	@Override

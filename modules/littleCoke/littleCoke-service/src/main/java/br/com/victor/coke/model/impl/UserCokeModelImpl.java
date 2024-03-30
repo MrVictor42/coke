@@ -75,8 +75,7 @@ public class UserCokeModelImpl
 	public static final Object[][] TABLE_COLUMNS = {
 		{"uuid_", Types.VARCHAR}, {"userCokeId", Types.BIGINT},
 		{"cokeId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"addedBy", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -87,13 +86,12 @@ public class UserCokeModelImpl
 		TABLE_COLUMNS_MAP.put("userCokeId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("cokeId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("addedBy", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Coke_UserCoke (uuid_ VARCHAR(75) null,userCokeId LONG not null primary key,cokeId LONG,userId LONG,addedBy LONG,createDate DATE null,modifiedDate DATE null)";
+		"create table Coke_UserCoke (uuid_ VARCHAR(75) null,userCokeId LONG not null primary key,cokeId LONG,userId LONG,createDate DATE null,modifiedDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Coke_UserCoke";
 
@@ -277,9 +275,6 @@ public class UserCokeModelImpl
 		attributeGetterFunctions.put("userId", UserCoke::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId", (BiConsumer<UserCoke, Long>)UserCoke::setUserId);
-		attributeGetterFunctions.put("addedBy", UserCoke::getAddedBy);
-		attributeSetterBiConsumers.put(
-			"addedBy", (BiConsumer<UserCoke, Long>)UserCoke::setAddedBy);
 		attributeGetterFunctions.put("createDate", UserCoke::getCreateDate);
 		attributeSetterBiConsumers.put(
 			"createDate", (BiConsumer<UserCoke, Date>)UserCoke::setCreateDate);
@@ -395,21 +390,6 @@ public class UserCokeModelImpl
 
 	@JSON
 	@Override
-	public long getAddedBy() {
-		return _addedBy;
-	}
-
-	@Override
-	public void setAddedBy(long addedBy) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_addedBy = addedBy;
-	}
-
-	@JSON
-	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -504,7 +484,6 @@ public class UserCokeModelImpl
 		userCokeImpl.setUserCokeId(getUserCokeId());
 		userCokeImpl.setCokeId(getCokeId());
 		userCokeImpl.setUserId(getUserId());
-		userCokeImpl.setAddedBy(getAddedBy());
 		userCokeImpl.setCreateDate(getCreateDate());
 		userCokeImpl.setModifiedDate(getModifiedDate());
 
@@ -522,7 +501,6 @@ public class UserCokeModelImpl
 			this.<Long>getColumnOriginalValue("userCokeId"));
 		userCokeImpl.setCokeId(this.<Long>getColumnOriginalValue("cokeId"));
 		userCokeImpl.setUserId(this.<Long>getColumnOriginalValue("userId"));
-		userCokeImpl.setAddedBy(this.<Long>getColumnOriginalValue("addedBy"));
 		userCokeImpl.setCreateDate(
 			this.<Date>getColumnOriginalValue("createDate"));
 		userCokeImpl.setModifiedDate(
@@ -617,8 +595,6 @@ public class UserCokeModelImpl
 		userCokeCacheModel.cokeId = getCokeId();
 
 		userCokeCacheModel.userId = getUserId();
-
-		userCokeCacheModel.addedBy = getAddedBy();
 
 		Date createDate = getCreateDate();
 
@@ -732,7 +708,6 @@ public class UserCokeModelImpl
 	private long _userCokeId;
 	private long _cokeId;
 	private long _userId;
-	private long _addedBy;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
@@ -770,7 +745,6 @@ public class UserCokeModelImpl
 		_columnOriginalValues.put("userCokeId", _userCokeId);
 		_columnOriginalValues.put("cokeId", _cokeId);
 		_columnOriginalValues.put("userId", _userId);
-		_columnOriginalValues.put("addedBy", _addedBy);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
 	}
@@ -804,11 +778,9 @@ public class UserCokeModelImpl
 
 		columnBitmasks.put("userId", 8L);
 
-		columnBitmasks.put("addedBy", 16L);
+		columnBitmasks.put("createDate", 16L);
 
-		columnBitmasks.put("createDate", 32L);
-
-		columnBitmasks.put("modifiedDate", 64L);
+		columnBitmasks.put("modifiedDate", 32L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

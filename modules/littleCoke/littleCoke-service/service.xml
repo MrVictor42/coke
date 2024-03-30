@@ -26,7 +26,6 @@
         <!-- Audit fields -->
         <column name="cokeId" type="long"/>
         <column name="userId" type="long"/>
-        <column name="addedBy" type="long"/>
         <column name="createDate" type="Date" />
         <column name="modifiedDate" type="Date" />
 

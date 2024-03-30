@@ -16,6 +16,8 @@ package br.com.victor.coke.service;
 
 import br.com.victor.coke.model.Coke;
 
+import com.liferay.portal.kernel.exception.PortalException;
+
 /**
  * Provides the remote service utility for Coke. This utility wraps
  * <code>br.com.victor.coke.service.impl.CokeServiceImpl</code> and is an
@@ -42,6 +44,14 @@ public class CokeServiceUtil {
 		return getService().createCoke(name, serviceContext);
 	}
 
+	public static Coke deleteCoke(long cokeId) throws PortalException {
+		return getService().deleteCoke(cokeId);
+	}
+
+	public static Coke getCoke(long cokeId) throws PortalException {
+		return getService().getCoke(cokeId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -49,10 +59,6 @@ public class CokeServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
-	}
-
-	public static Coke updateCoke(String name, long cokeId) {
-		return getService().updateCoke(name, cokeId);
 	}
 
 	public static CokeService getService() {
