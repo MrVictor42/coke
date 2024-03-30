@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
         "javax.portlet.name=" + LittleCokeWebPortletKeys.LITTLE_COKE_WEB,
         "javax.portlet.resource-bundle=content.Language",
         "javax.portlet.security-role-ref=power-user,user",
-        "javax.portlet.supports.mime-type=text/html"
+        "javax.portlet.supports.mime-type=text/html;"
     },
 	service = Portlet.class
 )
@@ -46,19 +46,40 @@ public class LittleCokeWebPortlet extends MVCPortlet {
     public void render(RenderRequest renderRequest, RenderResponse renderResponse) {
         try {
             long cokeId = ParamUtil.getLong(renderRequest, "cokeId");
+            List<User> userList = _userLocalService
+                    .getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS)
+                    .stream()
+                    .filter(user -> !user.getEmailAddress().equalsIgnoreCase("default@liferay.com"))
+                    .collect(Collectors.toList());
+            List<User> usersInUserCokeList = null;
+            List<User> usersNotInUserCokeList = null;
 
             if(cokeId != 0) {
                 Coke coke = _cokeService.getCoke(cokeId);
                 List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
-                List<User> userList = _userLocalService.getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-                List<User> usersNotInUserCokeList =
+
+                usersNotInUserCokeList =
                         userList
                                 .stream()
                                 .filter(user -> userCokeList
                                         .stream()
                                         .noneMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
                                 .collect(Collectors.toList());
+                usersInUserCokeList =
+                        userList
+                                .stream()
+                                .filter(user -> userCokeList
+                                        .stream()
+                                        .anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
+                                .collect(Collectors.toList());
+
+            }
+
+            if(usersNotInUserCokeList == null) {
+                renderRequest.setAttribute("userList", userList);
+            } else {
                 renderRequest.setAttribute("usersNotInUserCokeList", usersNotInUserCokeList);
+                renderRequest.setAttribute("usersInUserCokeList", usersInUserCokeList);
             }
 
             super.render(renderRequest, renderResponse);

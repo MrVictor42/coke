@@ -1,12 +1,18 @@
 <%@ include file="../init.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
     Coke coke = null;
     long cokeId = ParamUtil.getLong(renderRequest, "cokeId");
 
+
     if(cokeId > 0) {
         coke = CokeLocalServiceUtil.getCoke(cokeId);
     }
+
+	List<User> usersNotInUserCokeList = (List<User>) renderRequest.getAttribute("usersNotInUserCokeList");
+	List<User> usersInUserCokeList = (List<User>) renderRequest.getAttribute("usersInUserCokeList");
+	List<User> userList = (List<User>) renderRequest.getAttribute("userList");
 %>
 
 <portlet:renderURL var="viewURL">
@@ -29,23 +35,20 @@
 			<div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
 				<label for="_9d5cxj5xm">
 					<span class="text-truncate-inline">
-						<span class="text-truncate">In Use</span>
+						<span class="text-truncate">Não é um Consagrado</span>
 					</span>
 				</label>
+	
 				<div class="clay-reorder clay-reorder-footer-end">
-					<select
-						class="form-control form-control-inset"
-						id="_9d5cxj5xm"
-						multiple
-						size="7"
-					>
-						<option value="twitter">Twitter</option>
-						<option value="linkedin">Linkedin</option>
-						<option value="facebook">Facebook</option>
+					<select	class="form-control form-control-inset" id="_9d5cxj5xm" multiple size="10">
+						<% for(User userNotInCoke : usersNotInUserCokeList != null ? usersNotInUserCokeList : userList) { %>
+							<option value="<%= userNotInCoke.getUserId() %>"><%= userNotInCoke.getFullName() %></option>
+						<% } %>
 					</select>
 					<div class="clay-reorder-underlay form-control"></div>
 				</div>
 			</div>
+	
 			<div class="clay-dual-listbox-item clay-dual-listbox-actions">
 				<div class="btn-group-vertical">
 					<button class="btn btn-monospaced btn-secondary btn-sm" type="button">
@@ -56,23 +59,20 @@
 					</button>
 				</div>
 			</div>
+	
 			<div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
 				<label for="_957gwvjvl">
 					<span class="text-truncate-inline">
-						<span class="text-truncate">Available</span>
+						<span class="text-truncate">Já é um Consagrado</span>
 					</span>
 				</label>
 				<div class="clay-reorder">
-					<select
-						class="form-control form-control-inset"
-						id="_957gwvjvl"
-						multiple
-						size="7"
-					>
-						<option value="addthis">AddThis</option>
-						<option value="delicious">Delicious</option>
-						<option value="digg">Digg</option>
-						<option value="evernote">Evernote</option>
+					<select	class="form-control form-control-inset" id="_957gwvjvl" multiple size="10">
+						<% if(usersInUserCokeList != null) {
+							for(User userInCoke : usersInUserCokeList) { %>
+								<option value="<%= userInCoke.getUserId() %>"><%= userInCoke.getFullName() %></option>
+							<% }
+						} %>
 					</select>
 					<div class="clay-reorder-underlay form-control"></div>
 				</div>

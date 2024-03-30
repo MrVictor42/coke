@@ -21,6 +21,7 @@
 <%@ page import="br.com.victor.coke.service.UserCokeLocalServiceUtil" %>
 <%@ page import="br.com.victor.coke.model.UserCoke" %>
 <%@ page import="br.com.victor.coke.model.Coke" %>
+<%@ page import="com.liferay.portal.kernel.model.User" %>
 
 <liferay-theme:defineObjects />
 <portlet:defineObjects />
