@@ -11,6 +11,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ParamUtil;
 import org.osgi.service.component.annotations.Component;
@@ -50,6 +52,7 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                     .getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS)
                     .stream()
                     .filter(user -> !user.getEmailAddress().equalsIgnoreCase("default@liferay.com"))
+                    .filter(user -> !user.getEmailAddress().contains("anonymous"))
                     .collect(Collectors.toList());
             List<User> usersInUserCokeList = null;
             List<User> usersNotInUserCokeList = null;
@@ -90,10 +93,28 @@ public class LittleCokeWebPortlet extends MVCPortlet {
     }
 
     public void addCoke(ActionRequest request, ActionResponse response) {
-        String userName = ParamUtil.getString(request, "name");
-        long guestbookId = ParamUtil.getLong(request, "cokeId");
-        long entryId = ParamUtil.getLong(request, "userCokeId");
+        try {
+            ServiceContext serviceContext = ServiceContextFactory.getInstance(Coke.class.getName(), request);
+            String name = ParamUtil.getString(request, "name");
+            String cokeId = ParamUtil.getString(request, "cokeId");
+
+            // Obtém os IDs dos usuários selecionados
+            String consagratedValues = ParamUtil.getString(request, "consagrated");
+            String[] userIds = consagratedValues.split(",");
+
+            // Imprime os IDs dos usuários
+            for (String userId : userIds) {
+                System.out.println(userId);
+            }
+
+            System.err.println(name);
+        } catch (PortalException e) {
+            _log.error(e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
+
+
 
     private final Log _log = LogFactoryUtil.getLog(LittleCokeWebPortlet.class);
 

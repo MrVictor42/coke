@@ -23,81 +23,86 @@
 
 <portlet:actionURL name="addCoke" var="addCokeURL" />
 <aui:form action="<%= addCokeURL %>" name="<portlet:namespace />fm">
-	<aui:model-context bean="<%= coke %>" model="<%= Coke.class %>" />
+    <aui:model-context bean="<%= coke %>" model="<%= Coke.class %>" />
 
-	<aui:fieldset>
-		<aui:input name="name" />
-		<aui:input name="cokeId" type="hidden" value='<%= coke == null ? cokeId : coke.getCokeId() %>'/>
-	</aui:fieldset>
+    <aui:fieldset>
+        <aui:input name="name" />
+        <aui:input name="cokeId" type="hidden" value='<%= coke == null ? cokeId : coke.getCokeId() %>'/>
 
-	<div class="form-group">
-		<div class="clay-dual-listbox">
-			<div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
-				<label for="_9d5cxj5xm">
-					<span class="text-truncate-inline">
-						<span class="text-truncate">Não é um Consagrado</span>
-					</span>
-				</label>
-	
-				<div class="clay-reorder clay-reorder-footer-end">
-					<select	class="form-control form-control-inset" id="_9d5cxj5xm" multiple size="10">
-						<% for(User userNotInCoke : usersNotInUserCokeList != null ? usersNotInUserCokeList : userList) { %>
-							<option value="<%= userNotInCoke.getUserId() %>"><%= userNotInCoke.getFullName() %></option>
-						<% } %>
-					</select>
-					<div class="clay-reorder-underlay form-control"></div>
-				</div>
-			</div>
-	
-			<div class="clay-dual-listbox-item clay-dual-listbox-actions">
-				<div class="btn-group-vertical">
-					<button class="btn btn-monospaced btn-secondary btn-sm" type="button">
-						<clay:icon symbol="caret-right" />
-					</button>
-					<button class="btn btn-monospaced btn-secondary btn-sm" type="button">
-						<clay:icon symbol="caret-left" />
-					</button>
-				</div>
-			</div>
-	
-			<div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
-				<label for="_957gwvjvl">
-					<span class="text-truncate-inline">
-						<span class="text-truncate">Já é um Consagrado</span>
-					</span>
-				</label>
-				<div class="clay-reorder">
-					<select	class="form-control form-control-inset" id="_957gwvjvl" multiple size="10">
-						<% if(usersInUserCokeList != null) {
-							for(User userInCoke : usersInUserCokeList) { %>
-								<option value="<%= userInCoke.getUserId() %>"><%= userInCoke.getFullName() %></option>
-							<% }
-						} %>
-					</select>
-					<div class="clay-reorder-underlay form-control"></div>
-				</div>
-			</div>
-		</div>
-	</div>
+        <div class="form-group">
+            <div class="clay-dual-listbox">
+                <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
+                    <label for="_9d5cxj5xm">
+                        <span class="text-truncate-inline">
+                            <span class="text-truncate">Participantes</span>
+                        </span>
+                    </label>
+        
+                    <div class="clay-reorder clay-reorder-footer-end">
+                        <select class="form-control form-control-inset" id="notconsagrated" name="notconsagrated" multiple size="10">
+                            <% for(User userNotInCoke : usersNotInUserCokeList != null ? usersNotInUserCokeList : userList) { %>
+                                <option value="<%= userNotInCoke.getUserId() %>"><%= userNotInCoke.getFullName() %></option>
+                            <% } %>
+                        </select>
+                        <div class="clay-reorder-underlay form-control"></div>
+                    </div>
+                </div>
+        
+                <div class="clay-dual-listbox-item clay-dual-listbox-actions">
+                    <div class="btn-group-vertical">
+                        <button class="btn btn-monospaced btn-secondary btn-sm" type="button">
+                            <clay:icon symbol="caret-right" />
+                        </button>
+                        <button class="btn btn-monospaced btn-secondary btn-sm" type="button">
+                            <clay:icon symbol="caret-left" />
+                        </button>
+                    </div>
+                </div>
+        
+                <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
+                    <label for="_957gwvjvl">
+                        <span class="text-truncate-inline">
+                            <span class="text-truncate">Presidente e Vice-Presidente</span>
+                        </span>
+                    </label>
+                    <div class="clay-reorder">
+                        <select class="form-control form-control-inset" id="consagrated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_consagrated" multiple size="2">
+                            <% if(usersInUserCokeList != null) {
+                                for(User userInCoke : usersInUserCokeList) { %>
+                                    <option value="<%= userInCoke.getUserId() %>"><%= userInCoke.getFullName() %></option>
+                                <% }
+                            } %>
+                        </select>
+                        <div class="clay-reorder-underlay form-control"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aui:fieldset>
 
-	<aui:button-row>
-		<aui:button type="submit"></aui:button>
-		<aui:button type="cancel" onClick="<%= viewURL.toString() %>"></aui:button>
-	</aui:button-row>
+    <aui:button-row>
+        <aui:button type="submit"></aui:button>
+        <aui:button type="cancel" onClick="<%= viewURL.toString() %>"></aui:button>
+    </aui:button-row>
 </aui:form>
 
 <script>
-	document.querySelector('.clay-dual-listbox-actions button:nth-child(1)').addEventListener('click', function() {
-		var selectedOptions = document.querySelectorAll('#_9d5cxj5xm option:checked');
-		selectedOptions.forEach(function(option) {
-			document.querySelector('#_957gwvjvl').appendChild(option);
-		});
-	});
+    document.querySelector('.clay-dual-listbox-actions button:nth-child(1)').addEventListener('click', function() {
+        var selectedOptions = document.querySelectorAll('#notconsagrated option:checked');
+        selectedOptions.forEach(function(option) {
+            option.selected = false;
+            if (document.querySelectorAll('#consagrated option').length < 2) { 
+                document.querySelector('#consagrated').appendChild(option);
+                option.selected = true; 
+            }      
+        });
+    });
 
-	document.querySelector('.clay-dual-listbox-actions button:nth-child(2)').addEventListener('click', function() {
-		var selectedOptions = document.querySelectorAll('#_957gwvjvl option:checked');
-		selectedOptions.forEach(function(option) {
-			document.querySelector('#_9d5cxj5xm').appendChild(option);
-		});
-	});
+    document.querySelector('.clay-dual-listbox-actions button:nth-child(2)').addEventListener('click', function() {
+        var selectedOptions = document.querySelectorAll('#consagrated option:checked');
+        selectedOptions.forEach(function(option) {
+            option.selected = false; 
+            document.querySelector('#notconsagrated').appendChild(option);
+        });
+    });
 </script>
