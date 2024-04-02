@@ -6,13 +6,13 @@
     long cokeId = ParamUtil.getLong(renderRequest, "cokeId");
 
 
-    if(cokeId > 0) {
-        coke = CokeLocalServiceUtil.getCoke(cokeId);
-    }
+    // if(cokeId > 0) {
+    //     coke = CokeLocalServiceUtil.getCoke(cokeId);
+    // }
 
-	List<User> usersNotInUserCokeList = (List<User>) renderRequest.getAttribute("usersNotInUserCokeList");
-	List<User> usersInUserCokeList = (List<User>) renderRequest.getAttribute("usersInUserCokeList");
-	List<User> userList = (List<User>) renderRequest.getAttribute("userList");
+	// List<User> usersNotInUserCokeList = (List<User>) renderRequest.getAttribute("usersNotInUserCokeList");
+	// List<User> usersInUserCokeList = (List<User>) renderRequest.getAttribute("usersInUserCokeList");
+	// List<User> userList = (List<User>) renderRequest.getAttribute("userList");
 %>
 
 <portlet:renderURL var="viewURL">
@@ -20,8 +20,9 @@
 </portlet:renderURL>
 
 <h1>Consagrados da Coquinha</h1>
+<h1><%= cokeId %></h1>
 
-<portlet:actionURL name="addCoke" var="addCokeURL" />
+<%-- <portlet:actionURL name="addCoke" var="addCokeURL" />
 <aui:form action="<%= addCokeURL %>" name="<portlet:namespace />fm">
     <aui:model-context bean="<%= coke %>" model="<%= Coke.class %>" />
 
@@ -111,4 +112,4 @@
             document.querySelector('#consagrated').removeChild(option);
         });
     });
-</script>
+</script> --%>

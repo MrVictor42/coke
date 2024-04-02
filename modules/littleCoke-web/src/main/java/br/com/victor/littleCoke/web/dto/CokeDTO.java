@@ -8,10 +8,19 @@ import java.util.List;
 public class CokeDTO {
 
     private Coke coke;
+    private String initialDate;
     private List<User> usersInUserCokeList;
 
     public CokeDTO() {
 
+    }
+
+    public String getInitialDate() {
+        return initialDate;
+    }
+
+    public void setInitialDate(String initialDate) {
+        this.initialDate = initialDate;
     }
 
     public Coke getCoke() {

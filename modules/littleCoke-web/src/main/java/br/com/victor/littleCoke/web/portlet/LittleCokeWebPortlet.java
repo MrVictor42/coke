@@ -7,6 +7,7 @@ import br.com.victor.coke.service.CokeService;
 import br.com.victor.coke.service.UserCokeService;
 import br.com.victor.littleCoke.web.constants.LittleCokeWebPortletKeys;
 import br.com.victor.littleCoke.web.dto.CokeDTO;
+import br.com.victor.littleCoke.web.util.LittleCokeUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -66,12 +67,11 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                     List<User> usersInUserCokeList =
                             userList
                             .stream()
-                            .filter(user -> userCokeList
-                                    .stream()
-                                    .anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
+                            .filter(user -> userCokeList.stream().anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
                             .collect(Collectors.toList());
 
                     cokeDTO.setCoke(coke);
+                    cokeDTO.setInitialDate(LittleCokeUtil.formatDate(coke.getCreateDate()));
                     cokeDTO.setUsersInUserCokeList(usersInUserCokeList);
 
                     cokeDTOList.add(cokeDTO);
