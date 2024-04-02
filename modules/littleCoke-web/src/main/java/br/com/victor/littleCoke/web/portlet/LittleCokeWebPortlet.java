@@ -66,9 +66,9 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                     List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
                     List<User> usersInUserCokeList =
                             userList
-                            .stream()
-                            .filter(user -> userCokeList.stream().anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
-                            .collect(Collectors.toList());
+                                    .stream()
+                                    .filter(user -> userCokeList.stream().anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
+                                    .collect(Collectors.toList());
 
                     cokeDTO.setCoke(coke);
                     cokeDTO.setInitialDate(LittleCokeUtil.formatDate(coke.getCreateDate()));

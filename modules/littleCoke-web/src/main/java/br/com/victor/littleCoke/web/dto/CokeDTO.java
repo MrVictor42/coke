@@ -10,6 +10,7 @@ public class CokeDTO {
     private Coke coke;
     private String initialDate;
     private List<User> usersInUserCokeList;
+    private List<User> usersNotInUserCokeList;
 
     public CokeDTO() {
 
@@ -37,5 +38,13 @@ public class CokeDTO {
 
     public void setUsersInUserCokeList(List<User> usersInUserCokeList) {
         this.usersInUserCokeList = usersInUserCokeList;
+    }
+
+    public List<User> getUsersNotInUserCokeList() {
+        return usersNotInUserCokeList;
+    }
+
+    public void setUsersNotInUserCokeList(List<User> usersNotInUserCokeList) {
+        this.usersNotInUserCokeList = usersNotInUserCokeList;
     }
 }
