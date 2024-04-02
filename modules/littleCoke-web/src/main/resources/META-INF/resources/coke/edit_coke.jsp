@@ -42,6 +42,46 @@
     <portlet:param name="mvcPath" value="/coke/view.jsp"></portlet:param>
 </portlet:renderURL>
 
-<h1>Consagrados da Coquinha</h1>
-<h1><%= cokeId %></h1>
-<h1><%= coke.getName() %></h1>
+<% int counter = 0; %>
+<% for (User currentUser : usersInUserCokeList) { %>
+    <% if (counter % 2 == 0) { %>
+        <div class="row">
+    <% } %>
+    <div class="col-md-6">
+        <div class="card card-horizontal card-rounded">
+            <div class="card-row">
+                <div class="autofit-col">
+                    <img
+                        class="card-item-last rounded-circle"
+                        src="<%= currentUser.getPortraitURL(themeDisplay) %>"
+                        style="width: 50px;"
+                    />
+                </div>
+                <div class="autofit-col autofit-col-expand autofit-col-gutters">
+                    <section class="autofit-section">
+                        <h3 class="card-title"><%= currentUser.getFullName() %></h3>
+                        <p class="card-text">
+                            <!-- Aqui você pode adicionar informações adicionais sobre o usuário -->
+                        </p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% if (counter % 2 != 0) { %>
+        </div> <!-- Closing the row -->
+    <% } %>
+    <% counter++; %>
+<% } %>
+<% if (userList.size() % 2 != 0) { %>
+    </div> <!-- Closing the row if the number of users is odd -->
+<% } %>
+
+<h1> Membros </h1>
+<h1> Quantidade de Coca </h1>
+<h1> Média de Coca </h1>
+<h1> Membro Desde </h1>
+<h1> Quantidade de Coca </h1>
+<h1> Bons Pagadores </h1>
+<h1> Notificar via liferay e wpp </h1>
+<h1> Atualizar lista (somente presidente ou vice)</h1>
