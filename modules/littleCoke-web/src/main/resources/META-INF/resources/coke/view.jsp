@@ -1,9 +1,7 @@
 <%@ include file="/init.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%
-	List<Coke> cokeList = (List<Coke>) renderRequest.getAttribute("cokeList");
-%>
+<% List<CokeDTO> cokeDTOList = (List<CokeDTO>) renderRequest.getAttribute("cokeDTOList"); %>
 
 <br>
 
@@ -11,22 +9,23 @@
 	<portlet:param name="mvcPath" value="/coke/edit_coke.jsp"></portlet:param>
 </portlet:renderURL>
 
-<% if(cokeList.isEmpty()) { %>
+<% if(cokeDTOList.isEmpty()) { %>
 	<h1>Sua bancada ainda não possui um gerenciamento de coquinha? Cadastre uma agora mesmo</h1>
 	
 	<aui:button-row>
 		<aui:button onClick="<%= addCokeURL.toString() %>" value="Adicionar"></aui:button>
 	</aui:button-row>
-<% } else { 
-	for(Coke coke : cokeList) { %>
+<% } else {
+	int i = 0;
+	for(CokeDTO cokeDTO : cokeDTOList) { %>
 		<div class="panel-group">
 			<div class="panel panel-secondary">
-				<button aria-controls="collapsePanelOne" aria-expanded="true"
+				<button aria-controls="collapsePanel<%= cokeDTO.getCoke().getCokeId() %>" aria-expanded="true"
 					class="btn btn-unstyled panel-header panel-header-link collapse-icon collapse-icon-middle"
-					data-target="#collapsePanel" data-toggle="collapse"
+					data-target="#collapsePanel<%= cokeDTO.getCoke().getCokeId() %>" data-toggle="collapse"
 				>
 					<span class="panel-title">
-						<%= coke.getName() %>
+						<%= cokeDTO.getCoke().getName() %>
 					</span>
 					<span class="collapse-icon-closed">
 						<clay:icon symbol="angle-right" />
@@ -35,7 +34,7 @@
 						<clay:icon symbol="angle-down" />
 					</span>
 				</button>
-				<div class="panel-collapse in" id="collapsePanelOne">
+				<div class="panel-collapse in" id="collapsePanel<%= i %>">
 					<div class="panel-body">
 						Here is some content inside for number One
 					</div>
@@ -48,8 +47,8 @@
 				<aui:button onClick="<%= addCokeURL.toString() %>" value="Adicionar"></aui:button>
 			</aui:button-row>
 		</div>
-	<% }
-}%>
-
+	<% i++;
+	}
+}%> 
 
 <br>

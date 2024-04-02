@@ -6,6 +6,7 @@ import br.com.victor.coke.model.UserCoke;
 import br.com.victor.coke.service.CokeService;
 import br.com.victor.coke.service.UserCokeService;
 import br.com.victor.littleCoke.web.constants.LittleCokeWebPortletKeys;
+import br.com.victor.littleCoke.web.dto.CokeDTO;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -21,6 +22,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import javax.portlet.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,49 +50,38 @@ public class LittleCokeWebPortlet extends MVCPortlet {
     @Override
     public void render(RenderRequest renderRequest, RenderResponse renderResponse) {
         try {
-            long cokeId = ParamUtil.getLong(renderRequest, "cokeId");
             List<User> userList = _userLocalService
                     .getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS)
                     .stream()
                     .filter(user -> !user.getEmailAddress().equalsIgnoreCase("default@liferay.com"))
                     .filter(user -> !user.getEmailAddress().contains("anonymous"))
                     .collect(Collectors.toList());
-            List<User> usersInUserCokeList = null;
-            List<User> usersNotInUserCokeList = null;
             List<Coke> cokeList = _cokeService.getAllCokes();
+            List<CokeDTO> cokeDTOList = new ArrayList<>();
 
-            if(cokeId != 0) {
-                Coke coke = _cokeService.getCoke(cokeId);
-                List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
+            if(!cokeList.isEmpty()) {
+                for(Coke coke : cokeList) {
+                    CokeDTO cokeDTO = new CokeDTO();
+                    List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
+                    List<User> usersInUserCokeList =
+                            userList
+                            .stream()
+                            .filter(user -> userCokeList
+                                    .stream()
+                                    .anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
+                            .collect(Collectors.toList());
 
-                usersNotInUserCokeList =
-                        userList
-                                .stream()
-                                .filter(user -> userCokeList
-                                        .stream()
-                                        .noneMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
-                                .collect(Collectors.toList());
-                usersInUserCokeList =
-                        userList
-                                .stream()
-                                .filter(user -> userCokeList
-                                        .stream()
-                                        .anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
-                                .collect(Collectors.toList());
+                    cokeDTO.setCoke(coke);
+                    cokeDTO.setUsersInUserCokeList(usersInUserCokeList);
 
+                    cokeDTOList.add(cokeDTO);
+                }
             }
 
-            if(usersNotInUserCokeList == null) {
-                renderRequest.setAttribute("userList", userList);
-            } else {
-                renderRequest.setAttribute("usersNotInUserCokeList", usersNotInUserCokeList);
-                renderRequest.setAttribute("usersInUserCokeList", usersInUserCokeList);
-            }
-
-            renderRequest.setAttribute("cokeList", cokeList);
+            renderRequest.setAttribute("cokeDTOList", cokeDTOList);
 
             super.render(renderRequest, renderResponse);
-        } catch (PortletException | IOException | PortalException e) {
+        } catch (PortletException | IOException e) {
             _log.error(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
@@ -101,6 +92,8 @@ public class LittleCokeWebPortlet extends MVCPortlet {
             ServiceContext serviceContext = ServiceContextFactory.getInstance(Coke.class.getName(), request);
             String name = ParamUtil.getString(request, CokeConstants.NAME);
             long cokeId = ParamUtil.getLong(request, CokeConstants.COKE_ID);
+
+            // Criar método para remover os usuários, provavelmente é só excluir o userCoke
 
             if(cokeId > 0) {
                 List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(cokeId);

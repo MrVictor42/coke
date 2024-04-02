@@ -1,58 +1,32 @@
 package br.com.victor.littleCoke.web.dto;
 
-import br.com.victor.coke.model.UserCoke;
+import br.com.victor.coke.model.Coke;
+import com.liferay.portal.kernel.model.User;
 
 import java.util.List;
 
 public class CokeDTO {
 
-    private String name;
-    private long cokeId;
-    private String createdBy;
-    private String createdAt;
-    private List<UserCoke> userCokeList;
+    private Coke coke;
+    private List<User> usersInUserCokeList;
 
     public CokeDTO() {
 
     }
 
-    public String getName() {
-        return name;
+    public Coke getCoke() {
+        return coke;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCoke(Coke coke) {
+        this.coke = coke;
     }
 
-    public long getCokeId() {
-        return cokeId;
+    public List<User> getUsersInUserCokeList() {
+        return usersInUserCokeList;
     }
 
-    public void setCokeId(long cokeId) {
-        this.cokeId = cokeId;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public List<UserCoke> getUserCokeList() {
-        return userCokeList;
-    }
-
-    public void setUserCokeList(List<UserCoke> userCokeList) {
-        this.userCokeList = userCokeList;
+    public void setUsersInUserCokeList(List<User> usersInUserCokeList) {
+        this.usersInUserCokeList = usersInUserCokeList;
     }
 }
