@@ -50,6 +50,11 @@ public class CokeServiceWrapper
 	}
 
 	@Override
+	public java.util.List<br.com.victor.coke.model.Coke> getAllCokes() {
+		return _cokeService.getAllCokes();
+	}
+
+	@Override
 	public br.com.victor.coke.model.Coke getCoke(long cokeId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

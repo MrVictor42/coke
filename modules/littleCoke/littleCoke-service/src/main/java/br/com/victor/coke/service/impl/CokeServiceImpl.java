@@ -12,6 +12,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.service.ServiceContext;
 import org.osgi.service.component.annotations.Component;
 
+import java.util.List;
+
 /**
  * @author victor
  */
@@ -34,5 +36,9 @@ public class CokeServiceImpl extends CokeServiceBaseImpl {
 
     public Coke getCoke(long cokeId) throws PortalException {
         return cokeLocalService.getCoke(cokeId);
+    }
+
+    public List<Coke> getAllCokes() {
+        return cokeLocalService.getAllCokes();
     }
 }

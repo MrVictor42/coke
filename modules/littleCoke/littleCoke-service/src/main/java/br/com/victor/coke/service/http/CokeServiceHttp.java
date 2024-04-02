@@ -161,6 +161,37 @@ public class CokeServiceHttp {
 		}
 	}
 
+	public static java.util.List<br.com.victor.coke.model.Coke> getAllCokes(
+		HttpPrincipal httpPrincipal) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CokeServiceUtil.class, "getAllCokes",
+				_getAllCokesParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<br.com.victor.coke.model.Coke>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(CokeServiceHttp.class);
 
 	private static final Class<?>[] _createCokeParameterTypes0 = new Class[] {
@@ -172,5 +203,7 @@ public class CokeServiceHttp {
 	private static final Class<?>[] _getCokeParameterTypes2 = new Class[] {
 		long.class
 	};
+	private static final Class<?>[] _getAllCokesParameterTypes3 =
+		new Class[] {};
 
 }

@@ -127,6 +127,21 @@ public interface UserCokeModel extends BaseModel<UserCoke> {
 	public void setUserUuid(String userUuid);
 
 	/**
+	 * Returns the position of this user coke.
+	 *
+	 * @return the position of this user coke
+	 */
+	@AutoEscape
+	public String getPosition();
+
+	/**
+	 * Sets the position of this user coke.
+	 *
+	 * @param position the position of this user coke
+	 */
+	public void setPosition(String position);
+
+	/**
 	 * Returns the create date of this user coke.
 	 *
 	 * @return the create date of this user coke

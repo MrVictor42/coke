@@ -26,6 +26,8 @@ import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
+import java.util.List;
+
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -54,6 +56,9 @@ public interface CokeService extends BaseService {
 	public Coke createCoke(String name, ServiceContext serviceContext);
 
 	public Coke deleteCoke(long cokeId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Coke> getAllCokes();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Coke getCoke(long cokeId) throws PortalException;

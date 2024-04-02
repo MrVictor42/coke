@@ -18,6 +18,8 @@ import br.com.victor.coke.model.Coke;
 
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.List;
+
 /**
  * Provides the remote service utility for Coke. This utility wraps
  * <code>br.com.victor.coke.service.impl.CokeServiceImpl</code> and is an
@@ -46,6 +48,10 @@ public class CokeServiceUtil {
 
 	public static Coke deleteCoke(long cokeId) throws PortalException {
 		return getService().deleteCoke(cokeId);
+	}
+
+	public static List<Coke> getAllCokes() {
+		return getService().getAllCokes();
 	}
 
 	public static Coke getCoke(long cokeId) throws PortalException {

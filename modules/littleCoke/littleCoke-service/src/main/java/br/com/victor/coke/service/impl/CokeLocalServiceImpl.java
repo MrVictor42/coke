@@ -11,6 +11,7 @@ import br.com.victor.coke.model.UserCoke;
 import br.com.victor.coke.service.UserCokeLocalService;
 import br.com.victor.coke.service.base.CokeLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Indexable;
@@ -63,6 +64,10 @@ public class CokeLocalServiceImpl extends CokeLocalServiceBaseImpl {
             _log.error(e.getMessage());
             throw new RuntimeException(e);
         }
+    }
+
+    public List<Coke> getAllCokes() {
+        return cokeLocalService.getCokes(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
     }
 
     private final Log _log = LogFactoryUtil.getLog(CokeLocalServiceImpl.class);

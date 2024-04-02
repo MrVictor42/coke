@@ -219,6 +219,9 @@ public interface CokeLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Coke> getAllCokes();
+
 	/**
 	 * Returns the coke with the primary key.
 	 *

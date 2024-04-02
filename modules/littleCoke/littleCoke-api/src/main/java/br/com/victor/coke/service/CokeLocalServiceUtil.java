@@ -232,6 +232,10 @@ public class CokeLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static List<Coke> getAllCokes() {
+		return getService().getAllCokes();
+	}
+
 	/**
 	 * Returns the coke with the primary key.
 	 *

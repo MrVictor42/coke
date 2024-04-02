@@ -26,7 +26,9 @@
     <aui:model-context bean="<%= coke %>" model="<%= Coke.class %>" />
 
     <aui:fieldset>
-        <aui:input name="name" />
+        <aui:input name="name" required="true">
+            <aui:validator name="name" errorMessage="Enter characters that exist in the alphabet next time, please." />
+        </aui:input>
         <aui:input name="cokeId" type="hidden" value='<%= coke == null ? cokeId : coke.getCokeId() %>'/>
 
         <div class="form-group">
@@ -62,7 +64,7 @@
                 <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
                     <label for="_957gwvjvl">
                         <span class="text-truncate-inline">
-                            <span class="text-truncate">Presidente e Vice-Presidente</span>
+                            <span class="text-truncate">Presidente e Vice Presidente</span>
                         </span>
                     </label>
                     <div class="clay-reorder">
@@ -86,23 +88,27 @@
     </aui:button-row>
 </aui:form>
 
+
 <script>
     document.querySelector('.clay-dual-listbox-actions button:nth-child(1)').addEventListener('click', function() {
-        var selectedOptions = document.querySelectorAll('#notconsagrated option:checked');
+        var selectedOptions = Array.from(document.querySelectorAll('#notconsagrated option:checked'));
         selectedOptions.forEach(function(option) {
-            option.selected = false;
             if (document.querySelectorAll('#consagrated option').length < 2) { 
-                document.querySelector('#consagrated').appendChild(option);
-                option.selected = true; 
+                var clone = option.cloneNode(true);
+                clone.selected = true;
+                document.querySelector('#consagrated').appendChild(clone);
+                document.querySelector('#notconsagrated').removeChild(option);
             }      
         });
     });
 
     document.querySelector('.clay-dual-listbox-actions button:nth-child(2)').addEventListener('click', function() {
-        var selectedOptions = document.querySelectorAll('#consagrated option:checked');
+        var selectedOptions = Array.from(document.querySelectorAll('#consagrated option:checked'));
         selectedOptions.forEach(function(option) {
-            option.selected = false; 
-            document.querySelector('#notconsagrated').appendChild(option);
+            var clone = option.cloneNode(true);
+            clone.selected = true;
+            document.querySelector('#notconsagrated').appendChild(clone);
+            document.querySelector('#consagrated').removeChild(option);
         });
     });
 </script>

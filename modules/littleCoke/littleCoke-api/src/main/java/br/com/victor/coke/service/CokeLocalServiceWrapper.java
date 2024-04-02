@@ -254,6 +254,11 @@ public class CokeLocalServiceWrapper
 		return _cokeLocalService.getActionableDynamicQuery();
 	}
 
+	@Override
+	public java.util.List<br.com.victor.coke.model.Coke> getAllCokes() {
+		return _cokeLocalService.getAllCokes();
+	}
+
 	/**
 	 * Returns the coke with the primary key.
 	 *

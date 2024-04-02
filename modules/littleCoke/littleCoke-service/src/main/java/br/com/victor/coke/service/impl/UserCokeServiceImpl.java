@@ -24,8 +24,8 @@ import java.util.List;
 )
 public class UserCokeServiceImpl extends UserCokeServiceBaseImpl {
 
-    public UserCoke createUserCoke(long cokeId, long userId) {
-        return userCokeLocalService.createUserCoke(cokeId, userId);
+    public UserCoke createUserCoke(long cokeId, long userId, String position) {
+        return userCokeLocalService.createUserCoke(cokeId, userId, position);
     }
 
     public List<UserCoke> getUserCokeByCokeId(long cokeId) {

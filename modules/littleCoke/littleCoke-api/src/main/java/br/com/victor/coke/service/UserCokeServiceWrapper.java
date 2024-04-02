@@ -36,9 +36,9 @@ public class UserCokeServiceWrapper
 
 	@Override
 	public br.com.victor.coke.model.UserCoke createUserCoke(
-		long cokeId, long userId) {
+		long cokeId, long userId, String position) {
 
-		return _userCokeService.createUserCoke(cokeId, userId);
+		return _userCokeService.createUserCoke(cokeId, userId, position);
 	}
 
 	/**
