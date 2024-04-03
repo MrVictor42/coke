@@ -87,6 +87,10 @@ public class LittleCokeWebPortlet extends MVCPortlet {
         }
     }
 
+    public void updateCoke(ActionRequest actionRequest, ActionResponse actionResponse) {
+        System.err.println("CHEGAMOS DE NOVO");
+    }
+
     public void addCoke(ActionRequest request, ActionResponse response) {
         try {
             ServiceContext serviceContext = ServiceContextFactory.getInstance(Coke.class.getName(), request);

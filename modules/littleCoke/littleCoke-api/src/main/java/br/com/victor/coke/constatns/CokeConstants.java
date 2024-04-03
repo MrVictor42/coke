@@ -8,6 +8,7 @@ public class CokeConstants {
     public static final String CONSAGRATED = "consagrated";
 
     //Positions
-    public static final String PRESIDENT = "presidente";
-    public static final String VICE_PRESIDENT = "vice_presidente";
+    public static final String PRESIDENT = "Presidente";
+    public static final String VICE_PRESIDENT = "Vice Presidente";
+    public static final String ASSOCIATED = "Associado";
 }
