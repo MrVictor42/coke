@@ -1,6 +1,5 @@
 <%@ include file="../init.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.stream.Collectors" %>
 
 <%
     long cokeId = ParamUtil.getLong(renderRequest, "cokeId");
@@ -16,8 +15,12 @@
         userCokeList = UserCokeLocalServiceUtil.getUserCokeByCokeId(coke.getCokeId());
         int quantityMembers = userCokeList.size();
 
-        userList = UserLocalServiceUtil.getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-        final List<UserCoke> finalUserCokeList = userCokeList; // Declarando como final
+        userList = UserLocalServiceUtil.getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS)
+                .stream()
+                .filter(userItem -> !userItem.getEmailAddress().equalsIgnoreCase("default@liferay.com"))
+                .filter(userItem -> !userItem.getEmailAddress().contains("anonymous"))
+                .collect(Collectors.toList());
+        final List<UserCoke> finalUserCokeList = userCokeList; 
 
         usersNotInUserCokeList = userList.stream()
                 .filter(userItem -> finalUserCokeList.stream()
@@ -25,7 +28,7 @@
                 .collect(Collectors.toList());
 
         usersInUserCokeList = userList.stream()
-                .filter(userItem -> finalUserCokeList.stream() // Aqui também
+                .filter(userItem -> finalUserCokeList.stream() 
                         .anyMatch(userCoke -> userCoke.getUserId() == userItem.getUserId()))
                 .collect(Collectors.toList());
 
@@ -98,10 +101,7 @@
 <aui:form action="<%= updateCokeURL %>" name="<portlet:namespace />fm">
     <aui:model-context bean="<%= coke %>" model="<%= Coke.class %>" />
 
-    <aui:fieldset>
-        <aui:input name="name" required="true">
-            <aui:validator name="name" errorMessage="Enter characters that exist in the alphabet next time, please." />
-        </aui:input>
+        <aui:fieldset>
         <aui:input name="cokeId" type="hidden" value='<%= coke == null ? cokeId : coke.getCokeId() %>'/>
 
         <div class="form-group">
@@ -109,12 +109,12 @@
                 <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
                     <label for="_9d5cxj5xm">
                         <span class="text-truncate-inline">
-                            <span class="text-truncate">Participantes</span>
+                            <span class="text-truncate">Possiveis Associados</span>
                         </span>
                     </label>
         
                     <div class="clay-reorder clay-reorder-footer-end">
-                        <select class="form-control form-control-inset" id="notconsagrated" name="notconsagrated" multiple size="10">
+                        <select class="form-control form-control-inset" id="notconsagrated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_notconsagrated" multiple size="10">
                             <% for(User userNotInCoke : usersNotInUserCokeList != null ? usersNotInUserCokeList : userList) { %>
                                 <option value="<%= userNotInCoke.getUserId() %>"><%= userNotInCoke.getFullName() %></option>
                             <% } %>
@@ -137,11 +137,11 @@
                 <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
                     <label for="_957gwvjvl">
                         <span class="text-truncate-inline">
-                            <span class="text-truncate">Presidente e Vice Presidente</span>
+                            <span class="text-truncate">Membros Atuais</span>
                         </span>
                     </label>
                     <div class="clay-reorder">
-                        <select class="form-control form-control-inset" id="consagrated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_consagrated" multiple size="2">
+                        <select class="form-control form-control-inset" id="consagrated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_consagrated" multiple size="10">
                             <% if(usersInUserCokeList != null) {
                                 for(User userInCoke : usersInUserCokeList) { %>
                                     <option value="<%= userInCoke.getUserId() %>"><%= userInCoke.getFullName() %></option>
@@ -161,30 +161,29 @@
     </aui:button-row>
 </aui:form>
 
+<h1> Notificar via liferay e wpp </h1>
+<h1> Atualizar lista (somente presidente ou vice)</h1>
 
 <script>
     document.querySelector('.clay-dual-listbox-actions button:nth-child(1)').addEventListener('click', function() {
-        var selectedOptions = Array.from(document.querySelectorAll('#notconsagrated option:checked'));
+        var selectedOptions = document.querySelectorAll('#notconsagrated option:checked');
         selectedOptions.forEach(function(option) {
-            if (document.querySelectorAll('#consagrated option').length < 2) { 
-                var clone = option.cloneNode(true);
-                clone.selected = true;
-                document.querySelector('#consagrated').appendChild(clone);
-                document.querySelector('#notconsagrated').removeChild(option);
-            }      
+            option.selected = false;
+            document.querySelector('#consagrated').appendChild(option);
+        });
+        document.querySelectorAll('#consagrated option, #notconsagrated option').forEach(function(option) {
+            option.selected = true;
         });
     });
 
     document.querySelector('.clay-dual-listbox-actions button:nth-child(2)').addEventListener('click', function() {
-        var selectedOptions = Array.from(document.querySelectorAll('#consagrated option:checked'));
+        var selectedOptions = document.querySelectorAll('#consagrated option:checked');
         selectedOptions.forEach(function(option) {
-            var clone = option.cloneNode(true);
-            clone.selected = true;
-            document.querySelector('#notconsagrated').appendChild(clone);
-            document.querySelector('#consagrated').removeChild(option);
+            option.selected = false; 
+            document.querySelector('#notconsagrated').appendChild(option);
+        });
+        document.querySelectorAll('#consagrated option, #notconsagrated option').forEach(function(option) {
+            option.selected = true;
         });
     });
-</script> 
-
-<h1> Notificar via liferay e wpp </h1>
-<h1> Atualizar lista (somente presidente ou vice)</h1>
+</script>
