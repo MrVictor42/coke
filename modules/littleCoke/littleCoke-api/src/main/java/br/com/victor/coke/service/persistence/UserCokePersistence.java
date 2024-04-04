@@ -327,6 +327,48 @@ public interface UserCokePersistence extends BasePersistence<UserCoke> {
 	public int countBycokeId(long cokeId);
 
 	/**
+	 * Returns the user coke where userId = &#63; or throws a <code>NoSuchUserCokeException</code> if it could not be found.
+	 *
+	 * @param userId the user ID
+	 * @return the matching user coke
+	 * @throws NoSuchUserCokeException if a matching user coke could not be found
+	 */
+	public UserCoke findByuserId(long userId) throws NoSuchUserCokeException;
+
+	/**
+	 * Returns the user coke where userId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @return the matching user coke, or <code>null</code> if a matching user coke could not be found
+	 */
+	public UserCoke fetchByuserId(long userId);
+
+	/**
+	 * Returns the user coke where userId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching user coke, or <code>null</code> if a matching user coke could not be found
+	 */
+	public UserCoke fetchByuserId(long userId, boolean useFinderCache);
+
+	/**
+	 * Removes the user coke where userId = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @return the user coke that was removed
+	 */
+	public UserCoke removeByuserId(long userId) throws NoSuchUserCokeException;
+
+	/**
+	 * Returns the number of user cokes where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the number of matching user cokes
+	 */
+	public int countByuserId(long userId);
+
+	/**
 	 * Caches the user coke in the entity cache if it is enabled.
 	 *
 	 * @param userCoke the user coke

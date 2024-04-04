@@ -114,7 +114,7 @@
                     </label>
         
                     <div class="clay-reorder clay-reorder-footer-end">
-                        <select class="form-control form-control-inset" id="notconsagrated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_notconsagrated" multiple size="10">
+                        <select class="form-control form-control-inset" id="notAssociated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_notAssociated" multiple size="10">
                             <% for(User userNotInCoke : usersNotInUserCokeList != null ? usersNotInUserCokeList : userList) { %>
                                 <option value="<%= userNotInCoke.getUserId() %>"><%= userNotInCoke.getFullName() %></option>
                             <% } %>
@@ -141,7 +141,7 @@
                         </span>
                     </label>
                     <div class="clay-reorder">
-                        <select class="form-control form-control-inset" id="consagrated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_consagrated" multiple size="10">
+                        <select class="form-control form-control-inset" id="associated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_associated" multiple size="10">
                             <% if(usersInUserCokeList != null) {
                                 for(User userInCoke : usersInUserCokeList) { %>
                                     <option value="<%= userInCoke.getUserId() %>"><%= userInCoke.getFullName() %></option>
@@ -166,23 +166,23 @@
 
 <script>
     document.querySelector('.clay-dual-listbox-actions button:nth-child(1)').addEventListener('click', function() {
-        var selectedOptions = document.querySelectorAll('#notconsagrated option:checked');
+        var selectedOptions = document.querySelectorAll('#notAssociated option:checked');
         selectedOptions.forEach(function(option) {
             option.selected = false;
-            document.querySelector('#consagrated').appendChild(option);
+            document.querySelector('#associated').appendChild(option);
         });
-        document.querySelectorAll('#consagrated option, #notconsagrated option').forEach(function(option) {
+        document.querySelectorAll('#associated option, #notAssociated option').forEach(function(option) {
             option.selected = true;
         });
     });
 
     document.querySelector('.clay-dual-listbox-actions button:nth-child(2)').addEventListener('click', function() {
-        var selectedOptions = document.querySelectorAll('#consagrated option:checked');
+        var selectedOptions = document.querySelectorAll('#associated option:checked');
         selectedOptions.forEach(function(option) {
             option.selected = false; 
-            document.querySelector('#notconsagrated').appendChild(option);
+            document.querySelector('#notAssociated').appendChild(option);
         });
-        document.querySelectorAll('#consagrated option, #notconsagrated option').forEach(function(option) {
+        document.querySelectorAll('#associated option, #notAssociated option').forEach(function(option) {
             option.selected = true;
         });
     });

@@ -24,7 +24,7 @@ public class LittleCokeUtil {
         double cokeTotal = 2000; // em ML
         double quantityPerPerson = cokeTotal / quantityMembers;
 
-        return quantityPerPerson + " ml de Coca-Cola.";
+        return String.format("%.2f ml de Coca-Cola.", quantityPerPerson);
     }
 
     public static long memberSince(Date date) {

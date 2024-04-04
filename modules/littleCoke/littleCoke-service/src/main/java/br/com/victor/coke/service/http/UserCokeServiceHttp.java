@@ -115,11 +115,82 @@ public class UserCokeServiceHttp {
 		}
 	}
 
+	public static br.com.victor.coke.model.UserCoke deleteUserCokeByUserCokeId(
+		HttpPrincipal httpPrincipal, long userCokeId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserCokeServiceUtil.class, "deleteUserCokeByUserCokeId",
+				_deleteUserCokeByUserCokeIdParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userCokeId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (br.com.victor.coke.model.UserCoke)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static br.com.victor.coke.model.UserCoke
+		getUserCokeByCokeIdAndUserId(
+			HttpPrincipal httpPrincipal, long cokeId, long userId) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserCokeServiceUtil.class, "getUserCokeByCokeIdAndUserId",
+				_getUserCokeByCokeIdAndUserIdParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, cokeId, userId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (br.com.victor.coke.model.UserCoke)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(UserCokeServiceHttp.class);
 
 	private static final Class<?>[] _createUserCokeParameterTypes0 =
 		new Class[] {long.class, long.class, String.class};
 	private static final Class<?>[] _getUserCokeByCokeIdParameterTypes1 =
 		new Class[] {long.class};
+	private static final Class<?>[] _deleteUserCokeByUserCokeIdParameterTypes2 =
+		new Class[] {long.class};
+	private static final Class<?>[]
+		_getUserCokeByCokeIdAndUserIdParameterTypes3 = new Class[] {
+			long.class, long.class
+		};
 
 }

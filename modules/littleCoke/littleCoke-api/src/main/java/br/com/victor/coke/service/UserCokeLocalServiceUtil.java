@@ -127,6 +127,10 @@ public class UserCokeLocalServiceUtil {
 		return getService().deleteUserCoke(userCoke);
 	}
 
+	public static UserCoke deleteUserCokeByUserCokeId(long userCokeId) {
+		return getService().deleteUserCokeByUserCokeId(userCokeId);
+	}
+
 	public static <T> T dslQuery(DSLQuery dslQuery) {
 		return getService().dslQuery(dslQuery);
 	}
@@ -260,6 +264,12 @@ public class UserCokeLocalServiceUtil {
 
 	public static List<UserCoke> getUserCokeByCokeId(long cokeId) {
 		return getService().getUserCokeByCokeId(cokeId);
+	}
+
+	public static UserCoke getUserCokeByCokeIdAndUserId(
+		long cokeId, long userId) {
+
+		return getService().getUserCokeByCokeIdAndUserId(cokeId, userId);
 	}
 
 	/**

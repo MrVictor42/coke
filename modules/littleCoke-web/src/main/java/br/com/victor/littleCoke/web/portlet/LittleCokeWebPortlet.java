@@ -88,7 +88,34 @@ public class LittleCokeWebPortlet extends MVCPortlet {
     }
 
     public void updateCoke(ActionRequest actionRequest, ActionResponse actionResponse) {
-        System.err.println("CHEGAMOS DE NOVO");
+        long cokeId = ParamUtil.getLong(actionRequest, CokeConstants.COKE_ID);
+
+        if(cokeId > 0) {
+            try {
+                Coke coke = _cokeService.getCoke(cokeId);
+                long[] associatedValues = ParamUtil.getLongValues(actionRequest, CokeConstants.REQUEST_ASSOCIATED);
+                long[] notAssociatedValues = ParamUtil.getLongValues(actionRequest, CokeConstants.REQUEST_NOT_ASSOCIATED);
+
+                for(long associatedId : associatedValues) {
+                    UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), associatedId);
+
+                    if(userCoke == null) {
+                        _userCokeService.createUserCoke(coke.getCokeId(), associatedId, CokeConstants.ASSOCIATED);
+                    }
+                }
+
+                for(long notAssociatedId : notAssociatedValues) {
+                    UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), notAssociatedId);
+
+                    if(userCoke != null) {
+                        _userCokeService.deleteUserCokeByUserCokeId(userCoke.getUserCokeId());
+                    }
+                }
+            } catch (PortalException e) {
+                _log.error(e.getMessage());
+                throw new RuntimeException(e.getMessage());
+            }
+        }
     }
 
     public void addCoke(ActionRequest request, ActionResponse response) {
@@ -109,12 +136,12 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                 }
 
             } else {
-                String[] consagratedValues = request.getParameterMap().get(CokeConstants.CONSAGRATED);
+                String[] associatedValues = request.getParameterMap().get(CokeConstants.REQUEST_ASSOCIATED);
 
-                if (consagratedValues != null && consagratedValues.length == 2) {
+                if (associatedValues != null && associatedValues.length == 2) {
                     try {
-                        long presidentId = Long.parseLong(consagratedValues[0]);
-                        long vicePresidentId = Long.parseLong(consagratedValues[1]);
+                        long presidentId = Long.parseLong(associatedValues[0]);
+                        long vicePresidentId = Long.parseLong(associatedValues[1]);
 
                         Coke coke = _cokeService.createCoke(name, serviceContext);
 

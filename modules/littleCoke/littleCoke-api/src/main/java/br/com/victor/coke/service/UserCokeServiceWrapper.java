@@ -41,6 +41,13 @@ public class UserCokeServiceWrapper
 		return _userCokeService.createUserCoke(cokeId, userId, position);
 	}
 
+	@Override
+	public br.com.victor.coke.model.UserCoke deleteUserCokeByUserCokeId(
+		long userCokeId) {
+
+		return _userCokeService.deleteUserCokeByUserCokeId(userCokeId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -56,6 +63,13 @@ public class UserCokeServiceWrapper
 		getUserCokeByCokeId(long cokeId) {
 
 		return _userCokeService.getUserCokeByCokeId(cokeId);
+	}
+
+	@Override
+	public br.com.victor.coke.model.UserCoke getUserCokeByCokeIdAndUserId(
+		long cokeId, long userId) {
+
+		return _userCokeService.getUserCokeByCokeIdAndUserId(cokeId, userId);
 	}
 
 	@Override

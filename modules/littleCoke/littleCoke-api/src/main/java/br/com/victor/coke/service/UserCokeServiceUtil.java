@@ -43,6 +43,10 @@ public class UserCokeServiceUtil {
 		return getService().createUserCoke(cokeId, userId, position);
 	}
 
+	public static UserCoke deleteUserCokeByUserCokeId(long userCokeId) {
+		return getService().deleteUserCokeByUserCokeId(userCokeId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -54,6 +58,12 @@ public class UserCokeServiceUtil {
 
 	public static List<UserCoke> getUserCokeByCokeId(long cokeId) {
 		return getService().getUserCokeByCokeId(cokeId);
+	}
+
+	public static UserCoke getUserCokeByCokeIdAndUserId(
+		long cokeId, long userId) {
+
+		return getService().getUserCokeByCokeIdAndUserId(cokeId, userId);
 	}
 
 	public static UserCokeService getService() {

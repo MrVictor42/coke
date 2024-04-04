@@ -54,6 +54,8 @@ public interface UserCokeService extends BaseService {
 	 */
 	public UserCoke createUserCoke(long cokeId, long userId, String position);
 
+	public UserCoke deleteUserCokeByUserCokeId(long userCokeId);
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -63,5 +65,8 @@ public interface UserCokeService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<UserCoke> getUserCokeByCokeId(long cokeId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public UserCoke getUserCokeByCokeIdAndUserId(long cokeId, long userId);
 
 }

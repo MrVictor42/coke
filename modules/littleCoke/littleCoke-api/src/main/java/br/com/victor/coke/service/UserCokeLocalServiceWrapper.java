@@ -129,6 +129,13 @@ public class UserCokeLocalServiceWrapper
 	}
 
 	@Override
+	public br.com.victor.coke.model.UserCoke deleteUserCokeByUserCokeId(
+		long userCokeId) {
+
+		return _userCokeLocalService.deleteUserCokeByUserCokeId(userCokeId);
+	}
+
+	@Override
 	public <T> T dslQuery(com.liferay.petra.sql.dsl.query.DSLQuery dslQuery) {
 		return _userCokeLocalService.dslQuery(dslQuery);
 	}
@@ -289,6 +296,14 @@ public class UserCokeLocalServiceWrapper
 		getUserCokeByCokeId(long cokeId) {
 
 		return _userCokeLocalService.getUserCokeByCokeId(cokeId);
+	}
+
+	@Override
+	public br.com.victor.coke.model.UserCoke getUserCokeByCokeIdAndUserId(
+		long cokeId, long userId) {
+
+		return _userCokeLocalService.getUserCokeByCokeIdAndUserId(
+			cokeId, userId);
 	}
 
 	/**

@@ -128,6 +128,9 @@ public interface UserCokeLocalService
 	@Indexable(type = IndexableType.DELETE)
 	public UserCoke deleteUserCoke(UserCoke userCoke);
 
+	@Indexable(type = IndexableType.DELETE)
+	public UserCoke deleteUserCokeByUserCokeId(long userCokeId);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public <T> T dslQuery(DSLQuery dslQuery);
 
@@ -236,6 +239,9 @@ public interface UserCokeLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<UserCoke> getUserCokeByCokeId(long cokeId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public UserCoke getUserCokeByCokeIdAndUserId(long cokeId, long userId);
 
 	/**
 	 * Returns a range of all the user cokes.

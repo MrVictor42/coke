@@ -31,4 +31,12 @@ public class UserCokeServiceImpl extends UserCokeServiceBaseImpl {
     public List<UserCoke> getUserCokeByCokeId(long cokeId) {
         return userCokeLocalService.getUserCokeByCokeId(cokeId);
     }
+
+    public UserCoke deleteUserCokeByUserCokeId(long userCokeId) {
+        return userCokeLocalService.deleteUserCokeByUserCokeId(userCokeId);
+    }
+
+    public UserCoke getUserCokeByCokeIdAndUserId(long cokeId, long userId) {
+        return userCokeLocalService.getUserCokeByCokeIdAndUserId(cokeId, userId);
+    }
 }

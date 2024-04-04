@@ -33,5 +33,9 @@
         <finder name="cokeId" return-type="Collection">
             <finder-column name="cokeId"/>
         </finder>
+
+        <finder name="userId" return-type="UserCoke">
+            <finder-column name="userId"/>
+        </finder>
     </entity>
 </service-builder>

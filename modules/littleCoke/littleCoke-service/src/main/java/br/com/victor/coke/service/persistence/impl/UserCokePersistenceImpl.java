@@ -45,6 +45,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 
@@ -53,6 +54,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1113,6 +1115,213 @@ public class UserCokePersistenceImpl
 	private static final String _FINDER_COLUMN_COKEID_COKEID_2 =
 		"userCoke.cokeId = ?";
 
+	private FinderPath _finderPathFetchByuserId;
+	private FinderPath _finderPathCountByuserId;
+
+	/**
+	 * Returns the user coke where userId = &#63; or throws a <code>NoSuchUserCokeException</code> if it could not be found.
+	 *
+	 * @param userId the user ID
+	 * @return the matching user coke
+	 * @throws NoSuchUserCokeException if a matching user coke could not be found
+	 */
+	@Override
+	public UserCoke findByuserId(long userId) throws NoSuchUserCokeException {
+		UserCoke userCoke = fetchByuserId(userId);
+
+		if (userCoke == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("userId=");
+			sb.append(userId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchUserCokeException(sb.toString());
+		}
+
+		return userCoke;
+	}
+
+	/**
+	 * Returns the user coke where userId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @return the matching user coke, or <code>null</code> if a matching user coke could not be found
+	 */
+	@Override
+	public UserCoke fetchByuserId(long userId) {
+		return fetchByuserId(userId, true);
+	}
+
+	/**
+	 * Returns the user coke where userId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching user coke, or <code>null</code> if a matching user coke could not be found
+	 */
+	@Override
+	public UserCoke fetchByuserId(long userId, boolean useFinderCache) {
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {userId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByuserId, finderArgs);
+		}
+
+		if (result instanceof UserCoke) {
+			UserCoke userCoke = (UserCoke)result;
+
+			if (userId != userCoke.getUserId()) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_USERCOKE_WHERE);
+
+			sb.append(_FINDER_COLUMN_USERID_USERID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(userId);
+
+				List<UserCoke> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByuserId, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {userId};
+							}
+
+							_log.warn(
+								"UserCokePersistenceImpl.fetchByuserId(long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					UserCoke userCoke = list.get(0);
+
+					result = userCoke;
+
+					cacheResult(userCoke);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (UserCoke)result;
+		}
+	}
+
+	/**
+	 * Removes the user coke where userId = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @return the user coke that was removed
+	 */
+	@Override
+	public UserCoke removeByuserId(long userId) throws NoSuchUserCokeException {
+		UserCoke userCoke = findByuserId(userId);
+
+		return remove(userCoke);
+	}
+
+	/**
+	 * Returns the number of user cokes where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the number of matching user cokes
+	 */
+	@Override
+	public int countByuserId(long userId) {
+		FinderPath finderPath = _finderPathCountByuserId;
+
+		Object[] finderArgs = new Object[] {userId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_USERCOKE_WHERE);
+
+			sb.append(_FINDER_COLUMN_USERID_USERID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(userId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_USERID_USERID_2 =
+		"userCoke.userId = ?";
+
 	public UserCokePersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -1137,6 +1346,10 @@ public class UserCokePersistenceImpl
 	public void cacheResult(UserCoke userCoke) {
 		entityCache.putResult(
 			UserCokeImpl.class, userCoke.getPrimaryKey(), userCoke);
+
+		finderCache.putResult(
+			_finderPathFetchByuserId, new Object[] {userCoke.getUserId()},
+			userCoke);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -1204,6 +1417,16 @@ public class UserCokePersistenceImpl
 		for (Serializable primaryKey : primaryKeys) {
 			entityCache.removeResult(UserCokeImpl.class, primaryKey);
 		}
+	}
+
+	protected void cacheUniqueFindersCache(
+		UserCokeModelImpl userCokeModelImpl) {
+
+		Object[] args = new Object[] {userCokeModelImpl.getUserId()};
+
+		finderCache.putResult(_finderPathCountByuserId, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByuserId, args, userCokeModelImpl);
 	}
 
 	/**
@@ -1381,6 +1604,8 @@ public class UserCokePersistenceImpl
 
 		entityCache.putResult(
 			UserCokeImpl.class, userCokeModelImpl, false, true);
+
+		cacheUniqueFindersCache(userCokeModelImpl);
 
 		if (isNew) {
 			userCoke.setNew(false);
@@ -1698,6 +1923,15 @@ public class UserCokePersistenceImpl
 		_finderPathCountBycokeId = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBycokeId",
 			new String[] {Long.class.getName()}, new String[] {"cokeId"},
+			false);
+
+		_finderPathFetchByuserId = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByuserId",
+			new String[] {Long.class.getName()}, new String[] {"userId"}, true);
+
+		_finderPathCountByuserId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByuserId",
+			new String[] {Long.class.getName()}, new String[] {"userId"},
 			false);
 
 		_setUserCokeUtilPersistence(this);
