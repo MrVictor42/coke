@@ -82,6 +82,61 @@
     </div>
 </div>
 
+<div class="card">
+    <div class="card-body">
+        <div class="col-md-6">
+            <div class="card card-horizontal card-rounded">
+                <div class="card-row">
+                    <div class="autofit-col">
+                        <div class="text-center mt-3">
+                            <h3 class="card-title">Próximos a Pagar</h3>
+                        </div>
+                    </div>
+                    <div class="autofit-col autofit-col-expand autofit-col-gutters">
+                        <section class="autofit-section">
+                            <button id="refresh-btn" class="btn btn-primary">
+                                Atualizar Lista <clay:icon symbol="reload" />
+                            </button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <% int next = 0; %>
+        <% for (CokeDTO cokeDTO : cokeDTOList) { %>
+            <% if (next % 2 == 0) { %>
+                <div class="row">
+            <% } %>
+                    <div class="col-md-6">
+                        <div class="card card-horizontal card-rounded">
+                            <div class="card-row">
+                                <div class="autofit-col">
+                                    <img class="card-item-last rounded-circle" style="width: 50px"
+                                        src="<%= cokeDTO.getUser().getPortraitURL(themeDisplay) %>"
+                                    />
+                                </div>
+                                <div class="autofit-col autofit-col-expand autofit-col-gutters">
+                                    <section class="autofit-section">
+                                        <h3 class="card-title"><%= cokeDTO.getUser().getFullName() %></h3>
+                                        <h4 class="card-subtitle mb-2 text-muted"><%= cokeDTO.getPosition() %></h4>
+                                        <h4 class="card-subtitle mb-2 text-muted">Membro há: <%= LittleCokeUtil.memberSince(cokeDTO.getCreatedAt()) %> dia(s)</h4>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <% if (next % 2 != 0) { %>
+                </div>
+            <% } %>
+            <% next++; %>
+        <% } %>
+        <% if (userList != null && userList.size() % 2 != 0) { %>
+            </div>
+        <% } %>
+    </div>
+</div>
+
 <div class="card" style="width: 18rem;">
 	<div class="card-body">
 		<h3 class="card-title">Média de Coca Por Pessoa</h3>
@@ -161,7 +216,7 @@
     </aui:button-row>
 </aui:form>
 
-<h1> Notificar via liferay e wpp </h1>
+<h1> Notificar monday </h1>
 <h1> Atualizar lista (somente presidente ou vice)</h1>
 
 <script>
@@ -185,5 +240,9 @@
         document.querySelectorAll('#associated option, #notAssociated option').forEach(function(option) {
             option.selected = true;
         });
+    });
+
+    document.getElementById('refresh-btn').addEventListener('click', function() {
+        alert("AAAAAAAAA");
     });
 </script>
