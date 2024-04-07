@@ -7,7 +7,6 @@ import br.com.victor.coke.service.CokeService;
 import br.com.victor.coke.service.UserCokeService;
 import br.com.victor.littleCoke.web.constants.LittleCokeWebPortletKeys;
 import br.com.victor.littleCoke.web.dto.CokeDTO;
-import br.com.victor.littleCoke.web.services.LittleCokeServices;
 import br.com.victor.littleCoke.web.util.LittleCokeUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -102,7 +101,6 @@ public class LittleCokeWebPortlet extends MVCPortlet {
 
                     if(userCoke == null) {
                         _userCokeService.createUserCoke(coke.getCokeId(), associatedId, CokeConstants.ASSOCIATED);
-                        _littleCokeServices.sendMessageWhatsapp("Parabéns!! Foi Adicionado a " + coke.getName(), associatedId);
                     }
                 }
 
@@ -163,14 +161,13 @@ public class LittleCokeWebPortlet extends MVCPortlet {
         }
     }
 
-    public void refreshList(ActionRequest actionRequest, ActionResponse actionResponse) {
-        System.out.println("Lista atualizada!");
+    @Override
+    public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
+        long cokeId = ParamUtil.getLong(resourceRequest, CokeConstants.COKE_ID);
+        System.err.println(cokeId);
     }
 
     private final Log _log = LogFactoryUtil.getLog(LittleCokeWebPortlet.class);
-
-    @Reference
-    private LittleCokeServices _littleCokeServices;
 
     @Reference
     private CokeService _cokeService;

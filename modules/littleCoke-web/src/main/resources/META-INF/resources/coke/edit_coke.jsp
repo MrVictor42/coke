@@ -82,6 +82,10 @@
     </div>
 </div>
 
+<portlet:resourceURL var="resourceURL">
+    <portlet:param name="cokeId" value="<%= String.valueOf(cokeId) %>" />
+</portlet:resourceURL>
+
 <div class="card">
     <div class="card-body">
         <div class="col-md-6">
@@ -92,13 +96,13 @@
                             <h3 class="card-title">Próximos a Pagar</h3>
                         </div>
                     </div>
-                    <div class="autofit-col autofit-col-expand autofit-col-gutters">
-                        <section class="autofit-section">
-                            <button id="refresh-btn" class="btn btn-primary">
-                                Atualizar Lista <clay:icon symbol="reload" />
-                            </button>
-                        </section>
-                    </div>
+                </div>
+                <div class="autofit-col autofit-col-expand autofit-col-gutters">
+                    <section class="autofit-section">
+                        <button id="refresh-btn" class="btn btn-primary" onclick="">
+                            Atualizar Lista <clay:icon symbol="reload" />
+                        </button>
+                    </section>
                 </div>
             </div>
         </div>
@@ -242,11 +246,14 @@
         });
     });
 
-document.getElementById('refresh-btn').addEventListener('click', function() {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "<portlet:actionURL name='refreshList' />", true);
-    xhr.send();
-});
-
-
+    document.getElementById('refresh-btn').addEventListener('click', function() {
+        AUI().use('aui-io-request', function(A){
+            A.io.request('<%=resourceURL.toString()%>', {
+                method: 'post',
+                data: {
+                    cokeId: <%= cokeId %>,
+                }
+            });
+        });
+    });
 </script>
