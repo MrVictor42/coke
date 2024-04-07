@@ -163,6 +163,10 @@ public class LittleCokeWebPortlet extends MVCPortlet {
         }
     }
 
+    public void refreshList(ActionRequest actionRequest, ActionResponse actionResponse) {
+        System.out.println("Lista atualizada!");
+    }
+
     private final Log _log = LogFactoryUtil.getLog(LittleCokeWebPortlet.class);
 
     @Reference

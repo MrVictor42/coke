@@ -242,7 +242,11 @@
         });
     });
 
-    document.getElementById('refresh-btn').addEventListener('click', function() {
-        alert("AAAAAAAAA");
-    });
+document.getElementById('refresh-btn').addEventListener('click', function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "<portlet:actionURL name='refreshList' />", true);
+    xhr.send();
+});
+
+
 </script>
