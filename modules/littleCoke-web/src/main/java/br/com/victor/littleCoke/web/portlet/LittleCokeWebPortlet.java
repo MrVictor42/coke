@@ -182,10 +182,8 @@ public class LittleCokeWebPortlet extends MVCPortlet {
 
                 _userCokeService.updateUserCokeOrder(userCoke.getUserCokeId(), order);
             }
-
         } catch (PortalException e) {
             _log.error(e.getMessage());
-            throw new RuntimeException(e.getMessage());
         }
     }
 

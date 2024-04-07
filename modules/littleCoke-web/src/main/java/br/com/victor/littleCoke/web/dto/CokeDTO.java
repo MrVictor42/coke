@@ -13,6 +13,7 @@ public class CokeDTO {
     private String initialDate;
     private Date createdAt;
     private String position;
+    private int order;
     private List<User> usersInUserCokeList;
     private List<User> usersNotInUserCokeList;
 
@@ -74,5 +75,13 @@ public class CokeDTO {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 }

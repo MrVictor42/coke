@@ -40,8 +40,12 @@
             cokeDTO.setUser(currentUser);
             cokeDTO.setCreatedAt(userCoke.getCreateDate());
             cokeDTO.setPosition(userCoke.getPosition());
+            cokeDTO.setOrder(userCoke.getOrder());
+
             cokeDTOList.add(cokeDTO);
         }
+
+        cokeDTOList.sort(Comparator.comparingInt(CokeDTO::getOrder));
     }
 %>
 
@@ -84,6 +88,7 @@
 
 <portlet:resourceURL var="resourceURL">
     <portlet:param name="cokeId" value="<%= String.valueOf(cokeId) %>" />
+    <portlet:param name="mvcPath" value="/coke/edit_coke.jsp" />
 </portlet:resourceURL>
 
 <div class="card">
@@ -249,9 +254,14 @@
     document.getElementById('refresh-btn').addEventListener('click', function() {
         AUI().use('aui-io-request', function(A){
             A.io.request('<%=resourceURL.toString()%>', {
-                method: 'post',
+                method: 'POST',
                 data: {
                     cokeId: <%= cokeId %>,
+                },
+                on: {
+                    complete: function() {
+                        location.reload();
+                    }
                 }
             });
         });

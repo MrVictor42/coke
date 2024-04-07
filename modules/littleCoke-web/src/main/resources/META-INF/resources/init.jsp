@@ -28,6 +28,9 @@
 <%@ page import="br.com.victor.coke.model.UserCoke" %>
 <%@ page import="br.com.victor.coke.model.Coke" %>
 <%@ page import="com.liferay.portal.kernel.model.User" %>
+<%@ page import="java.util.Comparator" %>
 
 <liferay-theme:defineObjects />
 <portlet:defineObjects />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
