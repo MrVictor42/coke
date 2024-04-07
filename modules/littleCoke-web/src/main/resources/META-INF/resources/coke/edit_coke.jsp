@@ -44,12 +44,10 @@
 
             cokeDTOList.add(cokeDTO);
         }
-
-        cokeDTOList.sort(Comparator.comparingInt(CokeDTO::getOrder));
     }
 %>
 
-<div class="card">
+<div class="card" id="membersCard">
     <div class="card-body">
         <h3 class="card-title">Membros Atuais</h3>
         <% int counter = 0; %>
@@ -57,7 +55,7 @@
             <% if (counter % 2 == 0) { %>
                 <div class="row">
             <% } %>
-                    <div class="col-md-6">
+                    <div class="col-md-6 member" style="<%= counter < 4 ? "" : "display: none;" %>">
                         <div class="card card-horizontal card-rounded">
                             <div class="card-row">
                                 <div class="autofit-col">
@@ -83,6 +81,9 @@
         <% if (userList != null && userList.size() % 2 != 0) { %>
             </div>
         <% } %>
+        <button id="loadMore" class="btn btn-primary">
+            Mostre mais <clay:icon symbol="plus" />
+        </button>
     </div>
 </div>
 
@@ -91,7 +92,9 @@
     <portlet:param name="mvcPath" value="/coke/edit_coke.jsp" />
 </portlet:resourceURL>
 
-<div class="card">
+<% cokeDTOList.sort(Comparator.comparingInt(CokeDTO::getOrder)); %>
+
+<div class="card" id="nextToPayCard">
     <div class="card-body">
         <div class="col-md-6">
             <div class="card card-horizontal card-rounded">
@@ -117,7 +120,7 @@
             <% if (next % 2 == 0) { %>
                 <div class="row">
             <% } %>
-                    <div class="col-md-6">
+                    <div class="col-md-6 member" style="<%= next < 4 ? "" : "display: none;" %>">
                         <div class="card card-horizontal card-rounded">
                             <div class="card-row">
                                 <div class="autofit-col">
@@ -143,6 +146,9 @@
         <% if (userList != null && userList.size() % 2 != 0) { %>
             </div>
         <% } %>
+        <button id="loadMoreNext" class="btn btn-primary">
+            Mostre mais <clay:icon symbol="plus" />
+        </button>
     </div>
 </div>
 
@@ -226,7 +232,6 @@
 </aui:form>
 
 <h1> Notificar monday </h1>
-<h1> Atualizar lista (somente presidente ou vice)</h1>
 
 <script>
     document.querySelector('.clay-dual-listbox-actions button:nth-child(1)').addEventListener('click', function() {
@@ -264,6 +269,26 @@
                     }
                 }
             });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#loadMore").on("click", function (e) {
+            e.preventDefault();
+            $("#membersCard .member:hidden").slice(0, 4).slideDown();
+            if ($("#membersCard .member:hidden").length == 0) {
+                $("#loadMore").text("Não há mais resultados").addClass("noContent");
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#loadMoreNext").on("click", function (e) {
+            e.preventDefault();
+            $("#nextToPayCard .member:hidden").slice(0, 4).slideDown();
+            if ($("#nextToPayCard .member:hidden").length == 0) {
+                $("#loadMoreNext").text("Não há mais resultados").addClass("noContent");
+            }
         });
     });
 </script>
