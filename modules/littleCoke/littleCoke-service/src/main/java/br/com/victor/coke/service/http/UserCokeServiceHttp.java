@@ -52,8 +52,8 @@ import com.liferay.portal.kernel.util.MethodKey;
 public class UserCokeServiceHttp {
 
 	public static br.com.victor.coke.model.UserCoke createUserCoke(
-		HttpPrincipal httpPrincipal, long cokeId, long userId,
-		String position) {
+		HttpPrincipal httpPrincipal, long cokeId, long userId, String position,
+		int order) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -61,7 +61,7 @@ public class UserCokeServiceHttp {
 				_createUserCokeParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, cokeId, userId, position);
+				methodKey, cokeId, userId, position, order);
 
 			Object returnObj = null;
 
@@ -180,10 +180,42 @@ public class UserCokeServiceHttp {
 		}
 	}
 
+	public static br.com.victor.coke.model.UserCoke updateUserCokeOrder(
+		HttpPrincipal httpPrincipal, long userCokeId, int order) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserCokeServiceUtil.class, "updateUserCokeOrder",
+				_updateUserCokeOrderParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userCokeId, order);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (br.com.victor.coke.model.UserCoke)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(UserCokeServiceHttp.class);
 
 	private static final Class<?>[] _createUserCokeParameterTypes0 =
-		new Class[] {long.class, long.class, String.class};
+		new Class[] {long.class, long.class, String.class, int.class};
 	private static final Class<?>[] _getUserCokeByCokeIdParameterTypes1 =
 		new Class[] {long.class};
 	private static final Class<?>[] _deleteUserCokeByUserCokeIdParameterTypes2 =
@@ -192,5 +224,7 @@ public class UserCokeServiceHttp {
 		_getUserCokeByCokeIdAndUserIdParameterTypes3 = new Class[] {
 			long.class, long.class
 		};
+	private static final Class<?>[] _updateUserCokeOrderParameterTypes4 =
+		new Class[] {long.class, int.class};
 
 }

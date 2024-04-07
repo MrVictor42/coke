@@ -169,6 +169,20 @@ public interface UserCokeModel extends BaseModel<UserCoke> {
 	 */
 	public void setModifiedDate(Date modifiedDate);
 
+	/**
+	 * Returns the order of this user coke.
+	 *
+	 * @return the order of this user coke
+	 */
+	public int getOrder();
+
+	/**
+	 * Sets the order of this user coke.
+	 *
+	 * @param order the order of this user coke
+	 */
+	public void setOrder(int order);
+
 	@Override
 	public UserCoke cloneWithOriginalValues();
 

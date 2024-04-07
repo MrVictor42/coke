@@ -24,6 +24,7 @@ import org.osgi.service.component.annotations.Reference;
 import javax.portlet.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,7 +101,7 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                     UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), associatedId);
 
                     if(userCoke == null) {
-                        _userCokeService.createUserCoke(coke.getCokeId(), associatedId, CokeConstants.ASSOCIATED);
+                        _userCokeService.createUserCoke(coke.getCokeId(), associatedId, CokeConstants.ASSOCIATED,0);
                     }
                 }
 
@@ -146,8 +147,8 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                         Coke coke = _cokeService.createCoke(name, serviceContext);
 
                         // Cadastro do Presidente e do Vice Presidente
-                        _userCokeService.createUserCoke(coke.getCokeId(), presidentId, CokeConstants.PRESIDENT);
-                        _userCokeService.createUserCoke(coke.getCokeId(), vicePresidentId, CokeConstants.VICE_PRESIDENT);
+                        _userCokeService.createUserCoke(coke.getCokeId(), presidentId, CokeConstants.PRESIDENT,0);
+                        _userCokeService.createUserCoke(coke.getCokeId(), vicePresidentId, CokeConstants.VICE_PRESIDENT, 0);
                     } catch (NumberFormatException e) {
                         System.err.println("Erro ao analisar o presidenteId ou vicePresident");
                     }
@@ -163,8 +164,29 @@ public class LittleCokeWebPortlet extends MVCPortlet {
 
     @Override
     public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
-        long cokeId = ParamUtil.getLong(resourceRequest, CokeConstants.COKE_ID);
-        System.err.println(cokeId);
+        try {
+            long cokeId = ParamUtil.getLong(resourceRequest, CokeConstants.COKE_ID);
+            Coke coke = _cokeService.getCoke(cokeId);
+            List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
+            List<Integer> randomNumbers = new ArrayList<>();
+
+            for(int aux = 0; aux < userCokeList.size(); aux++) {
+                randomNumbers.add(aux + 1);
+            }
+
+            Collections.shuffle(randomNumbers); // Para embaralhar a lista
+
+            for(int aux = 0; aux < userCokeList.size(); aux ++) {
+                UserCoke userCoke = userCokeList.get(aux);
+                int order = randomNumbers.get(aux);
+
+                _userCokeService.updateUserCokeOrder(userCoke.getUserCokeId(), order);
+            }
+
+        } catch (PortalException e) {
+            _log.error(e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     private final Log _log = LogFactoryUtil.getLog(LittleCokeWebPortlet.class);

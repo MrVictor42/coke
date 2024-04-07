@@ -27,13 +27,14 @@ import java.util.List;
 public class UserCokeLocalServiceImpl extends UserCokeLocalServiceBaseImpl {
 
     @Indexable(type = IndexableType.REINDEX)
-    public UserCoke createUserCoke(long cokeId, long userId, String position) {
+    public UserCoke createUserCoke(long cokeId, long userId, String position, int order) {
         long userCokeId = counterLocalService.increment(UserCoke.class.getName());
         UserCoke userCoke = createUserCoke(userCokeId);
 
         userCoke.setCokeId(cokeId);
         userCoke.setUserId(userId);
         userCoke.setPosition(position);
+        userCoke.setOrder(order);
 
         return addUserCoke(userCoke);
     }
@@ -45,6 +46,20 @@ public class UserCokeLocalServiceImpl extends UserCokeLocalServiceBaseImpl {
         } catch (PortalException e) {
             _log.error(e.getMessage());
             throw new RuntimeException(e);
+        }
+    }
+
+    @Indexable(type = IndexableType.REINDEX)
+    public UserCoke updateUserCokeOrder(long userCokeId, int order) {
+        try {
+            UserCoke userCoke = getUserCoke(userCokeId);
+
+            userCoke.setOrder(order);
+
+            return updateUserCoke(userCoke);
+        } catch (PortalException e) {
+            _log.error(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 

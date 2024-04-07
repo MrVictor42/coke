@@ -29,6 +29,7 @@
         <column name="position" type="String"/>
         <column name="createDate" type="Date" />
         <column name="modifiedDate" type="Date" />
+        <column name="order" type="int"/>
 
         <finder name="cokeId" return-type="Collection">
             <finder-column name="cokeId"/>

@@ -52,7 +52,8 @@ public interface UserCokeService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>br.com.victor.coke.service.impl.UserCokeServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the user coke remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link UserCokeServiceUtil} if injection and service tracking are not available.
 	 */
-	public UserCoke createUserCoke(long cokeId, long userId, String position);
+	public UserCoke createUserCoke(
+		long cokeId, long userId, String position, int order);
 
 	public UserCoke deleteUserCokeByUserCokeId(long userCokeId);
 
@@ -68,5 +69,7 @@ public interface UserCokeService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public UserCoke getUserCokeByCokeIdAndUserId(long cokeId, long userId);
+
+	public UserCoke updateUserCokeOrder(long userCokeId, int order);
 
 }

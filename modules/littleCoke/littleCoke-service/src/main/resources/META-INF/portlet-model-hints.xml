@@ -19,5 +19,6 @@
 		<field name="position" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
+		<field name="order" type="int" />
 	</model>
 </model-hints>

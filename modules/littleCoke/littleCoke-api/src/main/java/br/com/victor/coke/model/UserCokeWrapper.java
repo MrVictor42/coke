@@ -49,6 +49,7 @@ public class UserCokeWrapper
 		attributes.put("position", getPosition());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("order", getOrder());
 
 		return attributes;
 	}
@@ -96,6 +97,12 @@ public class UserCokeWrapper
 		if (modifiedDate != null) {
 			setModifiedDate(modifiedDate);
 		}
+
+		Integer order = (Integer)attributes.get("order");
+
+		if (order != null) {
+			setOrder(order);
+		}
 	}
 
 	@Override
@@ -131,6 +138,16 @@ public class UserCokeWrapper
 	@Override
 	public Date getModifiedDate() {
 		return model.getModifiedDate();
+	}
+
+	/**
+	 * Returns the order of this user coke.
+	 *
+	 * @return the order of this user coke
+	 */
+	@Override
+	public int getOrder() {
+		return model.getOrder();
 	}
 
 	/**
@@ -226,6 +243,16 @@ public class UserCokeWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		model.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the order of this user coke.
+	 *
+	 * @param order the order of this user coke
+	 */
+	@Override
+	public void setOrder(int order) {
+		model.setOrder(order);
 	}
 
 	/**

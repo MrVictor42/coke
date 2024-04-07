@@ -24,8 +24,8 @@ import java.util.List;
 )
 public class UserCokeServiceImpl extends UserCokeServiceBaseImpl {
 
-    public UserCoke createUserCoke(long cokeId, long userId, String position) {
-        return userCokeLocalService.createUserCoke(cokeId, userId, position);
+    public UserCoke createUserCoke(long cokeId, long userId, String position, int order) {
+        return userCokeLocalService.createUserCoke(cokeId, userId, position, order);
     }
 
     public List<UserCoke> getUserCokeByCokeId(long cokeId) {
@@ -38,5 +38,9 @@ public class UserCokeServiceImpl extends UserCokeServiceBaseImpl {
 
     public UserCoke getUserCokeByCokeIdAndUserId(long cokeId, long userId) {
         return userCokeLocalService.getUserCokeByCokeIdAndUserId(cokeId, userId);
+    }
+
+    public UserCoke updateUserCokeOrder(long userCokeId, int order) {
+        return userCokeLocalService.updateUserCokeOrder(userCokeId, order);
     }
 }

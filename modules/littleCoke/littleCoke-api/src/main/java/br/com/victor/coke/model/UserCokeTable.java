@@ -46,6 +46,8 @@ public class UserCokeTable extends BaseTable<UserCokeTable> {
 		"createDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<UserCokeTable, Date> modifiedDate = createColumn(
 		"modifiedDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
+	public final Column<UserCokeTable, Integer> order = createColumn(
+		"order_", Integer.class, Types.INTEGER, Column.FLAG_DEFAULT);
 
 	private UserCokeTable() {
 		super("Coke_UserCoke", UserCokeTable::new);

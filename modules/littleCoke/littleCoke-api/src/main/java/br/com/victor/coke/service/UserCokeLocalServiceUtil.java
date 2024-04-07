@@ -81,9 +81,9 @@ public class UserCokeLocalServiceUtil {
 	}
 
 	public static UserCoke createUserCoke(
-		long cokeId, long userId, String position) {
+		long cokeId, long userId, String position, int order) {
 
-		return getService().createUserCoke(cokeId, userId, position);
+		return getService().createUserCoke(cokeId, userId, position, order);
 	}
 
 	/**
@@ -308,6 +308,10 @@ public class UserCokeLocalServiceUtil {
 	 */
 	public static UserCoke updateUserCoke(UserCoke userCoke) {
 		return getService().updateUserCoke(userCoke);
+	}
+
+	public static UserCoke updateUserCokeOrder(long userCokeId, int order) {
+		return getService().updateUserCokeOrder(userCokeId, order);
 	}
 
 	public static UserCokeLocalService getService() {

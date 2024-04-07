@@ -76,7 +76,7 @@ public class UserCokeModelImpl
 		{"uuid_", Types.VARCHAR}, {"userCokeId", Types.BIGINT},
 		{"cokeId", Types.BIGINT}, {"userId", Types.BIGINT},
 		{"position", Types.VARCHAR}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}
+		{"modifiedDate", Types.TIMESTAMP}, {"order_", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -90,10 +90,11 @@ public class UserCokeModelImpl
 		TABLE_COLUMNS_MAP.put("position", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("order_", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Coke_UserCoke (uuid_ VARCHAR(75) null,userCokeId LONG not null primary key,cokeId LONG,userId LONG,position VARCHAR(75) null,createDate DATE null,modifiedDate DATE null)";
+		"create table Coke_UserCoke (uuid_ VARCHAR(75) null,userCokeId LONG not null primary key,cokeId LONG,userId LONG,position VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,order_ INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table Coke_UserCoke";
 
@@ -293,6 +294,9 @@ public class UserCokeModelImpl
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			(BiConsumer<UserCoke, Date>)UserCoke::setModifiedDate);
+		attributeGetterFunctions.put("order", UserCoke::getOrder);
+		attributeSetterBiConsumers.put(
+			"order", (BiConsumer<UserCoke, Integer>)UserCoke::setOrder);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -464,6 +468,21 @@ public class UserCokeModelImpl
 		_modifiedDate = modifiedDate;
 	}
 
+	@JSON
+	@Override
+	public int getOrder() {
+		return _order;
+	}
+
+	@Override
+	public void setOrder(int order) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_order = order;
+	}
+
 	public long getColumnBitmask() {
 		if (_columnBitmask > 0) {
 			return _columnBitmask;
@@ -527,6 +546,7 @@ public class UserCokeModelImpl
 		userCokeImpl.setPosition(getPosition());
 		userCokeImpl.setCreateDate(getCreateDate());
 		userCokeImpl.setModifiedDate(getModifiedDate());
+		userCokeImpl.setOrder(getOrder());
 
 		userCokeImpl.resetOriginalValues();
 
@@ -548,6 +568,7 @@ public class UserCokeModelImpl
 			this.<Date>getColumnOriginalValue("createDate"));
 		userCokeImpl.setModifiedDate(
 			this.<Date>getColumnOriginalValue("modifiedDate"));
+		userCokeImpl.setOrder(this.<Integer>getColumnOriginalValue("order_"));
 
 		return userCokeImpl;
 	}
@@ -665,6 +686,8 @@ public class UserCokeModelImpl
 			userCokeCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
+		userCokeCacheModel.order = getOrder();
+
 		return userCokeCacheModel;
 	}
 
@@ -763,6 +786,7 @@ public class UserCokeModelImpl
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
+	private int _order;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -800,6 +824,7 @@ public class UserCokeModelImpl
 		_columnOriginalValues.put("position", _position);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
+		_columnOriginalValues.put("order_", _order);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -808,6 +833,7 @@ public class UserCokeModelImpl
 		Map<String, String> attributeNames = new HashMap<>();
 
 		attributeNames.put("uuid_", "uuid");
+		attributeNames.put("order_", "order");
 
 		_attributeNames = Collections.unmodifiableMap(attributeNames);
 	}
@@ -836,6 +862,8 @@ public class UserCokeModelImpl
 		columnBitmasks.put("createDate", 32L);
 
 		columnBitmasks.put("modifiedDate", 64L);
+
+		columnBitmasks.put("order_", 128L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}
