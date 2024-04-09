@@ -1,5 +1,5 @@
 dependencies {
-	compile project(":modules:littleCoke:littleCoke-api")
+	implementation project(":modules:littleCoke:littleCoke-api")
 
 	compileOnly group: "com.liferay.portal", name: "release.portal.api"
 }

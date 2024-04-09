@@ -4,6 +4,7 @@ Bundle-Version: 1.0.0
 Export-Package:\
 	br.com.victor.coke.exception,\
 	br.com.victor.coke.model,\
+    br.com.victor.coke.model.dto,\
 	br.com.victor.coke.service,\
 	br.com.victor.coke.service.persistence
 -check: EXPORTS

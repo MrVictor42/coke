@@ -1,4 +1,4 @@
-package br.com.victor.littleCoke.web.dto;
+package br.com.victor.coke.model.dto;
 
 import br.com.victor.coke.model.Coke;
 import com.liferay.portal.kernel.model.User;

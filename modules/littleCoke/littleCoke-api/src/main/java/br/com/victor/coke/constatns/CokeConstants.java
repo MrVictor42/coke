@@ -9,7 +9,5 @@ public class CokeConstants {
     public static final String REQUEST_NOT_ASSOCIATED = "notAssociated";
 
     //Positions
-    public static final String PRESIDENT = "Presidente";
-    public static final String VICE_PRESIDENT = "Vice Presidente";
     public static final String ASSOCIATED = "Associado";
 }
