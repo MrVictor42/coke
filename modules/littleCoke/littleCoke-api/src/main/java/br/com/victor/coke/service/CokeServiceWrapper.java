@@ -72,6 +72,11 @@ public class CokeServiceWrapper
 	}
 
 	@Override
+	public br.com.victor.coke.model.Coke updateCoke(long cokeId, String name) {
+		return _cokeService.updateCoke(cokeId, name);
+	}
+
+	@Override
 	public CokeService getWrappedService() {
 		return _cokeService;
 	}

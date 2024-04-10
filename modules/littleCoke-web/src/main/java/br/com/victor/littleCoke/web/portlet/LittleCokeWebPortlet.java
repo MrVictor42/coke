@@ -3,23 +3,24 @@ package br.com.victor.littleCoke.web.portlet;
 import br.com.victor.coke.constatns.CokeConstants;
 import br.com.victor.coke.model.Coke;
 import br.com.victor.coke.model.UserCoke;
-import br.com.victor.coke.model.dto.UserRelationDTO;
+import br.com.victor.coke.model.dto.CokeDTO;
 import br.com.victor.coke.service.CokeService;
 import br.com.victor.coke.service.UserCokeService;
-import br.com.victor.coke.service.mondayIntegration.MondayIntegrationQuery;
-import br.com.victor.coke.service.mondayIntegration.services.MondayIntegrationService;
 import br.com.victor.littleCoke.web.constants.LittleCokeWebPortletKeys;
+import br.com.victor.littleCoke.web.util.LittleCokeUtil;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONException;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author victor
@@ -51,95 +53,262 @@ import java.util.List;
 public class LittleCokeWebPortlet extends MVCPortlet {
 
     @Override
-    public void render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException, IOException {
+    public void render(RenderRequest renderRequest, RenderResponse renderResponse) {
         try {
-            List<UserRelationDTO> relationDTOList = new ArrayList<>();
-            String query = MondayIntegrationQuery.USERS_QUERY;
-            String token = "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjE2ODY3MjgzNiwidWlkIjoxMTY5ODM2MSwiaWFkIjoiMjAyMi0wNy0wNFQxNzoxNzo0NS4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6NTI3MTMxOSwicmduIjoidXNlMSJ9.y8VA6hbD4qvi5Cj-YN7Tiow2QJ3aPh2ji89ZItE_lwM";
-            String apiURL = "https://api.monday.com/v2";
+            List<User> userList = _userLocalService
+                    .getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS)
+                    .stream()
+                    .filter(user -> !user.getEmailAddress().equalsIgnoreCase("default@liferay.com"))
+                    .filter(user -> !user.getEmailAddress().contains("anonymous"))
+                    .collect(Collectors.toList());
+            List<Coke> cokeList = _cokeService.getAllCokes();
+            List<CokeDTO> cokeDTOList = new ArrayList<>();
+            long cokeId = ParamUtil.getLong(renderRequest, CokeConstants.COKE_ID);
 
-            MondayIntegrationService mondayIntegrationService = new MondayIntegrationService();
+            if(!cokeList.isEmpty()) {
+                for(Coke coke : cokeList) {
+                    CokeDTO cokeDTO = new CokeDTO();
+                    List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
+                    List<User> usersInUserCokeList =
+                            userList
+                                    .stream()
+                                    .filter(user -> userCokeList.stream().anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
+                                    .collect(Collectors.toList());
 
-            mondayIntegrationService.setToken(token);
-            mondayIntegrationService.setApiURL(apiURL);
+                    cokeDTO.setCoke(coke);
+                    cokeDTO.setInitialDate(LittleCokeUtil.formatDate(coke.getCreateDate()));
+                    cokeDTO.setUsersInUserCokeList(usersInUserCokeList);
 
-            JSONObject jsonResponse = mondayIntegrationService.sendRequest(query);
-
-            if(jsonResponse != null) {
-                JSONArray jsonArray = jsonResponse.getJSONObject("data").getJSONArray("users");
-
-                if(jsonArray != null) {
-                    for(int aux = 0; aux < jsonArray.length(); aux ++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(aux);
-
-                        String name = jsonObject.getString("name");
-                        String enabled = jsonObject.getString("enabled");
-
-                        System.err.println(name);
-                        System.err.println(enabled);
-                    }
+                    cokeDTOList.add(cokeDTO);
                 }
             }
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
+
+            renderRequest.setAttribute("cokeDTOList", cokeDTOList);
+            renderRequest.setAttribute("cokeId", cokeId);
+
+            super.render(renderRequest, renderResponse);
+        } catch (PortletException | IOException e) {
+            _log.error(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
+    }
 
-//        if (jsonResponse != null) {
-//            JsonArray users = jsonResponse.getAsJsonObject("data").getAsJsonArray("users");
-//            for (JsonElement userObj : users) {
-//                JsonObject user = userObj.getAsJsonObject();
-//                String email = user.get("email").getAsString();
-//                User userByEmail = UserLocalServiceUtil.fetchUserByEmailAddress(companyId, email);
+    public void addOrUpdateCoke(ActionRequest actionRequest, ActionResponse actionResponse) {
+        try {
+            ServiceContext serviceContext = ServiceContextFactory.getInstance(Coke.class.getName(), actionRequest);
+            String cokeName = ParamUtil.getString(actionRequest, CokeConstants.NAME);
+            long cokeId = ParamUtil.getLong(actionRequest, CokeConstants.COKE_ID);
+            long[] associatedValues = ParamUtil.getLongValues(actionRequest, CokeConstants.REQUEST_ASSOCIATED);
+            long[] notAssociatedValues = ParamUtil.getLongValues(actionRequest, CokeConstants.REQUEST_NOT_ASSOCIATED);
+
+            if(cokeId > 0) {
+                try {
+                    Coke coke = _cokeService.getCoke(cokeId);
+                    List<Integer> randomNumbers = new ArrayList<>();
+                    List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
+                    int newAssociated = 0;
+
+                    if(cokeName != null && !cokeName.isEmpty()) {
+                        _cokeService.updateCoke(cokeId, cokeName);
+                    } else {
+                        _cokeService.updateCoke(cokeId, coke.getName());
+                    }
+
+                    for (long associatedId : associatedValues) {
+                        UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), associatedId);
+
+                        if (userCoke == null) {
+                            newAssociated ++;
+                        }
+                    }
+
+                    for (long notAssociatedId : notAssociatedValues) {
+                        UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), notAssociatedId);
+
+                        if (userCoke != null) {
+                            _userCokeService.deleteUserCokeByUserCokeId(userCoke.getUserCokeId());
+                        }
+                    }
+
+//                    int maxOrder = userCokeList.stream().mapToInt(UserCoke::getOrder).max().orElse(0);
 //
-//                if (Validator.isNotNull(userByEmail)) {
-//                    UserMondayDTO userMondayDTO = new UserMondayDTO().deserialize(JSONFactoryUtil.createJSONObject(user.toString()));
-//                    UserRelationDTO relationDTO = new UserRelationDTO();
-//                    relationDTO.setUserId(String.valueOf(userByEmail.getUserId()));
-//                    relationDTO.setUserMondayId(userMondayDTO.getId());
-//                    relationDTOList.add(relationDTO);
-//                }
-//            }
-//        }
+//                    for (int aux = 0; aux < newAssociated; aux++) {
+//                        randomNumbers.add(maxOrder + aux + 1);
+//                    }
+//
+//                    Collections.shuffle(randomNumbers); // Para embaralhar a lista
+//
+//                    for (UserCoke userCoke : userCokeList) {
+//                        int order = randomNumbers.remove(randomNumbers.size() - 1);
+//
+//                        _userCokeService.updateUserCokeOrder(userCoke.getUserCokeId(), order);
+//                    }
+//
+//                    // Crie novos associados com 'order' aleatório
+//                    for (long associatedId : associatedValues) {
+//                        UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), associatedId);
+//
+//                        if (userCoke == null && !randomNumbers.isEmpty()) {
+//                            int order = randomNumbers.remove(randomNumbers.size() - 1);
+//                            _userCokeService.createUserCoke(coke.getCokeId(), associatedId, CokeConstants.ASSOCIATED, order);
+//                        }
+//                    }
+                    SessionMessages.add(actionRequest, "updatedLittleCoke");
+                } catch (Exception e) {
+                    _log.error(e.getMessage());
+                    SessionErrors.add(actionRequest, e.getClass().getName());
+                    PortalUtil.copyRequestParameters(actionRequest, actionResponse);
+
+                    actionResponse.setRenderParameter("mvcPath", "/coke/edit_coke.jsp");
+                }
+            } else {
+                Coke coke = _cokeService.createCoke(cokeName, serviceContext);
+
+                for(long associated : associatedValues) {
+                    System.err.println(associated);
+
+//                    _userCokeService.createUserCoke(coke.getCokeId(), presidentId, CokeConstants.ASSOCIATED, 0);
+                }
+            }
+        } catch (Exception e) {
+            _log.error(e.getMessage());
+            SessionErrors.add(actionRequest, e.getClass().getName());
+            PortalUtil.copyRequestParameters(actionRequest, actionResponse);
+
+            actionResponse.setRenderParameter("mvcPath", "/coke/edit_coke.jsp");
+        }
+    }
 
 
-        super.render(renderRequest, renderResponse);
-
+//    public void addOrUpdateCoke(ActionRequest actionRequest) {
 //        try {
-//            List<User> userList = _userLocalService
-//                    .getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS)
-//                    .stream()
-//                    .filter(user -> !user.getEmailAddress().equalsIgnoreCase("default@liferay.com"))
-//                    .filter(user -> !user.getEmailAddress().contains("anonymous"))
-//                    .collect(Collectors.toList());
-//            List<Coke> cokeList = _cokeService.getAllCokes();
-//            List<CokeDTO> cokeDTOList = new ArrayList<>();
+//            ServiceContext serviceContext = ServiceContextFactory.getInstance(Coke.class.getName(), actionRequest);
+//            String name = ParamUtil.getString(actionRequest, CokeConstants.NAME);
+//            long cokeId = ParamUtil.getLong(actionRequest, CokeConstants.COKE_ID);
 //
-//            if(!cokeList.isEmpty()) {
-//                for(Coke coke : cokeList) {
-//                    CokeDTO cokeDTO = new CokeDTO();
+//            if(cokeId > 0) {
+//                try {
+//                    Coke coke = _cokeService.getCoke(cokeId);
+//                    long[] associatedValues = ParamUtil.getLongValues(actionRequest, CokeConstants.REQUEST_ASSOCIATED);
+//                    long[] notAssociatedValues = ParamUtil.getLongValues(actionRequest, CokeConstants.REQUEST_NOT_ASSOCIATED);
+//                    List<Integer> randomNumbers = new ArrayList<>();
 //                    List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
-//                    List<User> usersInUserCokeList =
-//                            userList
-//                                    .stream()
-//                                    .filter(user -> userCokeList.stream().anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
-//                                    .collect(Collectors.toList());
+//                    int maxOrder = userCokeList.stream().mapToInt(UserCoke::getOrder).max().orElse(0);
+//                    int newAssociated = 0;
 //
-//                    cokeDTO.setCoke(coke);
-//                    cokeDTO.setInitialDate(LittleCokeUtil.formatDate(coke.getCreateDate()));
-//                    cokeDTO.setUsersInUserCokeList(usersInUserCokeList);
+//                    for (long associatedId : associatedValues) {
+//                        UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), associatedId);
 //
-//                    cokeDTOList.add(cokeDTO);
-//                }
+//                        if (userCoke == null) {
+//                            newAssociated ++;
+//                        }
+//                    }
+//
+//                    for (long notAssociatedId : notAssociatedValues) {
+//                        UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), notAssociatedId);
+//
+//                        if (userCoke != null) {
+//                            _userCokeService.deleteUserCokeByUserCokeId(userCoke.getUserCokeId());
+//                        }
+//                    }
+//
+//                    for (int aux = 0; aux < newAssociated; aux++) {
+//                        randomNumbers.add(aux + 1);
+//                    }
+//
+//                    Collections.shuffle(randomNumbers); // Para embaralhar a lista
+//
+//                    for (int aux = 0; aux < userCokeList.size(); aux++) {
+//                        UserCoke userCoke = userCokeList.get(aux);
+//                        int order = randomNumbers.get(aux);
+//
+//                        _userCokeService.updateUserCokeOrder(userCoke.getUserCokeId(), order);
+//                    }
+////
+////                    for (long associatedId : associatedValues) {
+////                        UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), associatedId);
+////
+////                        if (userCoke == null) {
+////                            _userCokeService.createUserCoke(coke.getCokeId(), associatedId, CokeConstants.ASSOCIATED, 0);
+////                        }
+////                    }
+//
+//                    /*
+//
+////                            _userCokeService.createUserCoke(coke.getCokeId(), associatedId, CokeConstants.ASSOCIATED, 0);
+//
+//                            /*
+//                                        long cokeId = ParamUtil.getLong(resourceRequest, CokeConstants.COKE_ID);
+//            Coke coke = _cokeService.getCoke(cokeId);
+//            List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
+//
+//            for (int aux = 0; aux < userCokeList.size(); aux++) {
+//                randomNumbers.add(aux + 1);
 //            }
 //
-//            renderRequest.setAttribute("cokeDTOList", cokeDTOList);
 //
-//            super.render(renderRequest, renderResponse);
-//        } catch (PortletException | IOException e) {
+//            for (int aux = 0; aux < userCokeList.size(); aux++) {
+//                UserCoke userCoke = userCokeList.get(aux);
+//                int order = randomNumbers.get(aux);
+//
+//                _userCokeService.updateUserCokeOrder(userCoke.getUserCokeId(), order);
+//            }
+//                             */
+//
+//
+//
+//                    SessionMessages.add(actionRequest, "updatedCoke");
+//                } catch (PortalException e) {
+//                    _log.error(e.getMessage());
+//                    throw new RuntimeException(e.getMessage());
+//                }
+//            }
+
+            /*
+
+        if (entryId > 0) {
+            try {
+                _guestbookEntryLocalService.updateGuestbookEntry(
+                    serviceContext.getUserId(), guestbookId, entryId, userName,
+                    email, message, serviceContext
+                );
+
+                response.setRenderParameter("guestbookId", Long.toString(guestbookId));
+                SessionMessages.add(request, "entryAdded");
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+
+                SessionErrors.add(request, e.getClass().getName());
+                PortalUtil.copyRequestParameters(request, response);
+
+                response.setRenderParameter("mvcPath", "/guestbook/edit_entry.jsp");
+            }
+        }
+        else {
+            try {
+                _guestbookEntryLocalService.addGuestbookEntry(
+                    serviceContext.getUserId(), guestbookId, userName, email,
+                    message, serviceContext
+                );
+
+                response.setRenderParameter("guestbookId", Long.toString(guestbookId));
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+
+                PortalUtil.copyRequestParameters(request, response);
+
+                response.setRenderParameter("mvcPath", "/guestbook/edit_entry.jsp");
+            }
+        }
+    }
+             */
+//        } catch (PortalException e) {
 //            _log.error(e.getMessage());
 //            throw new RuntimeException(e.getMessage());
 //        }
-    }
+//    }
 
     public void updateCoke(ActionRequest actionRequest, ActionResponse actionResponse) {
         long cokeId = ParamUtil.getLong(actionRequest, CokeConstants.COKE_ID);

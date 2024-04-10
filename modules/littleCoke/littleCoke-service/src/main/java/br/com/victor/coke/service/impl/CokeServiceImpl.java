@@ -38,6 +38,10 @@ public class CokeServiceImpl extends CokeServiceBaseImpl {
         return cokeLocalService.getCoke(cokeId);
     }
 
+    public Coke updateCoke(long cokeId, String name) {
+        return cokeLocalService.updateCoke(cokeId, name);
+    }
+
     public List<Coke> getAllCokes() {
         return cokeLocalService.getAllCokes();
     }

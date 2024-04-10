@@ -47,6 +47,17 @@ public class CokeLocalServiceImpl extends CokeLocalServiceBaseImpl {
         return addCoke(coke);
     }
 
+    @Indexable(type = IndexableType.REINDEX)
+    public Coke updateCoke(long cokeId, String name) {
+        Coke coke = getCoke(cokeId);
+
+        coke.setName(name);
+        coke.setCreateDate(new Date());
+        coke.setModifiedDate(new Date());
+
+        return updateCoke(coke);
+    }
+
     @Indexable(type = IndexableType.DELETE)
     public Coke deleteCoke(long cokeId) {
         Coke coke = getCoke(cokeId);

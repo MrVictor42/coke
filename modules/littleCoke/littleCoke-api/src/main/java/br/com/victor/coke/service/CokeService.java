@@ -70,4 +70,6 @@ public interface CokeService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
+	public Coke updateCoke(long cokeId, String name);
+
 }

@@ -47,6 +47,98 @@
     }
 %>
 
+<portlet:renderURL var="backViewURL">
+    <portlet:param name="mvcPath" value="/coke/view.jsp"></portlet:param>
+</portlet:renderURL>
+<portlet:actionURL name="addOrUpdateCoke" var="addOrUpdateCoke" />
+
+<c:choose>
+    <c:when test="${cokeId == 0}">
+        <h1>AAAAAAAA</h1>
+    </c:when>
+    <c:otherwise>
+        <h1>${cokeId}</h1>
+        <h2>BBBBBBBB</h2>
+    </c:otherwise>
+</c:choose>
+
+
+<c:if test="${cokeId == 0}">
+    <aui:form action="<%= addOrUpdateCoke %>" name="<portlet:namespace />fm">
+        <aui:model-context bean="<%= coke %>" model="<%= Coke.class %>" />
+
+        <h1>asdsa</h1>
+
+        <aui:fieldset>
+            <aui:input name="name" />
+            <aui:input name="cokeId" type="hidden" value='<%= coke == null ? cokeId : coke.getCokeId() %>'/>
+        </aui:fieldset>
+
+        <div class="form-group">
+            <div class="clay-dual-listbox">
+                <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
+                    <label for="_9d5cxj5xm">
+                        <span class="text-truncate-inline">
+                            <span class="text-truncate">In Use</span>
+                        </span>
+                    </label>
+                    <div class="clay-reorder clay-reorder-footer-end">
+                        <select
+                            class="form-control form-control-inset"
+                            id="_9d5cxj5xm"
+                            multiple
+                            size="7"
+                        >
+                            <option value="twitter">Twitter</option>
+                            <option value="linkedin">Linkedin</option>
+                            <option value="facebook">Facebook</option>
+                        </select>
+                        <div class="clay-reorder-underlay form-control"></div>
+                    </div>
+                </div>
+                <div class="clay-dual-listbox-item clay-dual-listbox-actions">
+                    <div class="btn-group-vertical">
+                        <button class="btn btn-monospaced btn-secondary btn-sm" type="button">
+                            <clay:icon symbol="caret-right" />
+                        </button>
+                        <button class="btn btn-monospaced btn-secondary btn-sm" type="button">
+                            <clay:icon symbol="caret-left" />
+                        </button>
+                    </div>
+                </div>
+                <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
+                    <label for="_957gwvjvl">
+                        <span class="text-truncate-inline">
+                            <span class="text-truncate">Available</span>
+                        </span>
+                    </label>
+                    <div class="clay-reorder">
+                        <select
+                            class="form-control form-control-inset"
+                            id="_957gwvjvl"
+                            multiple
+                            size="7"
+                        >
+                            <option value="addthis">AddThis</option>
+                            <option value="delicious">Delicious</option>
+                            <option value="digg">Digg</option>
+                            <option value="evernote">Evernote</option>
+                        </select>
+                        <div class="clay-reorder-underlay form-control"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <aui:button-row>
+            <aui:button type="submit"></aui:button>
+            <aui:button type="cancel" onClick="<%= backViewURL.toString() %>"></aui:button>
+        </aui:button-row>
+    </aui:form>
+</c:if>
+
+
+<%-- 
 <div class="card" id="membersCard">
     <div class="card-body">
         <h3 class="card-title">Membros Atuais</h3>
@@ -291,4 +383,4 @@
             }
         });
     });
-</script>
+</script> --%> 

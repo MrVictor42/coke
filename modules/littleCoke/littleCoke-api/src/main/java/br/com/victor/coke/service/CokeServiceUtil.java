@@ -67,6 +67,10 @@ public class CokeServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	public static Coke updateCoke(long cokeId, String name) {
+		return getService().updateCoke(cokeId, name);
+	}
+
 	public static CokeService getService() {
 		return _service;
 	}
