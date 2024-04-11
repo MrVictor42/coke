@@ -4,7 +4,8 @@
 <%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet"%>
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme"%>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
-<%@ taglib prefix="clay" uri="http://liferay.com/tld/clay" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://liferay.com/tld/clay" prefix="clay"%>
 <%@ taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %>
 <%@ taglib uri="http://liferay.com/tld/security" prefix="liferay-security" %>
 

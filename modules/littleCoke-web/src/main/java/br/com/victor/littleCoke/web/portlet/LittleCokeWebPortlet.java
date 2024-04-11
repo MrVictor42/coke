@@ -85,6 +85,7 @@ public class LittleCokeWebPortlet extends MVCPortlet {
 
             renderRequest.setAttribute("cokeDTOList", cokeDTOList);
             renderRequest.setAttribute("cokeId", cokeId);
+            renderRequest.setAttribute("userList", userList);
 
             super.render(renderRequest, renderResponse);
         } catch (PortletException | IOException e) {
@@ -101,34 +102,41 @@ public class LittleCokeWebPortlet extends MVCPortlet {
             long[] associatedValues = ParamUtil.getLongValues(actionRequest, CokeConstants.REQUEST_ASSOCIATED);
             long[] notAssociatedValues = ParamUtil.getLongValues(actionRequest, CokeConstants.REQUEST_NOT_ASSOCIATED);
 
-            if(cokeId > 0) {
-                try {
-                    Coke coke = _cokeService.getCoke(cokeId);
-                    List<Integer> randomNumbers = new ArrayList<>();
-                    List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
-                    int newAssociated = 0;
+            if (cokeId > 0) {
 
-                    if(cokeName != null && !cokeName.isEmpty()) {
-                        _cokeService.updateCoke(cokeId, cokeName);
-                    } else {
-                        _cokeService.updateCoke(cokeId, coke.getName());
-                    }
-
-                    for (long associatedId : associatedValues) {
-                        UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), associatedId);
-
-                        if (userCoke == null) {
-                            newAssociated ++;
-                        }
-                    }
-
-                    for (long notAssociatedId : notAssociatedValues) {
-                        UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), notAssociatedId);
-
-                        if (userCoke != null) {
-                            _userCokeService.deleteUserCokeByUserCokeId(userCoke.getUserCokeId());
-                        }
-                    }
+            }
+        } catch (PortalException e) {
+            _log.error(e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+//                try {
+//                    Coke coke = _cokeService.getCoke(cokeId);
+//                    List<Integer> randomNumbers = new ArrayList<>();
+//                    List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
+//                    int newAssociated = 0;
+//
+//                    if(cokeName != null && !cokeName.isEmpty()) {
+//                        _cokeService.updateCoke(cokeId, cokeName);
+//                    } else {
+//                        _cokeService.updateCoke(cokeId, coke.getName());
+//                    }
+//
+//                    for (long associatedId : associatedValues) {
+//                        UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), associatedId);
+//
+//                        if (userCoke == null) {
+//                            newAssociated ++;
+//                        }
+//                    }
+//
+//                    for (long notAssociatedId : notAssociatedValues) {
+//                        UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), notAssociatedId);
+//
+//                        if (userCoke != null) {
+//                            _userCokeService.deleteUserCokeByUserCokeId(userCoke.getUserCokeId());
+//                        }
+//                    }
 
 //                    int maxOrder = userCokeList.stream().mapToInt(UserCoke::getOrder).max().orElse(0);
 //
@@ -153,31 +161,30 @@ public class LittleCokeWebPortlet extends MVCPortlet {
 //                            _userCokeService.createUserCoke(coke.getCokeId(), associatedId, CokeConstants.ASSOCIATED, order);
 //                        }
 //                    }
-                    SessionMessages.add(actionRequest, "updatedLittleCoke");
-                } catch (Exception e) {
-                    _log.error(e.getMessage());
-                    SessionErrors.add(actionRequest, e.getClass().getName());
-                    PortalUtil.copyRequestParameters(actionRequest, actionResponse);
-
-                    actionResponse.setRenderParameter("mvcPath", "/coke/edit_coke.jsp");
-                }
-            } else {
-                Coke coke = _cokeService.createCoke(cokeName, serviceContext);
-
-                for(long associated : associatedValues) {
-                    System.err.println(associated);
-
-//                    _userCokeService.createUserCoke(coke.getCokeId(), presidentId, CokeConstants.ASSOCIATED, 0);
-                }
-            }
-        } catch (Exception e) {
-            _log.error(e.getMessage());
-            SessionErrors.add(actionRequest, e.getClass().getName());
-            PortalUtil.copyRequestParameters(actionRequest, actionResponse);
-
-            actionResponse.setRenderParameter("mvcPath", "/coke/edit_coke.jsp");
-        }
-    }
+//                    SessionMessages.add(actionRequest, "updatedLittleCoke");
+//                } catch (Exception e) {
+//                    _log.error(e.getMessage());
+//                    SessionErrors.add(actionRequest, e.getClass().getName());
+//                    PortalUtil.copyRequestParameters(actionRequest, actionResponse);
+//
+//                    actionResponse.setRenderParameter("mvcPath", "/coke/edit_coke.jsp");
+//                }
+//            } else {
+//                Coke coke = _cokeService.createCoke(cokeName, serviceContext);
+//
+//                for(long associated : associatedValues) {
+//                    System.err.println(associated);
+//
+////                    _userCokeService.createUserCoke(coke.getCokeId(), presidentId, CokeConstants.ASSOCIATED, 0);
+//                }
+//            }
+//        } catch (Exception e) {
+//            _log.error(e.getMessage());
+//            SessionErrors.add(actionRequest, e.getClass().getName());
+//            PortalUtil.copyRequestParameters(actionRequest, actionResponse);
+//
+//            actionResponse.setRenderParameter("mvcPath", "/coke/edit_coke.jsp");
+//        }
 
 
 //    public void addOrUpdateCoke(ActionRequest actionRequest) {

@@ -6,45 +6,9 @@
     Coke coke = null;
     List<User> usersNotInUserCokeList = null;
     List<User> usersInUserCokeList = null;
-    List<User> userList = null;
+    List<User> userList = (List<User>) request.getAttribute("userList");
     List<UserCoke> userCokeList = null;
     List<CokeDTO> cokeDTOList = new ArrayList<>();
-
-    if(cokeId > 0) {
-        coke = CokeLocalServiceUtil.getCoke(cokeId);
-        userCokeList = UserCokeLocalServiceUtil.getUserCokeByCokeId(coke.getCokeId());
-        int quantityMembers = userCokeList.size();
-
-        userList = UserLocalServiceUtil.getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS)
-                .stream()
-                .filter(userItem -> !userItem.getEmailAddress().equalsIgnoreCase("default@liferay.com"))
-                .filter(userItem -> !userItem.getEmailAddress().contains("anonymous"))
-                .collect(Collectors.toList());
-        final List<UserCoke> finalUserCokeList = userCokeList; 
-
-        usersNotInUserCokeList = userList.stream()
-                .filter(userItem -> finalUserCokeList.stream()
-                        .noneMatch(userCoke -> userCoke.getUserId() == userItem.getUserId()))
-                .collect(Collectors.toList());
-
-        usersInUserCokeList = userList.stream()
-                .filter(userItem -> finalUserCokeList.stream() 
-                        .anyMatch(userCoke -> userCoke.getUserId() == userItem.getUserId()))
-                .collect(Collectors.toList());
-
-        for(UserCoke userCoke : userCokeList) {
-            CokeDTO cokeDTO = new CokeDTO();
-
-            User currentUser = UserLocalServiceUtil.getUser(userCoke.getUserId());
-
-            cokeDTO.setUser(currentUser);
-            cokeDTO.setCreatedAt(userCoke.getCreateDate());
-            cokeDTO.setPosition(userCoke.getPosition());
-            cokeDTO.setOrder(userCoke.getOrder());
-
-            cokeDTOList.add(cokeDTO);
-        }
-    }
 %>
 
 <portlet:renderURL var="backViewURL">
@@ -54,7 +18,112 @@
 
 <c:choose>
     <c:when test="${cokeId == 0}">
-        <h1>AAAAAAAA</h1>
+        <aui:form action="<%= addOrUpdateCoke %>" name="<portlet:namespace />fm">
+            <aui:model-context bean="<%= coke %>" model="<%= Coke.class %>" />
+
+            <aui:fieldset>
+                <aui:input name="name" />
+                <aui:input name="cokeId" type="hidden" value='<%= coke == null ? cokeId : coke.getCokeId() %>'/>
+            </aui:fieldset>
+
+            <div class="form-group">
+                <div class="clay-dual-listbox">
+                    <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
+                        <label for="_9d5cxj5xm">
+                            <span class="text-truncate-inline">
+                                <span class="text-truncate">Membros Disponíveis</span>
+                            </span>
+                        </label>
+                        <div class="clay-reorder clay-reorder-footer-end">
+                            <select class="form-control form-control-inset" id="notAssociated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_notAssociated" multiple size="10">
+                                <c:choose>
+                                    <c:when test="${not empty userList}">
+                                        <c:forEach var="user" items="${userList}">
+                                            <option value="${user.userId}">${user.fullName}</option>
+                                        </c:forEach>
+                                    </c:when>
+                                </c:choose>
+                            </select>
+                            <div class="clay-reorder-underlay form-control"></div>
+                        </div>
+                    </div>
+            
+                    <div class="clay-dual-listbox-item clay-dual-listbox-actions">
+                        <div class="btn-group-vertical">
+                            <button class="btn btn-monospaced btn-secondary btn-sm" type="button">
+                                <clay:icon symbol="caret-right" />
+                            </button>
+                            <button class="btn btn-monospaced btn-secondary btn-sm" type="button">
+                                <clay:icon symbol="caret-left" />
+                            </button>
+                        </div>
+                    </div>
+            
+                    <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
+                        <label for="_957gwvjvl">
+                            <span class="text-truncate-inline">
+                                <span class="text-truncate">Membros Atuais</span>
+                            </span>
+                        </label>
+                        <div class="clay-reorder">
+                            <select class="form-control form-control-inset" id="associated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_associated" multiple size="10">
+                                <% if(usersInUserCokeList != null) {
+                                    for(User userInCoke : usersInUserCokeList) { %>
+                                        <option value="<%= userInCoke.getUserId() %>"><%= userInCoke.getFullName() %></option>
+                                    <% }
+                                } %>
+                            </select>
+                            <div class="clay-reorder-underlay form-control"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <aui:button-row>
+                <aui:button type="submit"></aui:button>
+                <aui:button type="cancel" onClick="<%= backViewURL.toString() %>"></aui:button>
+            </aui:button-row>
+        </aui:form>
+<%-- 
+        <div class="card" id="membersCard">
+            <div class="card-body">
+                <h3 class="card-title">Membros Atuais</h3>
+                <% int counter = 0; %>
+                <% for (CokeDTO cokeDTO : cokeDTOList) { %>
+                    <% if (counter % 2 == 0) { %>
+                        <div class="row">
+                    <% } %>
+                            <div class="col-md-6 member" style="<%= counter < 4 ? "" : "display: none;" %>">
+                                <div class="card card-horizontal card-rounded">
+                                    <div class="card-row">
+                                        <div class="autofit-col">
+                                            <img class="card-item-last rounded-circle" style="width: 50px"
+                                                src="<%= cokeDTO.getUser().getPortraitURL(themeDisplay) %>"
+                                            />
+                                        </div>
+                                        <div class="autofit-col autofit-col-expand autofit-col-gutters">
+                                            <section class="autofit-section">
+                                                <h3 class="card-title"><%= cokeDTO.getUser().getFullName() %></h3>
+                                                <h4 class="card-subtitle mb-2 text-muted"><%= cokeDTO.getPosition() %></h4>
+                                                <h4 class="card-subtitle mb-2 text-muted">Membro há: <%= LittleCokeUtil.memberSince(cokeDTO.getCreatedAt()) %> dia(s)</h4>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    <% if (counter % 2 != 0) { %>
+                        </div>
+                    <% } %>
+                    <% counter++; %>
+                <% } %>
+                <% if (userList != null && userList.size() % 2 != 0) { %>
+                    </div>
+                <% } %>
+                <button id="loadMore" class="btn btn-primary">
+                    Mostre mais <clay:icon symbol="plus" />
+                </button>
+            </div>
+        </div> --%>
     </c:when>
     <c:otherwise>
         <h1>${cokeId}</h1>
@@ -63,121 +132,55 @@
 </c:choose>
 
 
-<c:if test="${cokeId == 0}">
-    <aui:form action="<%= addOrUpdateCoke %>" name="<portlet:namespace />fm">
-        <aui:model-context bean="<%= coke %>" model="<%= Coke.class %>" />
+<script>
+    document.querySelector('.clay-dual-listbox-actions button:nth-child(1)').addEventListener('click', function() {
+        var selectedOptions = document.querySelectorAll('#notAssociated option:checked');
+        selectedOptions.forEach(function(option) {
+            option.selected = false;
+            document.querySelector('#associated').appendChild(option);
+        });
+        document.querySelectorAll('#associated option, #notAssociated option').forEach(function(option) {
+            option.selected = true;
+        });
+    });
 
-        <h1>asdsa</h1>
+    document.querySelector('.clay-dual-listbox-actions button:nth-child(2)').addEventListener('click', function() {
+        var selectedOptions = document.querySelectorAll('#associated option:checked');
+        selectedOptions.forEach(function(option) {
+            option.selected = false; 
+            document.querySelector('#notAssociated').appendChild(option);
+        });
+        document.querySelectorAll('#associated option, #notAssociated option').forEach(function(option) {
+            option.selected = true;
+        });
+    });
 
-        <aui:fieldset>
-            <aui:input name="name" />
-            <aui:input name="cokeId" type="hidden" value='<%= coke == null ? cokeId : coke.getCokeId() %>'/>
-        </aui:fieldset>
+    $(document).ready(function () {
+        $("#loadMore").on("click", function (e) {
+            e.preventDefault();
+            $("#membersCard .member:hidden").slice(0, 4).slideDown();
+            if ($("#membersCard .member:hidden").length == 0) {
+                $("#loadMore").text("Não há mais resultados").addClass("noContent");
+            }
+        });
+    });
 
-        <div class="form-group">
-            <div class="clay-dual-listbox">
-                <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
-                    <label for="_9d5cxj5xm">
-                        <span class="text-truncate-inline">
-                            <span class="text-truncate">In Use</span>
-                        </span>
-                    </label>
-                    <div class="clay-reorder clay-reorder-footer-end">
-                        <select
-                            class="form-control form-control-inset"
-                            id="_9d5cxj5xm"
-                            multiple
-                            size="7"
-                        >
-                            <option value="twitter">Twitter</option>
-                            <option value="linkedin">Linkedin</option>
-                            <option value="facebook">Facebook</option>
-                        </select>
-                        <div class="clay-reorder-underlay form-control"></div>
-                    </div>
-                </div>
-                <div class="clay-dual-listbox-item clay-dual-listbox-actions">
-                    <div class="btn-group-vertical">
-                        <button class="btn btn-monospaced btn-secondary btn-sm" type="button">
-                            <clay:icon symbol="caret-right" />
-                        </button>
-                        <button class="btn btn-monospaced btn-secondary btn-sm" type="button">
-                            <clay:icon symbol="caret-left" />
-                        </button>
-                    </div>
-                </div>
-                <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
-                    <label for="_957gwvjvl">
-                        <span class="text-truncate-inline">
-                            <span class="text-truncate">Available</span>
-                        </span>
-                    </label>
-                    <div class="clay-reorder">
-                        <select
-                            class="form-control form-control-inset"
-                            id="_957gwvjvl"
-                            multiple
-                            size="7"
-                        >
-                            <option value="addthis">AddThis</option>
-                            <option value="delicious">Delicious</option>
-                            <option value="digg">Digg</option>
-                            <option value="evernote">Evernote</option>
-                        </select>
-                        <div class="clay-reorder-underlay form-control"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <aui:button-row>
-            <aui:button type="submit"></aui:button>
-            <aui:button type="cancel" onClick="<%= backViewURL.toString() %>"></aui:button>
-        </aui:button-row>
-    </aui:form>
-</c:if>
+    $(document).ready(function () {
+        $("#loadMoreNext").on("click", function (e) {
+            e.preventDefault();
+            $("#nextToPayCard .member:hidden").slice(0, 4).slideDown();
+            if ($("#nextToPayCard .member:hidden").length == 0) {
+                $("#loadMoreNext").text("Não há mais resultados").addClass("noContent");
+            }
+        });
+    });
+</script>
+<%-- 
+ --%>
 
 
 <%-- 
-<div class="card" id="membersCard">
-    <div class="card-body">
-        <h3 class="card-title">Membros Atuais</h3>
-        <% int counter = 0; %>
-        <% for (CokeDTO cokeDTO : cokeDTOList) { %>
-            <% if (counter % 2 == 0) { %>
-                <div class="row">
-            <% } %>
-                    <div class="col-md-6 member" style="<%= counter < 4 ? "" : "display: none;" %>">
-                        <div class="card card-horizontal card-rounded">
-                            <div class="card-row">
-                                <div class="autofit-col">
-                                    <img class="card-item-last rounded-circle" style="width: 50px"
-                                        src="<%= cokeDTO.getUser().getPortraitURL(themeDisplay) %>"
-                                    />
-                                </div>
-                                <div class="autofit-col autofit-col-expand autofit-col-gutters">
-                                    <section class="autofit-section">
-                                        <h3 class="card-title"><%= cokeDTO.getUser().getFullName() %></h3>
-                                        <h4 class="card-subtitle mb-2 text-muted"><%= cokeDTO.getPosition() %></h4>
-                                        <h4 class="card-subtitle mb-2 text-muted">Membro há: <%= LittleCokeUtil.memberSince(cokeDTO.getCreatedAt()) %> dia(s)</h4>
-                                    </section>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            <% if (counter % 2 != 0) { %>
-                </div>
-            <% } %>
-            <% counter++; %>
-        <% } %>
-        <% if (userList != null && userList.size() % 2 != 0) { %>
-            </div>
-        <% } %>
-        <button id="loadMore" class="btn btn-primary">
-            Mostre mais <clay:icon symbol="plus" />
-        </button>
-    </div>
-</div>
+
 
 <portlet:resourceURL var="resourceURL">
     <portlet:param name="cokeId" value="<%= String.valueOf(cokeId) %>" />
@@ -325,62 +328,4 @@
 
 <h1> Notificar monday </h1>
 
-<script>
-    document.querySelector('.clay-dual-listbox-actions button:nth-child(1)').addEventListener('click', function() {
-        var selectedOptions = document.querySelectorAll('#notAssociated option:checked');
-        selectedOptions.forEach(function(option) {
-            option.selected = false;
-            document.querySelector('#associated').appendChild(option);
-        });
-        document.querySelectorAll('#associated option, #notAssociated option').forEach(function(option) {
-            option.selected = true;
-        });
-    });
-
-    document.querySelector('.clay-dual-listbox-actions button:nth-child(2)').addEventListener('click', function() {
-        var selectedOptions = document.querySelectorAll('#associated option:checked');
-        selectedOptions.forEach(function(option) {
-            option.selected = false; 
-            document.querySelector('#notAssociated').appendChild(option);
-        });
-        document.querySelectorAll('#associated option, #notAssociated option').forEach(function(option) {
-            option.selected = true;
-        });
-    });
-
-    document.getElementById('refresh-btn').addEventListener('click', function() {
-        AUI().use('aui-io-request', function(A){
-            A.io.request('<%=resourceURL.toString()%>', {
-                method: 'POST',
-                data: {
-                    cokeId: <%= cokeId %>,
-                },
-                on: {
-                    complete: function() {
-                        location.reload();
-                    }
-                }
-            });
-        });
-    });
-
-    $(document).ready(function () {
-        $("#loadMore").on("click", function (e) {
-            e.preventDefault();
-            $("#membersCard .member:hidden").slice(0, 4).slideDown();
-            if ($("#membersCard .member:hidden").length == 0) {
-                $("#loadMore").text("Não há mais resultados").addClass("noContent");
-            }
-        });
-    });
-
-    $(document).ready(function () {
-        $("#loadMoreNext").on("click", function (e) {
-            e.preventDefault();
-            $("#nextToPayCard .member:hidden").slice(0, 4).slideDown();
-            if ($("#nextToPayCard .member:hidden").length == 0) {
-                $("#loadMoreNext").text("Não há mais resultados").addClass("noContent");
-            }
-        });
-    });
-</script> --%> 
+ --%> 
