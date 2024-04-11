@@ -102,8 +102,24 @@ public class LittleCokeWebPortlet extends MVCPortlet {
             long[] associatedValues = ParamUtil.getLongValues(actionRequest, CokeConstants.REQUEST_ASSOCIATED);
             long[] notAssociatedValues = ParamUtil.getLongValues(actionRequest, CokeConstants.REQUEST_NOT_ASSOCIATED);
 
-            if (cokeId > 0) {
+            if(cokeId == 0) {
+                List<Integer> randomOrder = new ArrayList<>();
 
+                for(int aux = 0; aux < associatedValues.length; aux ++) {
+                    randomOrder.add(aux + 1);
+                }
+
+                Collections.shuffle(randomOrder); // Para embaralhar a lista
+                Coke coke = _cokeService.createCoke(cokeName, serviceContext);
+
+                for(int aux = 0; aux < associatedValues.length; aux ++) {
+                    int order = randomOrder.get(aux);
+                    long userId = associatedValues[aux];
+
+                    _userCokeService.createUserCoke(coke.getCokeId(), userId, CokeConstants.ASSOCIATED, order);
+                }
+
+                SessionMessages.add(actionRequest, "cokeAdded");
             }
         } catch (PortalException e) {
             _log.error(e.getMessage());

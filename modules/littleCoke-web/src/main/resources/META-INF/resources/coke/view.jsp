@@ -1,5 +1,6 @@
 <%@ include file="/init.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<liferay-ui:success key="cokeAdded" message="coke-added" />
 
 <% List<CokeDTO> cokeDTOList = (List<CokeDTO>) renderRequest.getAttribute("cokeDTOList"); %>
 
