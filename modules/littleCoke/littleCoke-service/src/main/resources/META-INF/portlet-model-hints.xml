@@ -17,7 +17,6 @@
 		<field name="cokeId" type="long" />
 		<field name="userId" type="long" />
 		<field name="position" type="String" />
-		<field name="username" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="order" type="int" />

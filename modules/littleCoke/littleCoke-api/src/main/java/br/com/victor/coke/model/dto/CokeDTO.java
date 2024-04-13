@@ -4,7 +4,6 @@ import br.com.victor.coke.model.Coke;
 import br.com.victor.coke.model.UserCoke;
 import com.liferay.portal.kernel.model.User;
 
-import java.util.Date;
 import java.util.List;
 
 public class CokeDTO {
@@ -12,12 +11,10 @@ public class CokeDTO {
     private Coke coke;
     private User user;
     private String initialDate;
-    private Date createdAt;
-    private String position;
-    private int order;
     private List<User> usersInUserCokeList;
     private List<User> usersNotInUserCokeList;
     private List<UserCoke> userCokeList;
+    private List<User> nextUsersList;
 
     public CokeDTO() {
 
@@ -63,35 +60,19 @@ public class CokeDTO {
         this.user = user;
     }
 
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
     public List<UserCoke> getUserCokeList() {
         return userCokeList;
     }
 
     public void setUserCokeList(List<UserCoke> userCokeList) {
         this.userCokeList = userCokeList;
+    }
+
+    public List<User> getNextUsersList() {
+        return nextUsersList;
+    }
+
+    public void setNextUsersList(List<User> nextUsersList) {
+        this.nextUsersList = nextUsersList;
     }
 }

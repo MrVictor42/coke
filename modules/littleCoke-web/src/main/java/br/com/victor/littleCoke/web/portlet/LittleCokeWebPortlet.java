@@ -70,6 +70,7 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                     CokeDTO cokeDTO = new CokeDTO();
                     List<User> usersInUserCokeList = new ArrayList<>();
                     List<UserCoke> userCokeInUserList = new ArrayList<>();
+                    List<User> nextUserList = new ArrayList<>();
 
                     List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
                     userList
@@ -88,15 +89,38 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                     cokeDTO.setUsersInUserCokeList(usersInUserCokeList);
 
                     userCokeInUserList.sort(Comparator.comparing(UserCokeModel::getOrder));
+
+                    userCokeInUserList.stream().limit(2).forEach(userCoke -> {
+                        try {
+                            User user = _userLocalService.getUser(userCoke.getUserId());
+
+                            nextUserList.add(user);
+                        } catch (PortalException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
                     cokeDTO.setUserCokeList(userCokeInUserList);
+                    cokeDTO.setNextUsersList(nextUserList);
 
                     cokeDTOList.add(cokeDTO);
                 }
+
+                renderRequest.setAttribute("cokeDTOList", cokeDTOList);
+                renderRequest.setAttribute("cokeId", cokeId);
+                renderRequest.setAttribute("userList", userList);
             }
 
-            renderRequest.setAttribute("cokeDTOList", cokeDTOList);
-            renderRequest.setAttribute("cokeId", cokeId);
-            renderRequest.setAttribute("userList", userList);
+            if(cokeId > 0) {
+                try {
+                    Coke coke = _cokeService.getCoke(cokeId);
+
+                    renderRequest.setAttribute("coke", coke);
+                } catch (PortalException e) {
+                    throw new RuntimeException(e.getMessage());
+                }
+            }
+
+
 
             super.render(renderRequest, renderResponse);
         } catch (PortletException | IOException e) {
@@ -125,9 +149,8 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                 for(int aux = 0; aux < associatedValues.length; aux ++) {
                     int order = randomOrder.get(aux);
                     long userId = associatedValues[aux];
-                    User user = _userLocalService.getUser(userId);
 
-                    _userCokeService.createUserCoke(coke.getCokeId(), userId, user.getFullName(), CokeConstants.ASSOCIATED, order);
+                    _userCokeService.createUserCoke(coke.getCokeId(), userId, CokeConstants.ASSOCIATED, order);
                 }
 
                 SessionMessages.add(actionRequest, "cokeAdded");

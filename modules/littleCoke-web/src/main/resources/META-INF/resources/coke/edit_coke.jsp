@@ -67,11 +67,11 @@
                         </label>
                         <div class="clay-reorder">
                             <select class="form-control form-control-inset" id="associated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_associated" multiple size="10">
-                                <% if(usersInUserCokeList != null) {
-                                    for(User userInCoke : usersInUserCokeList) { %>
-                                        <option value="<%= userInCoke.getUserId() %>"><%= userInCoke.getFullName() %></option>
-                                    <% }
-                                } %>
+                                <c:if test="${not empty usersInUserCokeList}">
+                                    <c:forEach var="userInCoke" items="${usersInUserCokeList}">
+                                        <option value="${userInCoke.userId}">${userInCoke.fullName}</option>
+                                    </c:forEach>
+                                </c:if>
                             </select>
                             <div class="clay-reorder-underlay form-control"></div>
                         </div>

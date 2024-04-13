@@ -62,7 +62,7 @@ public class UserCokeCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(17);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -74,8 +74,6 @@ public class UserCokeCacheModel
 		sb.append(userId);
 		sb.append(", position=");
 		sb.append(position);
-		sb.append(", username=");
-		sb.append(username);
 		sb.append(", createDate=");
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
@@ -109,13 +107,6 @@ public class UserCokeCacheModel
 			userCokeImpl.setPosition(position);
 		}
 
-		if (username == null) {
-			userCokeImpl.setUsername("");
-		}
-		else {
-			userCokeImpl.setUsername(username);
-		}
-
 		if (createDate == Long.MIN_VALUE) {
 			userCokeImpl.setCreateDate(null);
 		}
@@ -147,7 +138,6 @@ public class UserCokeCacheModel
 
 		userId = objectInput.readLong();
 		position = objectInput.readUTF();
-		username = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 
@@ -176,13 +166,6 @@ public class UserCokeCacheModel
 			objectOutput.writeUTF(position);
 		}
 
-		if (username == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(username);
-		}
-
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
@@ -194,7 +177,6 @@ public class UserCokeCacheModel
 	public long cokeId;
 	public long userId;
 	public String position;
-	public String username;
 	public long createDate;
 	public long modifiedDate;
 	public int order;

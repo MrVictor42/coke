@@ -47,7 +47,6 @@ public class UserCokeWrapper
 		attributes.put("cokeId", getCokeId());
 		attributes.put("userId", getUserId());
 		attributes.put("position", getPosition());
-		attributes.put("username", getUsername());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("order", getOrder());
@@ -85,12 +84,6 @@ public class UserCokeWrapper
 
 		if (position != null) {
 			setPosition(position);
-		}
-
-		String username = (String)attributes.get("username");
-
-		if (username != null) {
-			setUsername(username);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -198,16 +191,6 @@ public class UserCokeWrapper
 	}
 
 	/**
-	 * Returns the username of this user coke.
-	 *
-	 * @return the username of this user coke
-	 */
-	@Override
-	public String getUsername() {
-		return model.getUsername();
-	}
-
-	/**
 	 * Returns the user uuid of this user coke.
 	 *
 	 * @return the user uuid of this user coke
@@ -310,16 +293,6 @@ public class UserCokeWrapper
 	@Override
 	public void setUserId(long userId) {
 		model.setUserId(userId);
-	}
-
-	/**
-	 * Sets the username of this user coke.
-	 *
-	 * @param username the username of this user coke
-	 */
-	@Override
-	public void setUsername(String username) {
-		model.setUsername(username);
 	}
 
 	/**

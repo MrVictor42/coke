@@ -15,7 +15,6 @@ create table Coke_UserCoke (
 	cokeId LONG,
 	userId LONG,
 	position VARCHAR(75) null,
-	username VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
 	order_ INTEGER

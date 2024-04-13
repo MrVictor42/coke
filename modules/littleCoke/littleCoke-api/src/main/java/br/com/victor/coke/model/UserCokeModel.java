@@ -142,21 +142,6 @@ public interface UserCokeModel extends BaseModel<UserCoke> {
 	public void setPosition(String position);
 
 	/**
-	 * Returns the username of this user coke.
-	 *
-	 * @return the username of this user coke
-	 */
-	@AutoEscape
-	public String getUsername();
-
-	/**
-	 * Sets the username of this user coke.
-	 *
-	 * @param username the username of this user coke
-	 */
-	public void setUsername(String username);
-
-	/**
 	 * Returns the create date of this user coke.
 	 *
 	 * @return the create date of this user coke
