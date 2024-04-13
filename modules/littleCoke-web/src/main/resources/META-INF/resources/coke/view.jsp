@@ -10,7 +10,7 @@
 	<portlet:param name="mvcPath" value="/coke/edit_coke.jsp"></portlet:param>
 </portlet:renderURL>
 <aui:button-row>
-	<aui:button onClick="${addCokeURL}" value="Adicionar"></aui:button>
+	<aui:button onClick="${addCokeURL}" value="Adicionar Outro Portlet da Coquinha" style="float: right; color: #fff; background-color: #28a745; border-color: #28a745"></aui:button>
 </aui:button-row>
 
 <c:choose>
@@ -67,7 +67,7 @@
 											/>
 											<h4 class="card-title" style="margin-left: 10px;">${cokeDTO.getNextUsersList().get(1).fullName}</h4>
 										</div>
-										<a href="<%= viewMoreURL %>" class="card-link">Ver Mais</a>
+										<aui:button onClick="${viewMoreURL}" style="background-color: #007bff; color: white;" value="Mostre Mais"></aui:button>
 									</div>
 								</div>
 								<div class="autofit-col autofit-col-expand">
