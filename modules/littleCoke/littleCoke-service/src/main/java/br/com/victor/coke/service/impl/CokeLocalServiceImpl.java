@@ -5,13 +5,13 @@
 
 package br.com.victor.coke.service.impl;
 
-import br.com.victor.coke.exception.NoSuchCokeException;
 import br.com.victor.coke.model.Coke;
 import br.com.victor.coke.model.UserCoke;
 import br.com.victor.coke.service.UserCokeLocalService;
 import br.com.victor.coke.service.base.CokeLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Indexable;
@@ -27,8 +27,8 @@ import java.util.List;
  * @author victor
  */
 @Component(
-	property = "model.class.name=br.com.victor.coke.model.Coke",
-	service = AopService.class
+        property = "model.class.name=br.com.victor.coke.model.Coke",
+        service = AopService.class
 )
 public class CokeLocalServiceImpl extends CokeLocalServiceBaseImpl {
 
@@ -48,7 +48,7 @@ public class CokeLocalServiceImpl extends CokeLocalServiceBaseImpl {
     }
 
     @Indexable(type = IndexableType.REINDEX)
-    public Coke updateCoke(long cokeId, String name) {
+    public Coke updateCoke(long cokeId, String name) throws PortalException {
         Coke coke = getCoke(cokeId);
 
         coke.setName(name);
@@ -59,7 +59,7 @@ public class CokeLocalServiceImpl extends CokeLocalServiceBaseImpl {
     }
 
     @Indexable(type = IndexableType.DELETE)
-    public Coke deleteCoke(long cokeId) {
+    public Coke deleteCoke(long cokeId) throws PortalException {
         Coke coke = getCoke(cokeId);
         List<UserCoke> userCokeList = _userCokeLocalService.getUserCokeByCokeId(cokeId);
 
@@ -68,20 +68,9 @@ public class CokeLocalServiceImpl extends CokeLocalServiceBaseImpl {
         return deleteCoke(coke);
     }
 
-    public Coke getCoke(long cokeId) {
-        try {
-            return cokePersistence.findByPrimaryKey(cokeId);
-        } catch (NoSuchCokeException e) {
-            _log.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
-
     public List<Coke> getAllCokes() {
         return cokeLocalService.getCokes(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
     }
-
-    private final Log _log = LogFactoryUtil.getLog(CokeLocalServiceImpl.class);
 
     @Reference
     private UserCokeLocalService _userCokeLocalService;

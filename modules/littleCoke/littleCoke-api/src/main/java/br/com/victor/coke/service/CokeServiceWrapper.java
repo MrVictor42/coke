@@ -72,7 +72,9 @@ public class CokeServiceWrapper
 	}
 
 	@Override
-	public br.com.victor.coke.model.Coke updateCoke(long cokeId, String name) {
+	public br.com.victor.coke.model.Coke updateCoke(long cokeId, String name)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
 		return _cokeService.updateCoke(cokeId, name);
 	}
 

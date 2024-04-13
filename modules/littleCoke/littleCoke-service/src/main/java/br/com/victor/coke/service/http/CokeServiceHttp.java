@@ -162,7 +162,8 @@ public class CokeServiceHttp {
 	}
 
 	public static br.com.victor.coke.model.Coke updateCoke(
-		HttpPrincipal httpPrincipal, long cokeId, String name) {
+			HttpPrincipal httpPrincipal, long cokeId, String name)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -178,6 +179,13 @@ public class CokeServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(
 					exception);
 			}

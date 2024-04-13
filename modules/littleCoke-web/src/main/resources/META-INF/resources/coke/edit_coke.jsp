@@ -1,5 +1,7 @@
 <%@ include file="../init.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<liferay-ui:success key="updatedList" message="updated-list" />
+<liferay-ui:error key="errorUpdateList" message="error-update-list" />
 
 <%
     long cokeId = ParamUtil.getLong(renderRequest, "cokeId");
@@ -21,6 +23,11 @@
     <portlet:param name="mvcPath" value="/coke/view.jsp"></portlet:param>
 </portlet:renderURL>
 <portlet:actionURL name="addOrUpdateCoke" var="addOrUpdateCoke" />
+
+<portlet:resourceURL var="resourceURL">
+    <portlet:param name="cokeId" value="<%= String.valueOf(cokeId) %>" />
+    <portlet:param name="mvcPath" value="/coke/edit_coke.jsp" />
+</portlet:resourceURL>
 
 <c:choose>
     <c:when test="${cokeId == 0}">
@@ -92,11 +99,6 @@
         </aui:form>
     </c:when>
     <c:otherwise>
-        <portlet:resourceURL var="resourceURL">
-            <portlet:param name="cokeId" value="<%= String.valueOf(cokeId) %>" />
-            <portlet:param name="mvcPath" value="/coke/edit_coke.jsp" />
-        </portlet:resourceURL>
-
         <aui:form action="<%= addOrUpdateCoke %>" name="<portlet:namespace />fm">
             <aui:model-context bean="<%= coke %>" model="<%= Coke.class %>" />
 
@@ -107,24 +109,7 @@
 
             <div class="card" id="nextToPayCard">
                 <div class="card-body">
-                    <div class="col-md-6">
-                        <div class="card card-horizontal card-rounded">
-                            <div class="card-row">
-                                <div class="autofit-col">
-                                    <div class="text-center mt-3">
-                                        <h3 class="card-title">Próximos a Pagar</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="autofit-col autofit-col-expand autofit-col-gutters">
-                                <section class="autofit-section">
-                                    <button id="refresh-btn" class="btn btn-primary">
-                                        Atualizar Lista <clay:icon symbol="reload" />
-                                    </button>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
+                    <h2>Próximos a Pagar</h2>
 
                     <% int next = 0; %>
                     <% for (User nextUser : cokeDTO.getNextUsersList()) { %>
@@ -157,9 +142,16 @@
                         </div>
                     <% } %>
                 </div>
-                <button id="loadMoreNext" class="btn btn-primary">
-                    Mostre mais <clay:icon symbol="plus" />
-                </button>
+                <div class="autofit-col autofit-col-expand autofit-col-gutters">
+                    <section class="autofit-section">
+                        <button id="refresh-btn" class="btn btn-primary">
+                            Atualizar Lista <clay:icon symbol="reload" />
+                        </button>
+                    <button id="loadMoreNext" class="btn btn-primary">
+                        Mostre Mais Membros <clay:icon symbol="plus" />
+                    </button>
+                    </section>
+                </div>
             </div>
 
             <div class="card" style="width: 18rem;">
@@ -250,6 +242,22 @@
         });
         document.querySelectorAll('#associated option, #notAssociated option').forEach(function(option) {
             option.selected = true;
+        });
+    });
+
+    document.getElementById('refresh-btn').addEventListener('click', function() {
+        AUI().use('aui-io-request', function(A){
+            A.io.request('<%=resourceURL.toString()%>', {
+                method: 'POST',
+                data: {
+                    cokeId: <%= cokeId %>,
+                },
+                on: {
+                    complete: function() {
+                        location.reload();
+                    }
+                }
+            });
         });
     });
 

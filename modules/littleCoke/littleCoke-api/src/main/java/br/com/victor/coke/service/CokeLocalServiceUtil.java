@@ -363,7 +363,9 @@ public class CokeLocalServiceUtil {
 		return getService().updateCoke(coke);
 	}
 
-	public static Coke updateCoke(long cokeId, String name) {
+	public static Coke updateCoke(long cokeId, String name)
+		throws PortalException {
+
 		return getService().updateCoke(cokeId, name);
 	}
 

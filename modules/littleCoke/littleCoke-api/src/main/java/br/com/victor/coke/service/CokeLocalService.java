@@ -327,6 +327,6 @@ public interface CokeLocalService
 	public Coke updateCoke(Coke coke);
 
 	@Indexable(type = IndexableType.REINDEX)
-	public Coke updateCoke(long cokeId, String name);
+	public Coke updateCoke(long cokeId, String name) throws PortalException;
 
 }

@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import org.osgi.service.component.annotations.Component;
@@ -495,16 +496,18 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                 randomNumbers.add(aux + 1);
             }
 
-//            Collections.shuffle(randomNumbers); // Para embaralhar a lista
-//
-//            for (int aux = 0; aux < userCokeList.size(); aux++) {
-//                UserCoke userCoke = userCokeList.get(aux);
-//                int order = randomNumbers.get(aux);
-//
-//                _userCokeService.updateUserCokeOrder(userCoke.getUserCokeId(), order);
-//            }
+            Collections.shuffle(randomNumbers); // Para embaralhar a lista
+
+            for (int aux = 0; aux < userCokeList.size(); aux++) {
+                UserCoke userCoke = userCokeList.get(aux);
+                int order = randomNumbers.get(aux);
+
+                _userCokeService.updateUserCokeOrder(userCoke.getUserCokeId(), order);
+            }
+            SessionMessages.add(resourceRequest, "updatedList");
         } catch (PortalException e) {
             _log.error(e.getMessage());
+            SessionErrors.add(resourceRequest, "errorUpdateList");
         }
     }
 

@@ -38,7 +38,7 @@ public class CokeServiceImpl extends CokeServiceBaseImpl {
         return cokeLocalService.getCoke(cokeId);
     }
 
-    public Coke updateCoke(long cokeId, String name) {
+    public Coke updateCoke(long cokeId, String name) throws PortalException {
         return cokeLocalService.updateCoke(cokeId, name);
     }
 

@@ -67,7 +67,9 @@ public class CokeServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static Coke updateCoke(long cokeId, String name) {
+	public static Coke updateCoke(long cokeId, String name)
+		throws PortalException {
+
 		return getService().updateCoke(cokeId, name);
 	}
 
