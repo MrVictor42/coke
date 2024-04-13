@@ -1,6 +1,7 @@
 package br.com.victor.coke.model.dto;
 
 import br.com.victor.coke.model.Coke;
+import br.com.victor.coke.model.UserCoke;
 import com.liferay.portal.kernel.model.User;
 
 import java.util.Date;
@@ -16,6 +17,7 @@ public class CokeDTO {
     private int order;
     private List<User> usersInUserCokeList;
     private List<User> usersNotInUserCokeList;
+    private List<UserCoke> userCokeList;
 
     public CokeDTO() {
 
@@ -83,5 +85,13 @@ public class CokeDTO {
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+    public List<UserCoke> getUserCokeList() {
+        return userCokeList;
+    }
+
+    public void setUserCokeList(List<UserCoke> userCokeList) {
+        this.userCokeList = userCokeList;
     }
 }

@@ -38,9 +38,10 @@ public class UserCokeServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>br.com.victor.coke.service.impl.UserCokeServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static UserCoke createUserCoke(
-		long cokeId, long userId, String position, int order) {
+		long cokeId, long userId, String username, String position, int order) {
 
-		return getService().createUserCoke(cokeId, userId, position, order);
+		return getService().createUserCoke(
+			cokeId, userId, username, position, order);
 	}
 
 	public static UserCoke deleteUserCokeByUserCokeId(long userCokeId) {

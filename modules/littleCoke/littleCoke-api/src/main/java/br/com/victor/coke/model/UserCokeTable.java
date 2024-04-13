@@ -42,6 +42,8 @@ public class UserCokeTable extends BaseTable<UserCokeTable> {
 		"userId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<UserCokeTable, String> position = createColumn(
 		"position", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<UserCokeTable, String> username = createColumn(
+		"username", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<UserCokeTable, Date> createDate = createColumn(
 		"createDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<UserCokeTable, Date> modifiedDate = createColumn(

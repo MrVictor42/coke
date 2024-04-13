@@ -52,8 +52,8 @@ import com.liferay.portal.kernel.util.MethodKey;
 public class UserCokeServiceHttp {
 
 	public static br.com.victor.coke.model.UserCoke createUserCoke(
-		HttpPrincipal httpPrincipal, long cokeId, long userId, String position,
-		int order) {
+		HttpPrincipal httpPrincipal, long cokeId, long userId, String username,
+		String position, int order) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -61,7 +61,7 @@ public class UserCokeServiceHttp {
 				_createUserCokeParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, cokeId, userId, position, order);
+				methodKey, cokeId, userId, username, position, order);
 
 			Object returnObj = null;
 
@@ -215,7 +215,9 @@ public class UserCokeServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(UserCokeServiceHttp.class);
 
 	private static final Class<?>[] _createUserCokeParameterTypes0 =
-		new Class[] {long.class, long.class, String.class, int.class};
+		new Class[] {
+			long.class, long.class, String.class, String.class, int.class
+		};
 	private static final Class<?>[] _getUserCokeByCokeIdParameterTypes1 =
 		new Class[] {long.class};
 	private static final Class<?>[] _deleteUserCokeByUserCokeIdParameterTypes2 =

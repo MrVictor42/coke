@@ -27,12 +27,13 @@ import java.util.List;
 public class UserCokeLocalServiceImpl extends UserCokeLocalServiceBaseImpl {
 
     @Indexable(type = IndexableType.REINDEX)
-    public UserCoke createUserCoke(long cokeId, long userId, String position, int order) {
+    public UserCoke createUserCoke(long cokeId, long userId, String username, String position, int order) {
         long userCokeId = counterLocalService.increment(UserCoke.class.getName());
         UserCoke userCoke = createUserCoke(userCokeId);
 
         userCoke.setCokeId(cokeId);
         userCoke.setUserId(userId);
+        userCoke.setUsername(username);
         userCoke.setPosition(position);
         userCoke.setOrder(order);
 

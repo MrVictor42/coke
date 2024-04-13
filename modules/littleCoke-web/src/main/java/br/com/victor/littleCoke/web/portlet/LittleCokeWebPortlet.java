@@ -3,6 +3,7 @@ package br.com.victor.littleCoke.web.portlet;
 import br.com.victor.coke.constatns.CokeConstants;
 import br.com.victor.coke.model.Coke;
 import br.com.victor.coke.model.UserCoke;
+import br.com.victor.coke.model.UserCokeModel;
 import br.com.victor.coke.model.dto.CokeDTO;
 import br.com.victor.coke.service.CokeService;
 import br.com.victor.coke.service.UserCokeService;
@@ -17,10 +18,8 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.PortalUtil;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -28,6 +27,7 @@ import javax.portlet.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,16 +68,27 @@ public class LittleCokeWebPortlet extends MVCPortlet {
             if(!cokeList.isEmpty()) {
                 for(Coke coke : cokeList) {
                     CokeDTO cokeDTO = new CokeDTO();
+                    List<User> usersInUserCokeList = new ArrayList<>();
+                    List<UserCoke> userCokeInUserList = new ArrayList<>();
+
                     List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
-                    List<User> usersInUserCokeList =
-                            userList
-                                    .stream()
-                                    .filter(user -> userCokeList.stream().anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
-                                    .collect(Collectors.toList());
+                    userList
+                            .stream()
+                            .filter(user -> userCokeList.stream().anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
+                            .forEach(user -> {
+                                usersInUserCokeList.add(user);
+
+                                UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), user.getUserId());
+
+                                userCokeInUserList.add(userCoke);
+                            });
 
                     cokeDTO.setCoke(coke);
                     cokeDTO.setInitialDate(LittleCokeUtil.formatDate(coke.getCreateDate()));
                     cokeDTO.setUsersInUserCokeList(usersInUserCokeList);
+
+                    userCokeInUserList.sort(Comparator.comparing(UserCokeModel::getOrder));
+                    cokeDTO.setUserCokeList(userCokeInUserList);
 
                     cokeDTOList.add(cokeDTO);
                 }
@@ -90,7 +101,6 @@ public class LittleCokeWebPortlet extends MVCPortlet {
             super.render(renderRequest, renderResponse);
         } catch (PortletException | IOException e) {
             _log.error(e.getMessage());
-            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -115,11 +125,14 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                 for(int aux = 0; aux < associatedValues.length; aux ++) {
                     int order = randomOrder.get(aux);
                     long userId = associatedValues[aux];
+                    User user = _userLocalService.getUser(userId);
 
-                    _userCokeService.createUserCoke(coke.getCokeId(), userId, CokeConstants.ASSOCIATED, order);
+                    _userCokeService.createUserCoke(coke.getCokeId(), userId, user.getFullName(), CokeConstants.ASSOCIATED, order);
                 }
 
                 SessionMessages.add(actionRequest, "cokeAdded");
+            } else {
+                Coke coke = _cokeService.getCoke(cokeId);
             }
         } catch (PortalException e) {
             _log.error(e.getMessage());
@@ -333,36 +346,36 @@ public class LittleCokeWebPortlet extends MVCPortlet {
 //        }
 //    }
 
-    public void updateCoke(ActionRequest actionRequest, ActionResponse actionResponse) {
-        long cokeId = ParamUtil.getLong(actionRequest, CokeConstants.COKE_ID);
-
-        if (cokeId > 0) {
-            try {
-                Coke coke = _cokeService.getCoke(cokeId);
-                long[] associatedValues = ParamUtil.getLongValues(actionRequest, CokeConstants.REQUEST_ASSOCIATED);
-                long[] notAssociatedValues = ParamUtil.getLongValues(actionRequest, CokeConstants.REQUEST_NOT_ASSOCIATED);
-
-                for (long associatedId : associatedValues) {
-                    UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), associatedId);
-
-                    if (userCoke == null) {
-                        _userCokeService.createUserCoke(coke.getCokeId(), associatedId, CokeConstants.ASSOCIATED, 0);
-                    }
-                }
-
-                for (long notAssociatedId : notAssociatedValues) {
-                    UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), notAssociatedId);
-
-                    if (userCoke != null) {
-                        _userCokeService.deleteUserCokeByUserCokeId(userCoke.getUserCokeId());
-                    }
-                }
-            } catch (PortalException e) {
-                _log.error(e.getMessage());
-                throw new RuntimeException(e.getMessage());
-            }
-        }
-    }
+//    public void updateCoke(ActionRequest actionRequest, ActionResponse actionResponse) {
+//        long cokeId = ParamUtil.getLong(actionRequest, CokeConstants.COKE_ID);
+//
+//        if (cokeId > 0) {
+//            try {
+//                Coke coke = _cokeService.getCoke(cokeId);
+//                long[] associatedValues = ParamUtil.getLongValues(actionRequest, CokeConstants.REQUEST_ASSOCIATED);
+//                long[] notAssociatedValues = ParamUtil.getLongValues(actionRequest, CokeConstants.REQUEST_NOT_ASSOCIATED);
+//
+//                for (long associatedId : associatedValues) {
+//                    UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), associatedId);
+//
+//                    if (userCoke == null) {
+//                        _userCokeService.createUserCoke(coke.getCokeId(), associatedId, CokeConstants.ASSOCIATED, 0);
+//                    }
+//                }
+//
+//                for (long notAssociatedId : notAssociatedValues) {
+//                    UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), notAssociatedId);
+//
+//                    if (userCoke != null) {
+//                        _userCokeService.deleteUserCokeByUserCokeId(userCoke.getUserCokeId());
+//                    }
+//                }
+//            } catch (PortalException e) {
+//                _log.error(e.getMessage());
+//                throw new RuntimeException(e.getMessage());
+//            }
+//        }
+//    }
 
     public void addCoke(ActionRequest request, ActionResponse response) {
         try {
@@ -392,8 +405,8 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                         Coke coke = _cokeService.createCoke(name, serviceContext);
 
                         // Cadastro do Presidente e do Vice Presidente
-                        _userCokeService.createUserCoke(coke.getCokeId(), presidentId, CokeConstants.ASSOCIATED, 0);
-                        _userCokeService.createUserCoke(coke.getCokeId(), vicePresidentId, CokeConstants.ASSOCIATED, 0);
+//                        _userCokeService.createUserCoke(coke.getCokeId(), presidentId, CokeConstants.ASSOCIATED, 0);
+//                        _userCokeService.createUserCoke(coke.getCokeId(), vicePresidentId, CokeConstants.ASSOCIATED, 0);
                     } catch (NumberFormatException e) {
                         System.err.println("Erro ao analisar o presidenteId ou vicePresident");
                     }
