@@ -27,10 +27,10 @@ public class LittleCokeUtil {
         return String.format("%.2f ml de Coca-Cola.", quantityPerPerson);
     }
 
-    public static long memberSince(Date date) {
+    public static int memberSince(Date date) {
         LocalDate dateReported = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate dateCurrent = LocalDate.now();
 
-        return ChronoUnit.DAYS.between(dateReported, dateCurrent);
+        return (int) ChronoUnit.DAYS.between(dateReported, dateCurrent);
     }
 }

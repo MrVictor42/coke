@@ -117,6 +117,7 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                     CokeDTO cokeDTO = new CokeDTO();
                     List<User> usersInUserCokeList = new ArrayList<>();
                     List<UserCoke> userCokeInUserList = new ArrayList<>();
+                    List<User> usersNotInUserCokeList = new ArrayList<>();
                     List<User> nextUserList = new ArrayList<>();
 
                     userList
@@ -130,8 +131,14 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                                 userCokeInUserList.add(userCoke);
                             });
 
+                    usersNotInUserCokeList = userList.stream()
+                            .filter(userItem -> userCokeList.stream()
+                                    .noneMatch(userCoke -> userCoke.getUserId() == userItem.getUserId()))
+                            .collect(Collectors.toList());
+
                     cokeDTO.setCoke(coke);
                     cokeDTO.setUsersInUserCokeList(usersInUserCokeList);
+                    cokeDTO.setUsersNotInUserCokeList(usersNotInUserCokeList);
 
                     userCokeInUserList.sort(Comparator.comparing(UserCokeModel::getOrder));
 
@@ -488,14 +495,14 @@ public class LittleCokeWebPortlet extends MVCPortlet {
                 randomNumbers.add(aux + 1);
             }
 
-            Collections.shuffle(randomNumbers); // Para embaralhar a lista
-
-            for (int aux = 0; aux < userCokeList.size(); aux++) {
-                UserCoke userCoke = userCokeList.get(aux);
-                int order = randomNumbers.get(aux);
-
-                _userCokeService.updateUserCokeOrder(userCoke.getUserCokeId(), order);
-            }
+//            Collections.shuffle(randomNumbers); // Para embaralhar a lista
+//
+//            for (int aux = 0; aux < userCokeList.size(); aux++) {
+//                UserCoke userCoke = userCokeList.get(aux);
+//                int order = randomNumbers.get(aux);
+//
+//                _userCokeService.updateUserCokeOrder(userCoke.getUserCokeId(), order);
+//            }
         } catch (PortalException e) {
             _log.error(e.getMessage());
         }
