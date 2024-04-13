@@ -4,11 +4,18 @@
 <%
     long cokeId = ParamUtil.getLong(renderRequest, "cokeId");
     Coke coke = null;
+    CokeDTO cokeDTO = null;
     List<User> usersNotInUserCokeList = null;
+    List<User> nextUsersList = null;
     List<User> usersInUserCokeList = null;
     List<User> userList = (List<User>) request.getAttribute("userList");
     List<UserCoke> userCokeList = null;
     List<CokeDTO> cokeDTOList = new ArrayList<>();
+
+    if(cokeId > 0) {
+        cokeDTO = (CokeDTO) request.getAttribute("cokeDTO");
+        nextUsersList = cokeDTO.getNextUsersList();
+    }
 %>
 
 <portlet:renderURL var="backViewURL">
@@ -126,8 +133,77 @@
         </div> --%>
     </c:when>
     <c:otherwise>
-        <h1>${cokeId}</h1>
-        <h2>BBBBBBBB</h2>
+        <portlet:resourceURL var="resourceURL">
+            <portlet:param name="cokeId" value="<%= String.valueOf(cokeId) %>" />
+            <portlet:param name="mvcPath" value="/coke/edit_coke.jsp" />
+        </portlet:resourceURL>
+
+        <aui:form action="<%= addOrUpdateCoke %>" name="<portlet:namespace />fm">
+            <aui:model-context bean="<%= coke %>" model="<%= Coke.class %>" />
+
+            <aui:fieldset>
+                <aui:input name="name" value="${cokeDTO.getCoke().name}"/>
+                <aui:input name="cokeId" type="hidden" value='<%= coke == null ? cokeId : coke.getCokeId() %>'/>
+            </aui:fieldset>
+
+            <div class="card" id="nextToPayCard">
+                <div class="card-body">
+                    <div class="col-md-6">
+                        <div class="card card-horizontal card-rounded">
+                            <div class="card-row">
+                                <div class="autofit-col">
+                                    <div class="text-center mt-3">
+                                        <h3 class="card-title">Próximos a Pagar</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="autofit-col autofit-col-expand autofit-col-gutters">
+                                <section class="autofit-section">
+                                    <button id="refresh-btn" class="btn btn-primary">
+                                        Atualizar Lista <clay:icon symbol="reload" />
+                                    </button>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+
+                    <c:forEach var="nextUser" items="${cokeDTO.nextUsersList}" varStatus="loop">
+                        <c:if test="${loop.index % 2 == 0}">
+                            <div class="row">
+                        </c:if>
+                        <div class="col-md-6 member" style="${loop.index < 4 ? '' : 'display: none;'}">
+                            <div class="card card-horizontal card-rounded">
+                                <div class="card-row">
+                                    <div class="autofit-col">
+                                        <img class="card-item-last rounded-circle" style="width: 50px"
+                                            src="${nextUser.getPortraitURL(themeDisplay)}"
+                                        />
+                                    </div>
+                                    <div class="autofit-col autofit-col-expand autofit-col-gutters">
+                                        <section class="autofit-section">
+                                            <h3 class="card-title"><b>${loop.index + 1}º</b> ${nextUser.getFullName()}</h3>
+                                            <h4 class="card-subtitle mb-2 text-muted">Membro há: ${LittleCokeUtil.memberSince(nextUser.createDate)} dia(s)</h4>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <c:if test="${loop.index % 2 != 0 || loop.last}">
+                            </div>
+                        </c:if>
+                    </c:forEach>
+
+                    <button id="loadMoreNext" class="btn btn-primary">
+                        Mostre mais <clay:icon symbol="plus" />
+                    </button>
+                </div>
+            </div>
+
+            <aui:button-row>
+                <aui:button type="submit"></aui:button>
+                <aui:button type="cancel" onClick="<%= backViewURL.toString() %>"></aui:button>
+            </aui:button-row>
+        </aui:form>
     </c:otherwise>
 </c:choose>
 
