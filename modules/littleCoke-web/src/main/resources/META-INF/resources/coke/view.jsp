@@ -25,8 +25,6 @@
 		</aui:button-row>
 	</c:when>
 	<c:otherwise>
-		<h1><%= cokeDTOList.size() %></h1>
-
 		<c:forEach items="${cokeDTOList}" var="cokeDTO" varStatus="status">
 			<portlet:renderURL var="viewMoreURL">
 				<portlet:param name="mvcPath" value="/coke/edit_coke.jsp" />
