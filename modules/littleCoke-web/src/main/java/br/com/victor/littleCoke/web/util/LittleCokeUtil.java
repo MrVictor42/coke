@@ -33,4 +33,8 @@ public class LittleCokeUtil {
 
         return (int) ChronoUnit.DAYS.between(dateReported, dateCurrent);
     }
+
+    public static boolean isValidPerson(boolean enable, String companyName) {
+        return enable && companyName.equalsIgnoreCase("SEA Tecnologia");
+    }
 }

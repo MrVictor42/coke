@@ -5,6 +5,10 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.UserLocalService;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
@@ -13,6 +17,10 @@ import javax.ws.rs.core.Response;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component(
+    immediate = true,
+    service = MondayIntegrationService.class
+)
 public class MondayIntegrationService {
 
     private String apiURL;
@@ -67,8 +75,7 @@ public class MondayIntegrationService {
     private boolean isComplexityException(String jsonResponse) {
         try {
             JSONObject responseObj = JSONFactoryUtil.createJSONObject(jsonResponse);
-            if (responseObj.has("error_code")
-                    && "ComplexityException".equals(responseObj.getString("error_code"))) {
+            if (responseObj.has("error_code") && "ComplexityException".equals(responseObj.getString("error_code"))) {
                 return true;
             }
         } catch (Exception e) {
@@ -92,5 +99,12 @@ public class MondayIntegrationService {
         return target.getNewClient().target(apiURL).request();
     }
 
+    private User createUser() {
+        return null;
+    }
+
     private final Log _log = LogFactoryUtil.getLog(MondayIntegrationService.class);
+
+    @Reference
+    private UserLocalService _userLocalService;
 }

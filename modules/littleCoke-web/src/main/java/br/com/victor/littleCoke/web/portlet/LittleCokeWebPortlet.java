@@ -5,12 +5,18 @@ import br.com.victor.coke.model.Coke;
 import br.com.victor.coke.model.UserCoke;
 import br.com.victor.coke.model.UserCokeModel;
 import br.com.victor.coke.model.dto.CokeDTO;
+import br.com.victor.coke.model.dto.UserMondayDTO;
 import br.com.victor.coke.service.CokeService;
 import br.com.victor.coke.service.UserCokeService;
+import br.com.victor.coke.service.mondayIntegration.MondayIntegrationQuery;
+import br.com.victor.coke.service.mondayIntegration.services.MondayIntegrationService;
 import br.com.victor.littleCoke.web.constants.LittleCokeWebPortletKeys;
 import br.com.victor.littleCoke.web.util.LittleCokeUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONException;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
@@ -56,119 +62,153 @@ public class LittleCokeWebPortlet extends MVCPortlet {
     @Override
     public void render(RenderRequest renderRequest, RenderResponse renderResponse) {
         try {
-            List<User> userList = _userLocalService
-                    .getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS)
-                    .stream()
-                    .filter(user -> !user.getEmailAddress().equalsIgnoreCase("default@liferay.com"))
-                    .filter(user -> !user.getEmailAddress().contains("anonymous"))
-                    .collect(Collectors.toList());
-            List<Coke> cokeList = _cokeService.getAllCokes();
-            long cokeId = ParamUtil.getLong(renderRequest, CokeConstants.COKE_ID);
+            List<UserMondayDTO> relationDTOList = new ArrayList<>();
+            String query = MondayIntegrationQuery.USERS_QUERY;
+            String token = "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjE2ODY3MjgzNiwidWlkIjoxMTY5ODM2MSwiaWFkIjoiMjAyMi0wNy0wNFQxNzoxNzo0NS4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6NTI3MTMxOSwicmduIjoidXNlMSJ9.y8VA6hbD4qvi5Cj-YN7Tiow2QJ3aPh2ji89ZItE_lwM";
+            String apiURL = "https://api.monday.com/v2";
 
-            if(!cokeList.isEmpty() || cokeId == 0) {
-                if(cokeId == 0 && cokeList.isEmpty()) {
-                    renderRequest.setAttribute("cokeId", cokeId);
-                    renderRequest.setAttribute("userList", userList);
-                } else {
-                    List<CokeDTO> cokeDTOList = new ArrayList<>();
-                    for(Coke coke : cokeList) {
-                        CokeDTO cokeDTO = new CokeDTO();
-                        List<User> usersInUserCokeList = new ArrayList<>();
-                        List<UserCoke> userCokeInUserList = new ArrayList<>();
-                        List<User> nextUserList = new ArrayList<>();
+            MondayIntegrationService mondayIntegrationService = new MondayIntegrationService();
 
-                        List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
-                        userList
-                                .stream()
-                                .filter(user -> userCokeList.stream().anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
-                                .forEach(user -> {
-                                    usersInUserCokeList.add(user);
+            mondayIntegrationService.setToken(token);
+            mondayIntegrationService.setApiURL(apiURL);
 
-                                    UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), user.getUserId());
+            JSONObject jsonResponse = mondayIntegrationService.sendRequest(query);
 
-                                    userCokeInUserList.add(userCoke);
-                                });
+            if(jsonResponse != null) {
+                JSONArray jsonArray = jsonResponse.getJSONObject("data").getJSONArray("users");
 
-                        cokeDTO.setCoke(coke);
-                        cokeDTO.setInitialDate(LittleCokeUtil.formatDate(coke.getCreateDate()));
-                        cokeDTO.setUsersInUserCokeList(usersInUserCokeList);
+                if(jsonArray != null) {
+                    for(int aux = 0; aux < jsonArray.length(); aux ++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(aux);
+                        boolean enabled = jsonObject.getBoolean("enabled");
+                        JSONObject account = jsonObject.getJSONObject("account");
+                        String companyName = account.getString("name");
 
-                        userCokeInUserList.sort(Comparator.comparing(UserCokeModel::getOrder));
+                        if(account.length() > 0 && companyName != null) {
+                            if(LittleCokeUtil.isValidPerson(enabled, companyName)) {
 
-                        userCokeInUserList.stream().limit(2).forEach(userCoke -> {
-                            try {
-                                User user = _userLocalService.getUser(userCoke.getUserId());
-
-                                nextUserList.add(user);
-                            } catch (PortalException e) {
-                                throw new RuntimeException(e.getMessage());
                             }
-                        });
-                        cokeDTO.setUserCokeList(userCokeInUserList);
-                        cokeDTO.setNextUsersList(nextUserList);
-
-                        cokeDTOList.add(cokeDTO);
-                    }
-
-                    renderRequest.setAttribute("cokeId", cokeId);
-                    renderRequest.setAttribute("userList", userList);
-                    renderRequest.setAttribute("cokeDTOList", cokeDTOList);
-                }
-            }
-
-            if(cokeId > 0) {
-                try {
-                    Coke coke = _cokeService.getCoke(cokeId);
-                    List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
-                    CokeDTO cokeDTO = new CokeDTO();
-                    List<User> usersInUserCokeList = new ArrayList<>();
-                    List<UserCoke> userCokeInUserList = new ArrayList<>();
-                    List<User> usersNotInUserCokeList;
-                    List<User> nextUserList = new ArrayList<>();
-
-                    userList
-                            .stream()
-                            .filter(user -> userCokeList.stream().anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
-                            .forEach(user -> {
-                                usersInUserCokeList.add(user);
-
-                                UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), user.getUserId());
-
-                                userCokeInUserList.add(userCoke);
-                            });
-
-                    usersNotInUserCokeList = userList.stream()
-                            .filter(userItem -> userCokeList.stream()
-                                    .noneMatch(userCoke -> userCoke.getUserId() == userItem.getUserId()))
-                            .collect(Collectors.toList());
-
-                    cokeDTO.setCoke(coke);
-                    cokeDTO.setUsersInUserCokeList(usersInUserCokeList);
-                    cokeDTO.setUsersNotInUserCokeList(usersNotInUserCokeList);
-
-                    userCokeInUserList.sort(Comparator.comparing(UserCokeModel::getOrder));
-
-                    userCokeInUserList.forEach(userCoke -> {
-                        try {
-                            User user = _userLocalService.getUser(userCoke.getUserId());
-
-                            nextUserList.add(user);
-                        } catch (PortalException e) {
-                            throw new RuntimeException(e);
                         }
-                    });
-                    cokeDTO.setUserCokeList(userCokeInUserList);
-                    cokeDTO.setNextUsersList(nextUserList);
-
-                    renderRequest.setAttribute("cokeDTO", cokeDTO);
-                } catch (PortalException e) {
-                    throw new RuntimeException(e.getMessage());
+                    }
                 }
             }
-            super.render(renderRequest, renderResponse);
-        } catch (PortletException | IOException e) {
-            _log.error(e.getMessage());
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
         }
+//        try {
+//            List<User> userList = _userLocalService
+//                    .getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS)
+//                    .stream()
+//                    .filter(user -> !user.getEmailAddress().equalsIgnoreCase("default@liferay.com"))
+//                    .filter(user -> !user.getEmailAddress().contains("anonymous"))
+//                    .collect(Collectors.toList());
+//            List<Coke> cokeList = _cokeService.getAllCokes();
+//            long cokeId = ParamUtil.getLong(renderRequest, CokeConstants.COKE_ID);
+//
+//            if(!cokeList.isEmpty() || cokeId == 0) {
+//                if(cokeId == 0 && cokeList.isEmpty()) {
+//                    renderRequest.setAttribute("cokeId", cokeId);
+//                    renderRequest.setAttribute("userList", userList);
+//                } else {
+//                    List<CokeDTO> cokeDTOList = new ArrayList<>();
+//                    for(Coke coke : cokeList) {
+//                        CokeDTO cokeDTO = new CokeDTO();
+//                        List<User> usersInUserCokeList = new ArrayList<>();
+//                        List<UserCoke> userCokeInUserList = new ArrayList<>();
+//                        List<User> nextUserList = new ArrayList<>();
+//
+//                        List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
+//                        userList
+//                                .stream()
+//                                .filter(user -> userCokeList.stream().anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
+//                                .forEach(user -> {
+//                                    usersInUserCokeList.add(user);
+//
+//                                    UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), user.getUserId());
+//
+//                                    userCokeInUserList.add(userCoke);
+//                                });
+//
+//                        cokeDTO.setCoke(coke);
+//                        cokeDTO.setInitialDate(LittleCokeUtil.formatDate(coke.getCreateDate()));
+//                        cokeDTO.setUsersInUserCokeList(usersInUserCokeList);
+//
+//                        userCokeInUserList.sort(Comparator.comparing(UserCokeModel::getOrder));
+//
+//                        userCokeInUserList.stream().limit(2).forEach(userCoke -> {
+//                            try {
+//                                User user = _userLocalService.getUser(userCoke.getUserId());
+//
+//                                nextUserList.add(user);
+//                            } catch (PortalException e) {
+//                                throw new RuntimeException(e.getMessage());
+//                            }
+//                        });
+//                        cokeDTO.setUserCokeList(userCokeInUserList);
+//                        cokeDTO.setNextUsersList(nextUserList);
+//
+//                        cokeDTOList.add(cokeDTO);
+//                    }
+//
+//                    renderRequest.setAttribute("cokeId", cokeId);
+//                    renderRequest.setAttribute("userList", userList);
+//                    renderRequest.setAttribute("cokeDTOList", cokeDTOList);
+//                }
+//            }
+//
+//            if(cokeId > 0) {
+//                try {
+//                    Coke coke = _cokeService.getCoke(cokeId);
+//                    List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
+//                    CokeDTO cokeDTO = new CokeDTO();
+//                    List<User> usersInUserCokeList = new ArrayList<>();
+//                    List<UserCoke> userCokeInUserList = new ArrayList<>();
+//                    List<User> usersNotInUserCokeList;
+//                    List<User> nextUserList = new ArrayList<>();
+//
+//                    userList
+//                            .stream()
+//                            .filter(user -> userCokeList.stream().anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
+//                            .forEach(user -> {
+//                                usersInUserCokeList.add(user);
+//
+//                                UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), user.getUserId());
+//
+//                                userCokeInUserList.add(userCoke);
+//                            });
+//
+//                    usersNotInUserCokeList = userList.stream()
+//                            .filter(userItem -> userCokeList.stream()
+//                                    .noneMatch(userCoke -> userCoke.getUserId() == userItem.getUserId()))
+//                            .collect(Collectors.toList());
+//
+//                    cokeDTO.setCoke(coke);
+//                    cokeDTO.setUsersInUserCokeList(usersInUserCokeList);
+//                    cokeDTO.setUsersNotInUserCokeList(usersNotInUserCokeList);
+//
+//                    userCokeInUserList.sort(Comparator.comparing(UserCokeModel::getOrder));
+//
+//                    userCokeInUserList.forEach(userCoke -> {
+//                        try {
+//                            User user = _userLocalService.getUser(userCoke.getUserId());
+//
+//                            nextUserList.add(user);
+//                        } catch (PortalException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                    });
+//                    cokeDTO.setUserCokeList(userCokeInUserList);
+//                    cokeDTO.setNextUsersList(nextUserList);
+//
+//                    renderRequest.setAttribute("cokeDTO", cokeDTO);
+//                } catch (PortalException e) {
+//                    throw new RuntimeException(e.getMessage());
+//                }
+//            }
+//            super.render(renderRequest, renderResponse);
+//        } catch (PortletException | IOException e) {
+//            _log.error(e.getMessage());
+//        }
     }
 
     public void addOrUpdateCoke(ActionRequest actionRequest, ActionResponse actionResponse) {
