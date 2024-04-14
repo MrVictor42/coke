@@ -1,4 +1,4 @@
-package br.com.victor.coke.constatns;
+package br.com.victor.coke.constants;
 
 public class CokeConstants {
 

@@ -5,4 +5,6 @@ Liferay-Require-SchemaVersion: 1.0.0
 Liferay-Service: true
 -dsannotations-options: inherit
 
-Export-Package: br.com.victor.coke.service.mondayIntegration.*
+Export-Package: \
+    br.com.victor.coke.service.mondayIntegration.*,\
+    br.com.victor.coke.config.monday

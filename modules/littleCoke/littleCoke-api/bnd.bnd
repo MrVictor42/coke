@@ -7,5 +7,6 @@ Export-Package:\
     br.com.victor.coke.model.dto,\
 	br.com.victor.coke.service,\
 	br.com.victor.coke.service.persistence
+    br.com.victor.coke.constants
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../littleCoke-service/service.xml

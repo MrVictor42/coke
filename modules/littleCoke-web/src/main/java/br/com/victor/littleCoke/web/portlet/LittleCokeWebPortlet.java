@@ -1,10 +1,10 @@
 package br.com.victor.littleCoke.web.portlet;
 
-import br.com.victor.coke.constatns.CokeConstants;
+import br.com.victor.coke.config.monday.MondayConfiguration;
+import br.com.victor.coke.constants.CokeConstants;
+import br.com.victor.coke.constants.MondayConstants;
 import br.com.victor.coke.model.Coke;
 import br.com.victor.coke.model.UserCoke;
-import br.com.victor.coke.model.UserCokeModel;
-import br.com.victor.coke.model.dto.CokeDTO;
 import br.com.victor.coke.model.dto.UserMondayDTO;
 import br.com.victor.coke.service.CokeService;
 import br.com.victor.coke.service.UserCokeService;
@@ -12,14 +12,13 @@ import br.com.victor.coke.service.mondayIntegration.MondayIntegrationQuery;
 import br.com.victor.coke.service.mondayIntegration.services.MondayIntegrationService;
 import br.com.victor.littleCoke.web.constants.LittleCokeWebPortletKeys;
 import br.com.victor.littleCoke.web.util.LittleCokeUtil;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
@@ -27,74 +26,75 @@ import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
 import javax.portlet.*;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * @author victor
  */
 @Component(
-        property = {
-                "com.liferay.portlet.display-category=category.social",
-                "com.liferay.portlet.header-portlet-css=/css/main.css",
-                "com.liferay.portlet.instanceable=false",
-                "com.liferay.portlet.scopeable=true",
-                "javax.portlet.display-name=" + LittleCokeWebPortletKeys.COKE_NAME,
-                "javax.portlet.init-param.template-path=/",
-                "javax.portlet.init-param.view-template=/coke/view.jsp",
-                "javax.portlet.name=" + LittleCokeWebPortletKeys.LITTLE_COKE_WEB,
-                "javax.portlet.resource-bundle=content.Language",
-                "javax.portlet.security-role-ref=power-user,user",
-                "javax.portlet.supports.mime-type=text/html;"
-        },
-        service = Portlet.class
+    configurationPid = MondayConstants.PID_MONDAY_CONFIGURATION,
+    property = {
+            "com.liferay.portlet.display-category=category.social",
+            "com.liferay.portlet.header-portlet-css=/css/main.css",
+            "com.liferay.portlet.instanceable=false",
+            "com.liferay.portlet.scopeable=true",
+            "javax.portlet.display-name=" + LittleCokeWebPortletKeys.COKE_NAME,
+            "javax.portlet.init-param.template-path=/",
+            "javax.portlet.init-param.view-template=/coke/view.jsp",
+            "javax.portlet.name=" + LittleCokeWebPortletKeys.LITTLE_COKE_WEB,
+            "javax.portlet.resource-bundle=content.Language",
+            "javax.portlet.security-role-ref=power-user,user",
+            "javax.portlet.supports.mime-type=text/html;"
+    },
+    service = Portlet.class
 )
 public class LittleCokeWebPortlet extends MVCPortlet {
 
     @Override
     public void render(RenderRequest renderRequest, RenderResponse renderResponse) {
-        try {
-            List<UserMondayDTO> relationDTOList = new ArrayList<>();
-            String query = MondayIntegrationQuery.USERS_QUERY;
-            String token = "eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjE2ODY3MjgzNiwidWlkIjoxMTY5ODM2MSwiaWFkIjoiMjAyMi0wNy0wNFQxNzoxNzo0NS4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6NTI3MTMxOSwicmduIjoidXNlMSJ9.y8VA6hbD4qvi5Cj-YN7Tiow2QJ3aPh2ji89ZItE_lwM";
-            String apiURL = "https://api.monday.com/v2";
+        System.err.println(_mondayConfiguration.getMondayAPI());
+        System.err.println(_mondayConfiguration.getToken());
 
-            MondayIntegrationService mondayIntegrationService = new MondayIntegrationService();
-
-            mondayIntegrationService.setToken(token);
-            mondayIntegrationService.setApiURL(apiURL);
-
-            JSONObject jsonResponse = mondayIntegrationService.sendRequest(query);
-
-            if(jsonResponse != null) {
-                JSONArray jsonArray = jsonResponse.getJSONObject("data").getJSONArray("users");
-
-                if(jsonArray != null) {
-                    for(int aux = 0; aux < jsonArray.length(); aux ++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(aux);
-                        boolean enabled = jsonObject.getBoolean("enabled");
-                        JSONObject account = jsonObject.getJSONObject("account");
-                        String companyName = account.getString("name");
-
-                        if(account.length() > 0 && companyName != null) {
-                            if(LittleCokeUtil.isValidPerson(enabled, companyName)) {
-
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            List<UserMondayDTO> relationDTOList = new ArrayList<>();
+//            String query = MondayIntegrationQuery.USERS_QUERY;
+//            String token = "";
+//            String apiURL = "";
+//
+//            MondayIntegrationService mondayIntegrationService = new MondayIntegrationService();
+//
+//            mondayIntegrationService.setToken(token);
+//            mondayIntegrationService.setApiURL(apiURL);
+//
+//            JSONObject jsonResponse = mondayIntegrationService.sendRequest(query);
+//
+//            if(jsonResponse != null) {
+//                JSONArray jsonArray = jsonResponse.getJSONObject("data").getJSONArray("users");
+//
+//                if(jsonArray != null) {
+//                    for(int aux = 0; aux < jsonArray.length(); aux ++) {
+//                        JSONObject jsonObject = jsonArray.getJSONObject(aux);
+//                        boolean enabled = jsonObject.getBoolean("enabled");
+//                        JSONObject account = jsonObject.getJSONObject("account");
+//                        String companyName = account.getString("name");
+//
+//                        if(account.length() > 0 && companyName != null) {
+//                            if(LittleCokeUtil.isValidPerson(enabled, companyName)) {
+//
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (JSONException e) {
+//            throw new RuntimeException(e);
+//        }
 //        try {
 //            List<User> userList = _userLocalService
 //                    .getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS)
@@ -319,6 +319,14 @@ public class LittleCokeWebPortlet extends MVCPortlet {
             SessionErrors.add(resourceRequest, "errorUpdateList");
         }
     }
+
+    @Activate
+    @Modified
+    protected void activate(Map<Object, Object> properties) {
+        _mondayConfiguration = ConfigurableUtil.createConfigurable(MondayConfiguration.class, properties);
+    }
+
+    private volatile MondayConfiguration _mondayConfiguration;
 
     private final Log _log = LogFactoryUtil.getLog(LittleCokeWebPortlet.class);
 
