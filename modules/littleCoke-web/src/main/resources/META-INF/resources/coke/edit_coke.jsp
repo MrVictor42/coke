@@ -1,7 +1,9 @@
 <%@ include file="../init.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <liferay-ui:success key="updatedList" message="updated-list" />
+<liferay-ui:success key="updatedCoke" message="informations-updated" />
 <liferay-ui:error key="errorUpdateList" message="error-update-list" />
+<liferay-ui:error key="errorUpdateCoke" message="error-update-coke"/>
 
 <%
     long cokeId = ParamUtil.getLong(renderRequest, "cokeId");

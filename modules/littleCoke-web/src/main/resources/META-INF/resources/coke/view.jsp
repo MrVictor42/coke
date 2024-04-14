@@ -15,7 +15,7 @@
 
 <c:choose>
 	<c:when test="${empty cokeDTOList}">
-		<h1>Sua bancada ainda não possui um gerenciamento de coquinha? Cadastre uma agora mesmo</h1>
+		<h1>Sua bancada ainda não possui um gerenciamento de coquinha? Cadastre uma agora mesmo!!!</h1>
 		
 		<portlet:renderURL var="addCokeURL">
 			<portlet:param name="mvcPath" value="/coke/edit_coke.jsp"></portlet:param>
@@ -25,6 +25,8 @@
 		</aui:button-row>
 	</c:when>
 	<c:otherwise>
+		<h1><%= cokeDTOList.size() %></h1>
+
 		<c:forEach items="${cokeDTOList}" var="cokeDTO" varStatus="status">
 			<portlet:renderURL var="viewMoreURL">
 				<portlet:param name="mvcPath" value="/coke/edit_coke.jsp" />
