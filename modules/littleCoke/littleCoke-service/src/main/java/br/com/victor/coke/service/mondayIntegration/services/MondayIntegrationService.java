@@ -1,12 +1,19 @@
 package br.com.victor.coke.service.mondayIntegration.services;
 
+import br.com.victor.coke.service.mondayIntegration.MondayIntegrationQuery;
+import br.com.victor.coke.service.mondayIntegration.util.MondayIntegrationUtil;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -14,8 +21,11 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Component(
     immediate = true,
@@ -26,14 +36,6 @@ public class MondayIntegrationService {
     private String apiURL;
     private String token;
 
-    public String getApiURL() {
-        return apiURL;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
     public void setApiURL(String apiURL) {
         this.apiURL = apiURL;
     }
@@ -42,7 +44,57 @@ public class MondayIntegrationService {
         this.token = token;
     }
 
-    public JSONObject sendRequest(String query) throws JSONException {
+    public List<User> getUserMondayListDTO(ServiceContext serviceContext) {
+        try {
+            List<User> userList =
+                    _userLocalService.getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS)
+                            .stream()
+                            .filter(user -> !user.getEmailAddress().equalsIgnoreCase("test@liferay.com"))
+                            .filter(user -> !user.getEmailAddress().equalsIgnoreCase("default@liferay.com"))
+                            .filter(user -> !user.getEmailAddress().contains("anonymous"))
+                            .collect(Collectors.toList());
+            String query = MondayIntegrationQuery.USERS_QUERY;
+
+            if(!userList.isEmpty()) {
+                return userList;
+            }
+
+            List<User> userListFinal = new ArrayList<>();
+            JSONObject jsonResponse = sendRequest(query);
+
+            if(jsonResponse != null) {
+                JSONArray jsonArray = jsonResponse.getJSONObject("data").getJSONArray("users");
+
+                if(jsonArray != null) {
+                    for(int aux = 0; aux < jsonArray.length(); aux ++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(aux);
+                        boolean enabled = jsonObject.getBoolean("enabled");
+                        JSONObject account = jsonObject.getJSONObject("account");
+                        String companyName = account.getString("name");
+
+                        if(account.length() > 0 && companyName != null) {
+                            if(MondayIntegrationUtil.isValidPerson(enabled, companyName)) {
+                                long mondayUserId = jsonObject.getLong("id");
+                                String email = jsonObject.getString("email");
+                                String name = jsonObject.getString("name");
+                                String defaultPassword = "test";
+
+                                User user = createUser(mondayUserId, email, name, defaultPassword, serviceContext);
+
+                                userListFinal.add(user);
+                            }
+                        }
+                    }
+                }
+            }
+            return userListFinal;
+        } catch (JSONException e) {
+            _log.error(e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    private JSONObject sendRequest(String query) throws JSONException {
         boolean shouldRetry;
         JSONObject jsonResponse = null;
 
@@ -99,7 +151,27 @@ public class MondayIntegrationService {
         return target.getNewClient().target(apiURL).request();
     }
 
-    private User createUser() {
+    private User createUser(long mondayUserId, String email, String name, String defaultPassword, ServiceContext serviceContext) {
+        try {
+            long companyId = serviceContext.getCompanyId();
+            String firstName = MondayIntegrationUtil.getFirstName(name);
+            String lastName = MondayIntegrationUtil.getLastName(name);
+            String username = MondayIntegrationUtil.getUserName(name);
+
+            serviceContext.setAddGroupPermissions(true);
+
+            if(!name.equals(email)) {
+                return _userLocalService.addUser(
+                        0, companyId, false, defaultPassword, defaultPassword, false, username, email,
+                        LocaleUtil.BRAZIL, firstName, "", lastName, mondayUserId, 0, true,
+                        4, 15, 1912, "", null, null, null,
+                        null, false, serviceContext
+                );
+            }
+        } catch (PortalException e) {
+            _log.error(e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
         return null;
     }
 

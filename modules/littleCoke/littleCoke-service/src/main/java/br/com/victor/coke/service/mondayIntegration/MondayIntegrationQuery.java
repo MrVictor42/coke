@@ -7,6 +7,7 @@ public class MondayIntegrationQuery {
             "    id\n" +
             "    email\n" +
             "    name\n" +
+            "    photo_original\n" +
             "    enabled\n" +
             "    account {\n" +
                 "      id\n" +
