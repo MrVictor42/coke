@@ -63,6 +63,7 @@ public class MondayIntegrationService {
             JSONObject jsonResponse = sendRequest(query);
 
             if(jsonResponse != null) {
+                _log.info("Iniciando a Integração Com o Monday");
                 JSONArray jsonArray = jsonResponse.getJSONObject("data").getJSONArray("users");
 
                 if(jsonArray != null) {
@@ -70,12 +71,11 @@ public class MondayIntegrationService {
                         JSONObject jsonObject = jsonArray.getJSONObject(aux);
                         boolean enabled = jsonObject.getBoolean("enabled");
                         JSONObject account = jsonObject.getJSONObject("account");
-                        String companyName = account.getString("name");
+                        String email = jsonObject.getString("email");
 
-                        if(account.length() > 0 && companyName != null) {
-                            if(MondayIntegrationUtil.isValidPerson(enabled, companyName)) {
+                        if(account.length() > 0 && email != null) {
+                            if(MondayIntegrationUtil.isValidPerson(enabled, email)) {
                                 long mondayUserId = jsonObject.getLong("id");
-                                String email = jsonObject.getString("email");
                                 String name = jsonObject.getString("name");
                                 String defaultPassword = "test";
 
@@ -85,6 +85,7 @@ public class MondayIntegrationService {
                             }
                         }
                     }
+                    _log.info("Encerrando a Integração Com o Monday");
                 }
             }
             return userListFinal;

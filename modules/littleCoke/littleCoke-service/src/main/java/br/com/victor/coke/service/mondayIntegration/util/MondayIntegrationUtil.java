@@ -7,8 +7,8 @@ import java.text.Normalizer;
 
 public class MondayIntegrationUtil {
 
-    public static boolean isValidPerson(boolean enable, String companyName) {
-        return enable && companyName.equalsIgnoreCase("SEA Tecnologia");
+    public static boolean isValidPerson(boolean enable, String email) {
+        return enable && email.contains("@seatecnologia.com");
     }
 
     public static String getFirstName(String name) {
