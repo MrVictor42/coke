@@ -6,7 +6,8 @@ create table Coke_Coke (
 	companyId LONG,
 	userId LONG,
 	createDate DATE null,
-	modifiedDate DATE null
+	modifiedDate DATE null,
+	userName VARCHAR(75) null
 );
 
 create table Coke_UserCoke (

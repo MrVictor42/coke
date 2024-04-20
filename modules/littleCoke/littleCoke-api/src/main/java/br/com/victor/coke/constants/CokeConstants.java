@@ -22,4 +22,6 @@ public class CokeConstants {
     public static final String RESOURCE_NAME = "br.com.victor.coke";
     public static final String SYMBOLIC_NAME = "br.com.victor.littleCoke.web";
     public static final String COKE_MODEL = "br.com.victor.coke.model.Coke";
+    public static final String LITTLE_COKE_WEB = "br_com_victor_littleCoke_web_LittleCokeWebPortlet";
+    public static final String COKE_NAME = "Coquinha";
 }

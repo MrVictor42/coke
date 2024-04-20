@@ -61,7 +61,7 @@ public class CokeCacheModel implements CacheModel<Coke>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -79,6 +79,8 @@ public class CokeCacheModel implements CacheModel<Coke>, Externalizable {
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", userName=");
+		sb.append(userName);
 		sb.append("}");
 
 		return sb.toString();
@@ -122,6 +124,13 @@ public class CokeCacheModel implements CacheModel<Coke>, Externalizable {
 			cokeImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		if (userName == null) {
+			cokeImpl.setUserName("");
+		}
+		else {
+			cokeImpl.setUserName(userName);
+		}
+
 		cokeImpl.resetOriginalValues();
 
 		return cokeImpl;
@@ -141,6 +150,7 @@ public class CokeCacheModel implements CacheModel<Coke>, Externalizable {
 		userId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+		userName = objectInput.readUTF();
 	}
 
 	@Override
@@ -168,6 +178,13 @@ public class CokeCacheModel implements CacheModel<Coke>, Externalizable {
 		objectOutput.writeLong(userId);
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
+
+		if (userName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
 	}
 
 	public String uuid;
@@ -178,5 +195,6 @@ public class CokeCacheModel implements CacheModel<Coke>, Externalizable {
 	public long userId;
 	public long createDate;
 	public long modifiedDate;
+	public String userName;
 
 }

@@ -16,8 +16,9 @@ package br.com.victor.coke.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.model.ShardedModel;
-import com.liferay.portal.kernel.model.StagedModel;
+import com.liferay.portal.kernel.model.StagedAuditedModel;
 
 import java.util.Date;
 
@@ -35,7 +36,8 @@ import org.osgi.annotation.versioning.ProviderType;
  * @generated
  */
 @ProviderType
-public interface CokeModel extends BaseModel<Coke>, ShardedModel, StagedModel {
+public interface CokeModel
+	extends BaseModel<Coke>, GroupedModel, ShardedModel, StagedAuditedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -93,6 +95,7 @@ public interface CokeModel extends BaseModel<Coke>, ShardedModel, StagedModel {
 	 *
 	 * @return the group ID of this coke
 	 */
+	@Override
 	public long getGroupId();
 
 	/**
@@ -100,6 +103,7 @@ public interface CokeModel extends BaseModel<Coke>, ShardedModel, StagedModel {
 	 *
 	 * @param groupId the group ID of this coke
 	 */
+	@Override
 	public void setGroupId(long groupId);
 
 	/**
@@ -138,6 +142,7 @@ public interface CokeModel extends BaseModel<Coke>, ShardedModel, StagedModel {
 	 *
 	 * @return the user ID of this coke
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -145,6 +150,7 @@ public interface CokeModel extends BaseModel<Coke>, ShardedModel, StagedModel {
 	 *
 	 * @param userId the user ID of this coke
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -152,6 +158,7 @@ public interface CokeModel extends BaseModel<Coke>, ShardedModel, StagedModel {
 	 *
 	 * @return the user uuid of this coke
 	 */
+	@Override
 	public String getUserUuid();
 
 	/**
@@ -159,6 +166,7 @@ public interface CokeModel extends BaseModel<Coke>, ShardedModel, StagedModel {
 	 *
 	 * @param userUuid the user uuid of this coke
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
 
 	/**
@@ -192,6 +200,23 @@ public interface CokeModel extends BaseModel<Coke>, ShardedModel, StagedModel {
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate);
+
+	/**
+	 * Returns the user name of this coke.
+	 *
+	 * @return the user name of this coke
+	 */
+	@AutoEscape
+	@Override
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this coke.
+	 *
+	 * @param userName the user name of this coke
+	 */
+	@Override
+	public void setUserName(String userName);
 
 	@Override
 	public Coke cloneWithOriginalValues();

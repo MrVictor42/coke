@@ -77,7 +77,8 @@ public class CokeModelImpl extends BaseModelImpl<Coke> implements CokeModel {
 		{"uuid_", Types.VARCHAR}, {"cokeId", Types.BIGINT},
 		{"groupId", Types.BIGINT}, {"name", Types.VARCHAR},
 		{"companyId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP}
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"userName", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -92,10 +93,11 @@ public class CokeModelImpl extends BaseModelImpl<Coke> implements CokeModel {
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Coke_Coke (uuid_ VARCHAR(75) null,cokeId LONG not null primary key,groupId LONG,name VARCHAR(75) null,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null)";
+		"create table Coke_Coke (uuid_ VARCHAR(75) null,cokeId LONG not null primary key,groupId LONG,name VARCHAR(75) null,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,userName VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Coke_Coke";
 
@@ -290,6 +292,9 @@ public class CokeModelImpl extends BaseModelImpl<Coke> implements CokeModel {
 		attributeGetterFunctions.put("modifiedDate", Coke::getModifiedDate);
 		attributeSetterBiConsumers.put(
 			"modifiedDate", (BiConsumer<Coke, Date>)Coke::setModifiedDate);
+		attributeGetterFunctions.put("userName", Coke::getUserName);
+		attributeSetterBiConsumers.put(
+			"userName", (BiConsumer<Coke, String>)Coke::setUserName);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -477,6 +482,26 @@ public class CokeModelImpl extends BaseModelImpl<Coke> implements CokeModel {
 		_modifiedDate = modifiedDate;
 	}
 
+	@JSON
+	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return "";
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userName = userName;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -547,6 +572,7 @@ public class CokeModelImpl extends BaseModelImpl<Coke> implements CokeModel {
 		cokeImpl.setUserId(getUserId());
 		cokeImpl.setCreateDate(getCreateDate());
 		cokeImpl.setModifiedDate(getModifiedDate());
+		cokeImpl.setUserName(getUserName());
 
 		cokeImpl.resetOriginalValues();
 
@@ -566,6 +592,7 @@ public class CokeModelImpl extends BaseModelImpl<Coke> implements CokeModel {
 		cokeImpl.setCreateDate(this.<Date>getColumnOriginalValue("createDate"));
 		cokeImpl.setModifiedDate(
 			this.<Date>getColumnOriginalValue("modifiedDate"));
+		cokeImpl.setUserName(this.<String>getColumnOriginalValue("userName"));
 
 		return cokeImpl;
 	}
@@ -685,6 +712,14 @@ public class CokeModelImpl extends BaseModelImpl<Coke> implements CokeModel {
 			cokeCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
+		cokeCacheModel.userName = getUserName();
+
+		String userName = cokeCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			cokeCacheModel.userName = null;
+		}
+
 		return cokeCacheModel;
 	}
 
@@ -782,6 +817,7 @@ public class CokeModelImpl extends BaseModelImpl<Coke> implements CokeModel {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
+	private String _userName;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -820,6 +856,7 @@ public class CokeModelImpl extends BaseModelImpl<Coke> implements CokeModel {
 		_columnOriginalValues.put("userId", _userId);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
+		_columnOriginalValues.put("userName", _userName);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -858,6 +895,8 @@ public class CokeModelImpl extends BaseModelImpl<Coke> implements CokeModel {
 		columnBitmasks.put("createDate", 64L);
 
 		columnBitmasks.put("modifiedDate", 128L);
+
+		columnBitmasks.put("userName", 256L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

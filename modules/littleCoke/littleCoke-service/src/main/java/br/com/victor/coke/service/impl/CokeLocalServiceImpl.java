@@ -43,6 +43,7 @@ public class CokeLocalServiceImpl extends CokeLocalServiceBaseImpl {
         coke.setName(name);
         coke.setCompanyId(serviceContext.getCompanyId());
         coke.setUserId(serviceContext.getUserId());
+        coke.setUserName(user.getFullName());
         coke.setGroupId(serviceContext.getScopeGroupId());
         coke.setCreateDate(new Date());
         coke.setModifiedDate(new Date());

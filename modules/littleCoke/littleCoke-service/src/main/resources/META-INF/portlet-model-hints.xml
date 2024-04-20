@@ -10,6 +10,7 @@
 		<field name="userId" type="long" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
+		<field name="userName" type="String" />
 	</model>
 	<model name="br.com.victor.coke.model.UserCoke">
 		<field name="uuid" type="String" />

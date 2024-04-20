@@ -17,6 +17,7 @@
 		<column name="userId" type="long" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
+        <column name="userName" type="String" />
 
         <!-- References -->
         <reference entity="Group" package-path="com.liferay.portal"/>
