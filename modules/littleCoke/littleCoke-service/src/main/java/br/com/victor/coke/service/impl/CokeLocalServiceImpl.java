@@ -54,12 +54,12 @@ public class CokeLocalServiceImpl extends CokeLocalServiceBaseImpl {
         boolean addGroupPermissions = true;
         boolean addGuestPermissions = true;
 
-        resourceLocalService.addResources(
-                group.getCompanyId(), group.getGroupId(), user.getUserId(), Coke.class.getName(), coke.getCokeId(),
-                portletActions, addGroupPermissions, addGuestPermissions
-        );
-
-        updateAsset(coke, serviceContext);
+//        resourceLocalService.addResources(
+//                group.getCompanyId(), group.getGroupId(), user.getUserId(), Coke.class.getName(), coke.getCokeId(),
+//                portletActions, addGroupPermissions, addGuestPermissions
+//        );
+//
+//        updateAsset(coke, serviceContext);
 
         return coke;
     }
