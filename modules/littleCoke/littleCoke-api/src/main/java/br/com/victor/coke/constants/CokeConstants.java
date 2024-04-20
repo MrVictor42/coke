@@ -17,4 +17,8 @@ public class CokeConstants {
     // TaskExecutor
     public static final String COKE_TASK_EXECUTOR_NAME = "Expedição da Coquinha";
     public static final String COKE_EXECUTOR_TYPE = "CokeTaskExecutor";
+
+    // Resources
+    public static final String RESOURCE_NAME = "br.com.victor.coke";
+    public static final String SYMBOLIC_NAME = "br.com.victor.littleCoke.web";
 }
