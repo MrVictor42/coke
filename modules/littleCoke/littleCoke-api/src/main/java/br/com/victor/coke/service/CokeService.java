@@ -53,7 +53,8 @@ public interface CokeService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>br.com.victor.coke.service.impl.CokeServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the coke remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link CokeServiceUtil} if injection and service tracking are not available.
 	 */
-	public Coke createCoke(String name, ServiceContext serviceContext);
+	public Coke createCoke(String name, ServiceContext serviceContext)
+		throws PortalException;
 
 	public Coke deleteCoke(long cokeId) throws PortalException;
 

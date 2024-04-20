@@ -61,12 +61,22 @@
 											<h3 class="card-title" style="margin-left: 10px;">${cokeDTO.getNextUsersList().get(0).fullName}</h3>
 										</div>
 										<h2 class="card-title" style="margin-top: 20px; margin-left: 20px; margin-bottom:0px">Depois</h2>
-										<div style="display: flex; align-items: center;">
-											<img class="card-item-last rounded-circle" style="width: 50px; margin: 20px"
-												src="${cokeDTO.getNextUsersList().get(1).getPortraitURL(themeDisplay)}"
-											/>
-											<h4 class="card-title" style="margin-left: 10px;">${cokeDTO.getNextUsersList().get(1).fullName}</h4>
-										</div>
+										<c:if test="${not empty cokeDTO.getNextUsersList() and cokeDTO.getNextUsersList().size() > 1}">
+											<div style="display: flex; align-items: center;">
+												<img class="card-item-last rounded-circle" style="width: 50px; margin: 20px"
+													src="${cokeDTO.getNextUsersList().get(1).getPortraitURL(themeDisplay)}"
+												/>
+												<h4 class="card-title" style="margin-left: 10px;">${cokeDTO.getNextUsersList().get(1).fullName}</h4>
+											</div>
+										</c:if>
+										<c:if test="${empty cokeDTO.getNextUsersList() or cokeDTO.getNextUsersList().size() <= 1}">
+											<div style="display: flex; align-items: center;">
+												<img class="card-item-last rounded-circle" style="width: 50px; margin: 20px"
+													src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/275px-Flag_of_Brazil.svg.png"
+												/>
+												<h4 class="card-title" style="margin-left: 10px;">Brasil</h4>
+											</div>
+										</c:if>
 										<aui:button onClick="${viewMoreURL}" style="background-color: #007bff; color: white;" value="Mostre Mais"></aui:button>
 									</div>
 								</div>

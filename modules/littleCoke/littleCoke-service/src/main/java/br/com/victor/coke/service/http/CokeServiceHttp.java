@@ -52,8 +52,9 @@ import com.liferay.portal.kernel.util.MethodKey;
 public class CokeServiceHttp {
 
 	public static br.com.victor.coke.model.Coke createCoke(
-		HttpPrincipal httpPrincipal, String name,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+			HttpPrincipal httpPrincipal, String name,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -69,6 +70,13 @@ public class CokeServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(
 					exception);
 			}

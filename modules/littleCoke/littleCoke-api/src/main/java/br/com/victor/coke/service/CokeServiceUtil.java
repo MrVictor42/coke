@@ -40,8 +40,9 @@ public class CokeServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>br.com.victor.coke.service.impl.CokeServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static Coke createCoke(
-		String name,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+			String name,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().createCoke(name, serviceContext);
 	}

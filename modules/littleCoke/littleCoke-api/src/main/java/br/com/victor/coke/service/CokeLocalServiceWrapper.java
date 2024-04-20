@@ -64,8 +64,9 @@ public class CokeLocalServiceWrapper
 
 	@Override
 	public br.com.victor.coke.model.Coke createCoke(
-		String name,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+			String name,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _cokeLocalService.createCoke(name, serviceContext);
 	}

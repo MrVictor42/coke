@@ -89,7 +89,8 @@ public interface CokeLocalService
 	public Coke createCoke(long cokeId);
 
 	@Indexable(type = IndexableType.REINDEX)
-	public Coke createCoke(String name, ServiceContext serviceContext);
+	public Coke createCoke(String name, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * @throws PortalException

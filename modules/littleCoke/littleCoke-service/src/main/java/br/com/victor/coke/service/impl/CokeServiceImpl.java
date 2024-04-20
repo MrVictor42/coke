@@ -26,7 +26,7 @@ import java.util.List;
 )
 public class CokeServiceImpl extends CokeServiceBaseImpl {
 
-    public Coke createCoke(String name, ServiceContext serviceContext) {
+    public Coke createCoke(String name, ServiceContext serviceContext) throws PortalException {
         return cokeLocalService.createCoke(name, serviceContext);
     }
 

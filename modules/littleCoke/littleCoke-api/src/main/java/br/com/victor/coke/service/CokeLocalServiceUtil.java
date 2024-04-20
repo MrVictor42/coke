@@ -71,8 +71,9 @@ public class CokeLocalServiceUtil {
 	}
 
 	public static Coke createCoke(
-		String name,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+			String name,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().createCoke(name, serviceContext);
 	}
