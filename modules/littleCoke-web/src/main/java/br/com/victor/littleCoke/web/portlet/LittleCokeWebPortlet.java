@@ -1,11 +1,14 @@
 package br.com.victor.littleCoke.web.portlet;
 
 import br.com.victor.coke.constants.CokeConstants;
-import br.com.victor.coke.constants.MondayConstants;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import org.osgi.service.component.annotations.Component;
 
 import javax.portlet.Portlet;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+import java.io.IOException;
 
 /**
  * @author victor
@@ -28,6 +31,8 @@ import javax.portlet.Portlet;
     service = Portlet.class
 )
 public class LittleCokeWebPortlet extends MVCPortlet {
+
+
 
     /*
 

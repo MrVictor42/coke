@@ -33,8 +33,9 @@ public class EditCokeMVCRenderCommand implements MVCRenderCommand {
 
     @Override
     public String render(RenderRequest renderRequest, RenderResponse renderResponse) {
-        Coke coke = null;
-        long cokeId = ParamUtil.getLong(renderRequest, "cokeId", 0);
+//        Coke coke = null;
+        long cokeId = ParamUtil.getLong(renderRequest, CokeConstants.COKE_ID, 0);
+
 
 //        if (assignmentId > 0) {
 //            // Call the service to get the assignment for editing.

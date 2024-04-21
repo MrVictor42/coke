@@ -34,8 +34,6 @@ import java.util.List;
 public class CokeServiceImpl extends CokeServiceBaseImpl {
 
     public Coke createCoke(String name, ServiceContext serviceContext) throws PortalException {
-        _portletResourcePermission.check(getPermissionChecker(), serviceContext.getScopeGroupId(), ActionKeys.ADD_ENTRY);
-
         return cokeLocalService.createCoke(name, serviceContext);
     }
 
@@ -46,6 +44,8 @@ public class CokeServiceImpl extends CokeServiceBaseImpl {
     }
 
     public Coke getCoke(long cokeId) throws PortalException {
+        _cokeModelResourcePermission.check(getPermissionChecker(), cokeId, ActionKeys.VIEW);
+
         return cokeLocalService.getCoke(cokeId);
     }
 

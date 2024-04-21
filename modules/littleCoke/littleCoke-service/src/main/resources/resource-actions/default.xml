@@ -10,15 +10,15 @@
         <root>true</root>
         <permissions>
             <supports>
-                <action-key>ADD_COKE</action-key>
-                <action-key>UPDATE_COKE</action-key>
+                <action-key>ADD_ENTRY</action-key>
+                <action-key>UPDATE</action-key>
                 <action-key>PERMISSIONS</action-key>
             </supports>
             <site-member-defaults/>
             <guest-defaults/>
             <guest-unsupported>
-                <action-key>ADD_COKE</action-key>
-                <action-key>UPDATE_COKE</action-key>
+                <action-key>ADD_ENTRY</action-key>
+                <action-key>UPDATE</action-key>
                 <action-key>PERMISSIONS</action-key>
             </guest-unsupported>
         </permissions>
@@ -35,7 +35,7 @@
                 <action-key>UPDATE</action-key>
                 <action-key>VIEW</action-key>
                 <action-key>ADD</action-key>
-                <action-key>ADD_COKE</action-key>
+                <action-key>ADD_ENTRY</action-key>
                 <action-key>EDIT_COKE</action-key>
                 <action-key>DELETE_COKE</action-key>
                 <action-key>VIEW_COKE</action-key>

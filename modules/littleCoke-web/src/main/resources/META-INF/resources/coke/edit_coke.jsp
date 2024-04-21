@@ -1,4 +1,4 @@
-<%@ include file="../init.jsp" %>
+<%-- <%@ include file="../init.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <liferay-ui:success key="updatedList" message="updated-list" />
 <liferay-ui:success key="updatedCoke" message="informations-updated" />
@@ -283,4 +283,4 @@
             }
         });
     });
-</script>
+</script> --%>

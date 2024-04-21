@@ -4,17 +4,20 @@
 <liferay-ui:error key="serviceErrorDetails">
     <liferay-ui:message arguments='<%= SessionErrors.get(liferayPortletRequest, "serviceErrorDetails") %>' key="error.assignment-service-error" />
 </liferay-ui:error>
-<liferay-ui:success key="cokeAdded" message="coke-added-successfully" />
+<liferay-ui:success key="cokeAdded" message="coke-added" />
 <liferay-ui:success key="cokeUpdated" message="coke-updated-successfully" />
 <liferay-ui:success key="cokeDeleted" message="coke-deleted-successfully" />
-
-<portlet:renderURL var="addCokeURL">
-	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.ADD_COKE %>"/>
-</portlet:renderURL>
 
 <% List<CokeDTO> cokeDTOList = (List<CokeDTO>) renderRequest.getAttribute("cokeDTOList"); %>
 
 <br>
+
+<portlet:renderURL var="addCokeURL">
+	<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.ADD_COKE %>"></portlet:param>
+</portlet:renderURL>
+<aui:button-row>
+	<aui:button onClick="${addCokeURL}" value="Adicionar Outro Portlet da Coquinha" style="float: right; color: #fff; background-color: #28a745; border-color: #28a745"></aui:button>
+</aui:button-row>
 
 <c:choose>
 	<c:when test="${empty cokeDTOList}">
@@ -26,7 +29,7 @@
 	<c:otherwise>
 		<c:forEach items="${cokeDTOList}" var="cokeDTO" varStatus="status">
 			<portlet:renderURL var="viewMoreURL">
-				<portlet:param name="mvcPath" value="<%=MVCCommandNames.EDIT_COKE %>"/>
+				<portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.EDIT_COKE %>"/>
 				<portlet:param name="cokeId" value="${cokeDTO.coke.cokeId}" />
 			</portlet:renderURL>
 

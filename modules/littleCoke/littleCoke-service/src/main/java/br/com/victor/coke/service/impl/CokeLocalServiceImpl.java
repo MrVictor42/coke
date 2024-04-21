@@ -12,13 +12,11 @@ import br.com.victor.coke.service.base.CokeLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.util.ContentTypes;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -37,7 +35,6 @@ public class CokeLocalServiceImpl extends CokeLocalServiceBaseImpl {
     @Indexable(type = IndexableType.REINDEX)
     public Coke createCoke(String name, ServiceContext serviceContext) throws PortalException {
         long cokeId = counterLocalService.increment(Coke.class.getName());
-        Group group = groupLocalService.getGroup(serviceContext.getScopeGroupId());
         User user = userLocalService.getUser(serviceContext.getUserId());
         Coke coke = createCoke(cokeId);
 
@@ -50,18 +47,6 @@ public class CokeLocalServiceImpl extends CokeLocalServiceBaseImpl {
         coke.setModifiedDate(new Date());
 
         coke = super.addCoke(coke);
-
-        //Add permission resources.
-        boolean portletActions = false;
-        boolean addGroupPermissions = true;
-        boolean addGuestPermissions = true;
-
-        resourceLocalService.addResources(
-                group.getCompanyId(), group.getGroupId(), user.getUserId(), Coke.class.getName(), coke.getCokeId(),
-                portletActions, addGroupPermissions, addGuestPermissions
-        );
-
-        updateAsset(coke, serviceContext);
 
         return coke;
     }
@@ -89,19 +74,6 @@ public class CokeLocalServiceImpl extends CokeLocalServiceBaseImpl {
         userCokeList.forEach(userCoke -> _userCokeLocalService.deleteUserCoke(userCoke));
 
         return deleteCoke(coke);
-    }
-
-    private void updateAsset(Coke coke, ServiceContext serviceContext) throws PortalException {
-        assetEntryLocalService.updateEntry(
-                serviceContext.getUserId(), serviceContext.getScopeGroupId(),
-                coke.getCreateDate(), coke.getModifiedDate(),
-                Coke.class.getName(), coke.getCokeId(),
-                coke.getUuid(), 0, serviceContext.getAssetCategoryIds(),
-                serviceContext.getAssetTagNames(), true, true,
-                coke.getCreateDate(), null, null, null,
-                ContentTypes.TEXT_HTML, coke.getName(), coke.getName(), null, null, null,
-                0, 0, serviceContext.getAssetPriority()
-        );
     }
 
     public List<Coke> getAllCokes() {
