@@ -1,7 +1,10 @@
 package br.com.victor.coke.service.mondayIntegration.services;
 
+import br.com.victor.coke.config.monday.MondayConfiguration;
+import br.com.victor.coke.constants.MondayConstants;
 import br.com.victor.coke.service.mondayIntegration.MondayIntegrationQuery;
 import br.com.victor.coke.service.mondayIntegration.util.MondayIntegrationUtil;
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -14,7 +17,9 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
 import javax.ws.rs.client.Entity;
@@ -23,28 +28,25 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Component(
+    configurationPid = MondayConstants.PID_MONDAY_CONFIGURATION,
     immediate = true,
     service = MondayIntegrationService.class
 )
 public class MondayIntegrationService {
 
-    private String apiURL;
-    private String token;
-
-    public void setApiURL(String apiURL) {
-        this.apiURL = apiURL;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     public List<User> getUserMondayListDTO(ServiceContext serviceContext) {
+        if(_mondayConfiguration.getMondayAPI().isEmpty() || _mondayConfiguration.getToken().isEmpty()) {
+            _log.error("Configure as Credenciais do Monday");
+
+            return null;
+        }
+
         try {
             List<User> userList =
                     _userLocalService.getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS)
@@ -98,10 +100,11 @@ public class MondayIntegrationService {
     private JSONObject sendRequest(String query) throws JSONException {
         boolean shouldRetry;
         JSONObject jsonResponse = null;
-
         do {
-            shouldRetry = false; // Assume que não precisará repetir a princípio
+            shouldRetry = false;
             JSONObject requestBody = JSONFactoryUtil.createJSONObject();
+            String token = _mondayConfiguration.getToken();
+            String apiURL = _mondayConfiguration.getMondayAPI();
 
             requestBody.put("query", query);
 
@@ -175,6 +178,13 @@ public class MondayIntegrationService {
         }
         return null;
     }
+
+    @Activate
+    @Modified
+    protected void activate(Map<Object, Object> properties) {
+        _mondayConfiguration = ConfigurableUtil.createConfigurable(MondayConfiguration.class, properties);
+    }
+    private volatile MondayConfiguration _mondayConfiguration;
 
     private final Log _log = LogFactoryUtil.getLog(MondayIntegrationService.class);
 

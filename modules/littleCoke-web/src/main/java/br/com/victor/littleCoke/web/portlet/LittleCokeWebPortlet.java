@@ -1,51 +1,25 @@
 package br.com.victor.littleCoke.web.portlet;
 
-import br.com.victor.coke.config.monday.MondayConfiguration;
 import br.com.victor.coke.constants.CokeConstants;
 import br.com.victor.coke.constants.MondayConstants;
-import br.com.victor.coke.model.Coke;
-import br.com.victor.coke.model.UserCoke;
-import br.com.victor.coke.model.UserCokeModel;
-import br.com.victor.coke.model.dto.CokeDTO;
-import br.com.victor.coke.service.CokeService;
-import br.com.victor.coke.service.UserCokeService;
-import br.com.victor.coke.service.mondayIntegration.services.MondayIntegrationService;
-import br.com.victor.littleCoke.web.util.LittleCokeUtil;
-import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.ServiceContextFactory;
-import com.liferay.portal.kernel.service.UserLocalService;
-import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.servlet.SessionMessages;
-import com.liferay.portal.kernel.util.ParamUtil;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Modified;
-import org.osgi.service.component.annotations.Reference;
 
-import javax.portlet.*;
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
+import javax.portlet.Portlet;
 
 /**
  * @author victor
  */
 @Component(
-    configurationPid = MondayConstants.PID_MONDAY_CONFIGURATION,
     property = {
             "com.liferay.portlet.display-category=category.social",
             "com.liferay.portlet.header-portlet-css=/css/main.css",
+            "com.liferay.portlet.css-class-wrapper=coke-portlet",
             "com.liferay.portlet.instanceable=false",
             "com.liferay.portlet.scopeable=true",
             "javax.portlet.display-name=" + CokeConstants.COKE_NAME,
             "javax.portlet.init-param.template-path=/",
-            "javax.portlet.init-param.view-template=/coke/view.jsp",
+            "javax.portlet.init-param.view-template=/view.jsp",
             "javax.portlet.name=" + CokeConstants.LITTLE_COKE_WEB,
             "javax.portlet.resource-bundle=content.Language",
             "javax.portlet.security-role-ref=power-user,user",
@@ -54,6 +28,8 @@ import java.util.stream.Collectors;
     service = Portlet.class
 )
 public class LittleCokeWebPortlet extends MVCPortlet {
+
+    /*
 
     @Override
     public void render(RenderRequest renderRequest, RenderResponse renderResponse) {
@@ -305,4 +281,6 @@ public class LittleCokeWebPortlet extends MVCPortlet {
 
     @Reference
     private MondayIntegrationService _mondayIntegrationService;
+
+     */
 }

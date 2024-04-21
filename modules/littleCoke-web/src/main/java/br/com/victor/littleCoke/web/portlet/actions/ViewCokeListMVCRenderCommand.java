@@ -1,19 +1,39 @@
 package br.com.victor.littleCoke.web.portlet.actions;
 
 import br.com.victor.coke.constants.CokeConstants;
+import br.com.victor.coke.constants.MondayConstants;
+import br.com.victor.coke.model.Coke;
+import br.com.victor.coke.model.UserCoke;
+import br.com.victor.coke.model.UserCokeModel;
+import br.com.victor.coke.model.dto.CokeDTO;
+import br.com.victor.coke.service.CokeService;
+import br.com.victor.coke.service.UserCokeService;
+import br.com.victor.coke.service.mondayIntegration.services.MondayIntegrationService;
 import br.com.victor.littleCoke.web.constants.MVCCommandNames;
+import br.com.victor.littleCoke.web.util.LittleCokeUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.service.UserLocalService;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
-import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  *
  * @author victor
  */
 @Component(
+    configurationPid = MondayConstants.PID_MONDAY_CONFIGURATION,
     immediate = true,
     property = {
         "javax.portlet.name=" + CokeConstants.LITTLE_COKE_WEB,
@@ -25,78 +45,72 @@ import javax.portlet.RenderResponse;
 public class ViewCokeListMVCRenderCommand implements MVCRenderCommand {
 
     @Override
-    public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-        System.err.println("AAAAAAA");
-        return "";
+    public String render(RenderRequest renderRequest, RenderResponse renderResponse) {
+        try {
+            ServiceContext serviceContext = ServiceContextFactory.getInstance(Coke.class.getName(), renderRequest);
+            List<User> userList = _mondayIntegrationService.getUserMondayListDTO(serviceContext);
+            List<Coke> cokeList = _cokeService.getAllCokes();
+
+            List<CokeDTO> cokeDTOList = new ArrayList<>();
+            for(Coke coke : cokeList) {
+                CokeDTO cokeDTO = new CokeDTO();
+                List<User> usersInUserCokeList = new ArrayList<>();
+                List<UserCoke> userCokeInUserList = new ArrayList<>();
+                List<User> nextUserList = new ArrayList<>();
+
+                List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
+                userList
+                        .stream()
+                        .filter(user -> userCokeList.stream().anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
+                        .forEach(user -> {
+                            usersInUserCokeList.add(user);
+
+                            UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), user.getUserId());
+
+                            userCokeInUserList.add(userCoke);
+                        });
+
+                cokeDTO.setCoke(coke);
+                cokeDTO.setInitialDate(LittleCokeUtil.formatDate(coke.getCreateDate()));
+                cokeDTO.setUsersInUserCokeList(usersInUserCokeList);
+
+                userCokeInUserList.sort(Comparator.comparing(UserCokeModel::getOrder));
+
+                userCokeInUserList.stream().limit(2).forEach(userCoke -> {
+                    try {
+                        User user = _userLocalService.getUser(userCoke.getUserId());
+
+                        nextUserList.add(user);
+                    } catch (PortalException e) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                });
+                cokeDTO.setUserCokeList(userCokeInUserList);
+                cokeDTO.setNextUsersList(nextUserList);
+
+                cokeDTOList.add(cokeDTO);
+            }
+
+            renderRequest.setAttribute("cokeDTOList", cokeDTOList);
+        } catch (PortalException e) {
+            _log.error(e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+        return "/view.jsp";
     }
 
-    /*
-        	@Override
-	public String render(RenderRequest renderRequest, RenderResponse renderResponse) {
+    private final Log _log = LogFactoryUtil.getLog(ViewCokeListMVCRenderCommand.class);
 
-		// Add assignment list related attributes.
+    @Reference
+    private MondayIntegrationService _mondayIntegrationService;
 
-		addAssignmentListAttributes(renderRequest);
+    @Reference
+    private CokeService _cokeService;
 
-		// Add Clay management toolbar related attributes.
+    @Reference
+    private UserCokeService _userCokeService;
 
-		addManagementToolbarAttributes(renderRequest, renderResponse);
-
-		// Add permission checker.
-		renderRequest.setAttribute("assignmentPermission", _assignmentPermission);
-
-		return "/view.jsp";
-	}
-
-	private void addAssignmentListAttributes(RenderRequest renderRequest) {
-		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		// Resolve start and end for the search.
-		int currentPage = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_CUR_PARAM,
-				SearchContainer.DEFAULT_CUR);
-		int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM,
-				SearchContainer.DEFAULT_DELTA);
-		int start = ((currentPage > 0) ? (currentPage - 1) : 0) * delta;
-		int end = start + delta;
-
-		// Get sorting options.
-		// Notice that this doesn't really sort on title because the field is
-		// stored in XML. In real world this search would be integrated to the
-		// search engine
-		// to get localized sort options.
-		String orderByCol = ParamUtil.getString(renderRequest, "orderByCol", "title");
-
-		String orderByType = ParamUtil.getString(renderRequest, "orderByType", "asc");
-		// Create comparator
-		OrderByComparator<Assignment> comparator = OrderByComparatorFactoryUtil.create("Assignment", orderByCol,
-				!("asc").equals(orderByType));
-		// Get keywords.
-		// Notice that cleaning keywords is not implemented.
-		String keywords = ParamUtil.getString(renderRequest, "keywords");
-		// Call the service to get the list of assignments.
-		List<Assignment> assignments = _assignmentService.getAssignmentsByKeywords(themeDisplay.getScopeGroupId(),
-				keywords, start, end, comparator);
-		// Set request attributes.
-		renderRequest.setAttribute("assignments", assignments);
-		renderRequest.setAttribute("assignmentCount",
-				_assignmentService.getAssignmentsCountByKeywords(themeDisplay.getScopeGroupId(), keywords));
-	}
-
-	private void addManagementToolbarAttributes(RenderRequest renderRequest, RenderResponse renderResponse) {
-		LiferayPortletRequest liferayPortletRequest = _portal.getLiferayPortletRequest(renderRequest);
-		LiferayPortletResponse liferayPortletResponse = _portal.getLiferayPortletResponse(renderResponse);
-		AssignmentsManagementToolbarDisplayContext assignmentsManagementToolbarDisplayContext = new AssignmentsManagementToolbarDisplayContext(
-				liferayPortletRequest, liferayPortletResponse, _portal.getHttpServletRequest(renderRequest));
-		renderRequest.setAttribute("assignmentsManagementToolbarDisplayContext",
-				assignmentsManagementToolbarDisplayContext);
-	}
-
-	@Reference
-	protected AssignmentService _assignmentService;
-
-	@Reference
-	private Portal _portal;
-
-	@Reference
-	protected AssignmentPermission _assignmentPermission;
-     */
+    @Reference
+    private UserLocalService _userLocalService;
 }

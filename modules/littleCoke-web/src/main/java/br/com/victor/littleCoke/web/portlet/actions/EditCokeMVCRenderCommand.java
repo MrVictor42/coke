@@ -2,6 +2,7 @@ package br.com.victor.littleCoke.web.portlet.actions;
 
 import br.com.victor.coke.constants.CokeConstants;
 import br.com.victor.coke.model.Coke;
+import br.com.victor.coke.service.CokeLocalService;
 import br.com.victor.littleCoke.web.constants.MVCCommandNames;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
@@ -60,5 +61,5 @@ public class EditCokeMVCRenderCommand implements MVCRenderCommand {
     }
 
     @Reference
-    private AssignmentService _assignmentService;
+    private CokeLocalService _cokeLocalService;
 }

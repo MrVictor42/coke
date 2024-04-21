@@ -13,6 +13,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
@@ -55,12 +56,12 @@ public class CokeLocalServiceImpl extends CokeLocalServiceBaseImpl {
         boolean addGroupPermissions = true;
         boolean addGuestPermissions = true;
 
-//        resourceLocalService.addResources(
-//                group.getCompanyId(), group.getGroupId(), user.getUserId(), Coke.class.getName(), coke.getCokeId(),
-//                portletActions, addGroupPermissions, addGuestPermissions
-//        );
-//
-//        updateAsset(coke, serviceContext);
+        resourceLocalService.addResources(
+                group.getCompanyId(), group.getGroupId(), user.getUserId(), Coke.class.getName(), coke.getCokeId(),
+                portletActions, addGroupPermissions, addGuestPermissions
+        );
+
+        updateAsset(coke, serviceContext);
 
         return coke;
     }
@@ -79,6 +80,10 @@ public class CokeLocalServiceImpl extends CokeLocalServiceBaseImpl {
     @Indexable(type = IndexableType.DELETE)
     public Coke deleteCoke(long cokeId) throws PortalException {
         Coke coke = getCoke(cokeId);
+
+        resourceLocalService.deleteResource(coke, ResourceConstants.SCOPE_INDIVIDUAL);
+        assetEntryLocalService.deleteEntry(Coke.class.getName(), coke.getCokeId());
+
         List<UserCoke> userCokeList = _userCokeLocalService.getUserCokeByCokeId(cokeId);
 
         userCokeList.forEach(userCoke -> _userCokeLocalService.deleteUserCoke(userCoke));

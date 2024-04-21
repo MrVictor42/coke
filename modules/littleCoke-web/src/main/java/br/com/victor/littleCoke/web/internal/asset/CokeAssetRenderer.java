@@ -119,7 +119,7 @@ public class CokeAssetRenderer extends BaseJSPAssetRenderer<Coke> {
                 portletURL = PortletURLFactoryUtil.create(liferayPortletRequest, CokeConstants.LITTLE_COKE_WEB, plid, PortletRequest.RENDER_PHASE);
             }
 
-            portletURL.setParameter("mvcPath", "/coke/view.jsp");
+            portletURL.setParameter("mvcPath", "/coke/view_coke.jsp");
             portletURL.setParameter("cokeId", String.valueOf(_coke.getCokeId()));
 
             String currentUrl = PortalUtil.getCurrentURL(liferayPortletRequest);

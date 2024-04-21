@@ -5,12 +5,19 @@
 
 package br.com.victor.coke.service.impl;
 
+import br.com.victor.coke.constants.CokeConstants;
 import br.com.victor.coke.model.Coke;
 import br.com.victor.coke.service.base.CokeServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.service.ServiceContext;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 import java.util.List;
 
@@ -27,10 +34,14 @@ import java.util.List;
 public class CokeServiceImpl extends CokeServiceBaseImpl {
 
     public Coke createCoke(String name, ServiceContext serviceContext) throws PortalException {
+        _portletResourcePermission.check(getPermissionChecker(), serviceContext.getScopeGroupId(), ActionKeys.ADD_ENTRY);
+
         return cokeLocalService.createCoke(name, serviceContext);
     }
 
     public Coke deleteCoke(long cokeId) throws PortalException {
+        _cokeModelResourcePermission.check(getPermissionChecker(), cokeId, ActionKeys.DELETE);
+
         return cokeLocalService.deleteCoke(cokeId);
     }
 
@@ -39,10 +50,26 @@ public class CokeServiceImpl extends CokeServiceBaseImpl {
     }
 
     public Coke updateCoke(long cokeId, String name) throws PortalException {
+        _cokeModelResourcePermission.check(getPermissionChecker(), cokeId, ActionKeys.UPDATE);
+
         return cokeLocalService.updateCoke(cokeId, name);
     }
 
     public List<Coke> getAllCokes() {
         return cokeLocalService.getAllCokes();
     }
+
+    @Reference(
+        policy = ReferencePolicy.DYNAMIC,
+        policyOption = ReferencePolicyOption.GREEDY,
+        target = "(model.class.name=" + CokeConstants.COKE_MODEL + ")"
+    )
+    private volatile ModelResourcePermission<Coke> _cokeModelResourcePermission;
+
+    @Reference(
+        policy = ReferencePolicy.DYNAMIC,
+        policyOption = ReferencePolicyOption.GREEDY,
+        target = "(resource.name=" + CokeConstants.RESOURCE_NAME +")"
+    )
+    private volatile PortletResourcePermission _portletResourcePermission;
 }

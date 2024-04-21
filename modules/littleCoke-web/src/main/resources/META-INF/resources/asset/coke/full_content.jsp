@@ -1,12 +1,16 @@
-<%@include file="../../init.jsp"%>
+<%@ include file="../init.jsp" %>
 
 <%
-	Coke coke = (Coke) request.getAttribute("coke_coke");
-
-	coke = coke.toEscapedModel();
+    AssetRenderer<?> assetRenderer = (AssetRenderer<?>)request.getAttribute(WebKeys.ASSET_RENDERER);
+    String viewEntryURL = assetRenderer.getURLView(liferayPortletResponse, WindowState.MAXIMIZED);
+    Coke coke = (Coke) request.getAttribute("coke");
 %>
 
-<dl>
-        <dt>Name</dt>
-        <dd><%= coke.getName() %></dd>
-</dl>
+<aui:a cssClass="title-link" href="<%= viewEntryURL %>">
+    <h3 class="title">
+        <%= HtmlUtil.escape(coke.getName()) %>
+    </h3>
+</aui:a>
+<div class="autofit-col autofit-col-expand">
+    <%= HtmlUtil.escape(coke.getName()) %>
+</div>

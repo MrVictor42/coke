@@ -30,6 +30,8 @@
 <%@ page import="br.com.victor.coke.model.Coke" %>
 <%@ page import="com.liferay.portal.kernel.model.User" %>
 <%@ page import="java.util.Comparator" %>
+<%@ page import="br.com.victor.littleCoke.web.constants.MVCCommandNames" %>
+<%@ page import="com.liferay.portal.kernel.servlet.SessionErrors"%>
 
 <liferay-theme:defineObjects />
 <portlet:defineObjects />
