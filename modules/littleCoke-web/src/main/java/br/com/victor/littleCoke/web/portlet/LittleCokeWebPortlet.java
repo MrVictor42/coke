@@ -10,7 +10,6 @@ import br.com.victor.coke.model.dto.CokeDTO;
 import br.com.victor.coke.service.CokeService;
 import br.com.victor.coke.service.UserCokeService;
 import br.com.victor.coke.service.mondayIntegration.services.MondayIntegrationService;
-import br.com.victor.littleCoke.web.constants.LittleCokeWebPortletKeys;
 import br.com.victor.littleCoke.web.util.LittleCokeUtil;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -44,10 +43,10 @@ import java.util.stream.Collectors;
             "com.liferay.portlet.header-portlet-css=/css/main.css",
             "com.liferay.portlet.instanceable=false",
             "com.liferay.portlet.scopeable=true",
-            "javax.portlet.display-name=" + LittleCokeWebPortletKeys.COKE_NAME,
+            "javax.portlet.display-name=" + CokeConstants.COKE_NAME,
             "javax.portlet.init-param.template-path=/",
             "javax.portlet.init-param.view-template=/coke/view.jsp",
-            "javax.portlet.name=" + LittleCokeWebPortletKeys.LITTLE_COKE_WEB,
+            "javax.portlet.name=" + CokeConstants.LITTLE_COKE_WEB,
             "javax.portlet.resource-bundle=content.Language",
             "javax.portlet.security-role-ref=power-user,user",
             "javax.portlet.supports.mime-type=text/html;"

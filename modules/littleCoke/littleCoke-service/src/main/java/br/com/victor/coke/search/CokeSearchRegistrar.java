@@ -31,7 +31,7 @@ public class CokeSearchRegistrar {
                         Field.ASSET_TAG_NAMES, Field.COMPANY_ID,
                         Field.ENTRY_CLASS_NAME, Field.ENTRY_CLASS_PK,
                         Field.GROUP_ID, Field.MODIFIED_DATE, Field.SCOPE_GROUP_ID,
-                        Field.UID, CREATOR, USER_COKE
+                        Field.UID, CREATOR, USER_COKE, Field.USER_NAME
                     );
                     modelSearchDefinition.setDefaultSelectedLocalizedFieldNames(Field.DESCRIPTION, Field.TITLE);
                     modelSearchDefinition.setModelIndexWriteContributor(modelIndexWriterContributor);

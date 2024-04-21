@@ -1,7 +1,7 @@
 package br.com.victor.littleCoke.web.internal.asset;
 
+import br.com.victor.coke.constants.CokeConstants;
 import br.com.victor.coke.model.Coke;
-import br.com.victor.littleCoke.web.constants.LittleCokeWebPortletKeys;
 import com.liferay.asset.kernel.model.BaseJSPAssetRenderer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -96,7 +96,7 @@ public class CokeAssetRenderer extends BaseJSPAssetRenderer<Coke> {
     public PortletURL getURLEdit(LiferayPortletRequest liferayPortletRequest, LiferayPortletResponse liferayPortletResponse) throws Exception {
 
         PortletURL portletURL = liferayPortletResponse.createLiferayPortletURL(
-            getControlPanelPlid(liferayPortletRequest), LittleCokeWebPortletKeys.LITTLE_COKE_WEB, PortletRequest.RENDER_PHASE
+            getControlPanelPlid(liferayPortletRequest), CokeConstants.LITTLE_COKE_WEB, PortletRequest.RENDER_PHASE
         );
 
         portletURL.setParameter("mvcPath", "/coke/edit_coke.jsp");
@@ -109,14 +109,14 @@ public class CokeAssetRenderer extends BaseJSPAssetRenderer<Coke> {
     @Override
     public String getURLViewInContext(LiferayPortletRequest liferayPortletRequest, LiferayPortletResponse liferayPortletResponse, String noSuchEntryRedirect) throws Exception {
         try {
-            long plid = PortalUtil.getPlidFromPortletId(_coke.getGroupId(), LittleCokeWebPortletKeys.LITTLE_COKE_WEB);
+            long plid = PortalUtil.getPlidFromPortletId(_coke.getGroupId(), CokeConstants.LITTLE_COKE_WEB);
 
             PortletURL portletURL;
             if (plid == LayoutConstants.DEFAULT_PLID) {
                 portletURL = liferayPortletResponse.createLiferayPortletURL(getControlPanelPlid(liferayPortletRequest),
-                        LittleCokeWebPortletKeys.LITTLE_COKE_WEB, PortletRequest.RENDER_PHASE);
+                        CokeConstants.LITTLE_COKE_WEB, PortletRequest.RENDER_PHASE);
             } else {
-                portletURL = PortletURLFactoryUtil.create(liferayPortletRequest, LittleCokeWebPortletKeys.LITTLE_COKE_WEB, plid, PortletRequest.RENDER_PHASE);
+                portletURL = PortletURLFactoryUtil.create(liferayPortletRequest, CokeConstants.LITTLE_COKE_WEB, plid, PortletRequest.RENDER_PHASE);
             }
 
             portletURL.setParameter("mvcPath", "/coke/view.jsp");

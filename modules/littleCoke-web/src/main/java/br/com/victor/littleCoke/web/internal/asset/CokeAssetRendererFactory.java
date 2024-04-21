@@ -3,7 +3,6 @@ package br.com.victor.littleCoke.web.internal.asset;
 import br.com.victor.coke.constants.CokeConstants;
 import br.com.victor.coke.model.Coke;
 import br.com.victor.coke.service.CokeLocalService;
-import br.com.victor.littleCoke.web.constants.LittleCokeWebPortletKeys;
 import br.com.victor.littleCoke.web.internal.security.permission.resource.CokePermission;
 import com.liferay.asset.kernel.model.AssetRenderer;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
@@ -27,7 +26,7 @@ import java.util.logging.Logger;
 @Component(
     immediate = true,
     property = {
-        "javax.portlet.name=" + LittleCokeWebPortletKeys.LITTLE_COKE_WEB
+        "javax.portlet.name=" + CokeConstants.LITTLE_COKE_WEB
     },
     service = AssetRendererFactory.class
 )
@@ -36,7 +35,7 @@ public class CokeAssetRendererFactory extends BaseAssetRendererFactory<Coke> {
     public CokeAssetRendererFactory() {
         setClassName(CLASS_NAME);
         setLinkable(_LINKABLE);
-        setPortletId(LittleCokeWebPortletKeys.LITTLE_COKE_WEB);
+        setPortletId(CokeConstants.LITTLE_COKE_WEB);
         setSearchable(true);
         setSelectable(true);
     }
@@ -77,7 +76,7 @@ public class CokeAssetRendererFactory extends BaseAssetRendererFactory<Coke> {
         try {
             ThemeDisplay themeDisplay = (ThemeDisplay) liferayPortletRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-            portletURL = liferayPortletResponse.createLiferayPortletURL(getControlPanelPlid(themeDisplay), LittleCokeWebPortletKeys.LITTLE_COKE_WEB, PortletRequest.RENDER_PHASE);
+            portletURL = liferayPortletResponse.createLiferayPortletURL(getControlPanelPlid(themeDisplay), CokeConstants.LITTLE_COKE_WEB, PortletRequest.RENDER_PHASE);
             portletURL.setParameter("mvcPath", "/coke/edit_coke.jsp");
             portletURL.setParameter("showback", Boolean.FALSE.toString());
 
