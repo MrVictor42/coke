@@ -1,9 +1,8 @@
-<%-- <%@ include file="../init.jsp" %>
+<%@ include file="../init.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<liferay-ui:error key="errorUpdateList" message="error-update-list"/>
 <liferay-ui:success key="updatedList" message="updated-list" />
-<liferay-ui:success key="updatedCoke" message="informations-updated" />
-<liferay-ui:error key="errorUpdateList" message="error-update-list" />
-<liferay-ui:error key="errorUpdateCoke" message="error-update-coke"/>
 
 <%
     long cokeId = ParamUtil.getLong(renderRequest, "cokeId");
@@ -22,208 +21,139 @@
 %>
 
 <portlet:renderURL var="backViewURL">
-    <portlet:param name="mvcPath" value="/coke/view.jsp"></portlet:param>
+    <portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.VIEW_COKE_LIST %>"></portlet:param>
 </portlet:renderURL>
-<portlet:actionURL name="addOrUpdateCoke" var="addOrUpdateCoke" />
 
 <portlet:resourceURL var="resourceURL">
     <portlet:param name="cokeId" value="<%= String.valueOf(cokeId) %>" />
-    <portlet:param name="mvcPath" value="/coke/edit_coke.jsp" />
+    <portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.EDIT_COKE %>" />
 </portlet:resourceURL>
 
-<c:choose>
-    <c:when test="${cokeId == 0}">
-        <aui:form action="<%= addOrUpdateCoke %>" name="<portlet:namespace />fm">
-            <aui:model-context bean="<%= coke %>" model="<%= Coke.class %>" />
+<portlet:actionURL var="updateCoke" name="<%=MVCCommandNames.EDIT_COKE %>">
+    <portlet:param name="cokeId" value="<%= String.valueOf(cokeId) %>" />
+</portlet:actionURL>
 
-            <aui:fieldset>
-                <aui:input name="name" />
-                <aui:input name="cokeId" type="hidden" value='<%= coke == null ? cokeId : coke.getCokeId() %>'/>
-            </aui:fieldset>
+<aui:form action="<%= updateCoke %>" name="<portlet:namespace />fm">
+    <aui:model-context bean="<%= coke %>" model="<%= Coke.class %>" />
 
-            <div class="form-group">
-                <div class="clay-dual-listbox">
-                    <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
-                        <label for="_9d5cxj5xm">
-                            <span class="text-truncate-inline">
-                                <span class="text-truncate">Membros Disponíveis</span>
-                            </span>
-                        </label>
-                        <div class="clay-reorder clay-reorder-footer-end">
-                            <select class="form-control form-control-inset" id="notAssociated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_notAssociated" multiple size="10">
-                                <c:choose>
-                                    <c:when test="${not empty userList}">
-                                        <c:forEach var="user" items="${userList}">
-                                            <option value="${user.userId}">${user.fullName}</option>
-                                        </c:forEach>
-                                    </c:when>
-                                </c:choose>
-                            </select>
-                            <div class="clay-reorder-underlay form-control"></div>
-                        </div>
-                    </div>
-            
-                    <div class="clay-dual-listbox-item clay-dual-listbox-actions">
-                        <div class="btn-group-vertical">
-                            <button class="btn btn-monospaced btn-secondary btn-sm" type="button">
-                                <clay:icon symbol="caret-right" />
-                            </button>
-                            <button class="btn btn-monospaced btn-secondary btn-sm" type="button">
-                                <clay:icon symbol="caret-left" />
-                            </button>
-                        </div>
-                    </div>
-            
-                    <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
-                        <label for="_957gwvjvl">
-                            <span class="text-truncate-inline">
-                                <span class="text-truncate">Membros Atuais</span>
-                            </span>
-                        </label>
-                        <div class="clay-reorder">
-                            <select class="form-control form-control-inset" id="associated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_associated" multiple size="10">
-                                <c:if test="${not empty usersInUserCokeList}">
-                                    <c:forEach var="userInCoke" items="${usersInUserCokeList}">
-                                        <option value="${userInCoke.userId}">${userInCoke.fullName}</option>
-                                    </c:forEach>
-                                </c:if>
-                            </select>
-                            <div class="clay-reorder-underlay form-control"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <aui:fieldset>
+        <aui:input name="name" value="${cokeDTO.getCoke().name}"/>
+        <aui:input name="cokeId" type="hidden" value='<%= coke == null ? cokeId : coke.getCokeId() %>'/>
+    </aui:fieldset>
 
-            <aui:button-row>
-                <aui:button type="submit"></aui:button>
-                <aui:button type="cancel" onClick="<%= backViewURL.toString() %>"></aui:button>
-            </aui:button-row>
-        </aui:form>
-    </c:when>
-    <c:otherwise>
-        <aui:form action="<%= addOrUpdateCoke %>" name="<portlet:namespace />fm">
-            <aui:model-context bean="<%= coke %>" model="<%= Coke.class %>" />
+    <div class="card" id="nextToPayCard">
+        <div class="card-body">
+            <h2>Próximos a Pagar</h2>
 
-            <aui:fieldset>
-                <aui:input name="name" value="${cokeDTO.getCoke().name}"/>
-                <aui:input name="cokeId" type="hidden" value='<%= coke == null ? cokeId : coke.getCokeId() %>'/>
-            </aui:fieldset>
-
-            <div class="card" id="nextToPayCard">
-                <div class="card-body">
-                    <h2>Próximos a Pagar</h2>
-
-                    <% int next = 0; %>
-                    <% for (User nextUser : cokeDTO.getNextUsersList()) { %>
-                        <% if (next % 2 == 0) { %>
-                            <div class="row">
-                        <% } %>
-                                <div class="col-md-6 member" style="<%= next < 4 ? "" : "display: none;" %>">
-                                    <div class="card card-horizontal card-rounded">
-                                        <div class="card-row">
-                                            <div class="autofit-col">
-                                                <img class="card-item-last rounded-circle" style="width: 50px"
-                                                    src="<%= nextUser.getPortraitURL(themeDisplay) %>"
-                                                />
-                                            </div>
-                                            <div class="autofit-col autofit-col-expand autofit-col-gutters">
-                                                <section class="autofit-section">
-                                                    <h3 class="card-title"><%= (next + 1) + "º " + nextUser.getFullName() %></h3>
-                                                    <h4 class="card-subtitle mb-2 text-muted">Membro há: <%= LittleCokeUtil.memberSince(nextUser.getCreateDate()) %> dia(s)</h4>
-                                                </section>
-                                            </div>
-                                        </div>
+            <% int next = 0; %>
+            <% for (User nextUser : cokeDTO.getNextUsersList()) { %>
+                <% if (next % 2 == 0) { %>
+                    <div class="row">
+                <% } %>
+                        <div class="col-md-6 member" style="<%= next < 4 ? "" : "display: none;" %>">
+                            <div class="card card-horizontal card-rounded">
+                                <div class="card-row">
+                                    <div class="autofit-col">
+                                        <img class="card-item-last rounded-circle" style="width: 50px"
+                                            src="<%= nextUser.getPortraitURL(themeDisplay) %>"
+                                        />
+                                    </div>
+                                    <div class="autofit-col autofit-col-expand autofit-col-gutters">
+                                        <section class="autofit-section">
+                                            <h3 class="card-title"><%= (next + 1) + "º " + nextUser.getFullName() %></h3>
+                                            <h4 class="card-subtitle mb-2 text-muted">Membro há: <%= LittleCokeUtil.memberSince(nextUser.getCreateDate()) %> dia(s)</h4>
+                                        </section>
                                     </div>
                                 </div>
-                        <% if (next % 2 != 0) { %>
                             </div>
+                        </div>
+                <% if (next % 2 != 0) { %>
+                    </div>
+                <% } %>
+                <% next++; %>
+            <% } %>
+            <% if (userList != null && userList.size() % 2 != 0) { %>
+                </div>
+            <% } %>
+        </div>
+
+        <div class="autofit-col autofit-col-expand autofit-col-gutters">
+            <section class="autofit-section">
+                <button id="refresh-btn" class="btn btn-primary">
+                    Atualizar Lista <clay:icon symbol="reload" />
+                </button>
+            <button id="loadMoreNext" class="btn btn-primary">
+                Mostre Mais Membros <clay:icon symbol="plus" />
+            </button>
+            </section>
+        </div>
+    </div>
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h3 class="card-title">Média de Coca Por Pessoa</h3>
+            <p class="card-text">
+                Você Sabia? Ao comprar uma coca cola de 2L, e levando em consideração que temos ${cokeDTO.getNextUsersList().size()} associados,
+                ao bebermos em um copo de 300 ML, cada um toma em média <%= LittleCokeUtil.averageCokeByPersonFormatted(cokeDTO.getNextUsersList().size()) %>
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="clay-dual-listbox">
+            <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
+                <label for="_9d5cxj5xm">
+                    <span class="text-truncate-inline">
+                        <span class="text-truncate">Possiveis Associados</span>
+                    </span>
+                </label>
+
+                <div class="clay-reorder clay-reorder-footer-end">
+                    <select class="form-control form-control-inset" id="notAssociated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_notAssociated" multiple size="10">
+                        <% for(User userNotInCoke : cokeDTO.getUsersNotInUserCokeList() != null ? cokeDTO.getUsersNotInUserCokeList() : userList) { %>
+                            <option value="<%= userNotInCoke.getUserId() %>"><%= userNotInCoke.getFullName() %></option>
                         <% } %>
-                        <% next++; %>
-                    <% } %>
-                    <% if (userList != null && userList.size() % 2 != 0) { %>
-                        </div>
-                    <% } %>
+                    </select>
+                    <div class="clay-reorder-underlay form-control"></div>
                 </div>
+            </div>
 
-                <div class="autofit-col autofit-col-expand autofit-col-gutters">
-                    <section class="autofit-section">
-                        <button id="refresh-btn" class="btn btn-primary">
-                            Atualizar Lista <clay:icon symbol="reload" />
-                        </button>
-                    <button id="loadMoreNext" class="btn btn-primary">
-                        Mostre Mais Membros <clay:icon symbol="plus" />
+            <div class="clay-dual-listbox-item clay-dual-listbox-actions">
+                <div class="btn-group-vertical">
+                    <button class="btn btn-monospaced btn-secondary btn-sm" type="button">
+                        <clay:icon symbol="caret-right" />
                     </button>
-                    </section>
+                    <button class="btn btn-monospaced btn-secondary btn-sm" type="button">
+                        <clay:icon symbol="caret-left" />
+                    </button>
                 </div>
             </div>
 
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h3 class="card-title">Média de Coca Por Pessoa</h3>
-                    <p class="card-text">
-                        Você Sabia? Ao comprar uma coca cola de 2L, e levando em consideração que temos ${cokeDTO.getNextUsersList().size()} associados,
-                        ao bebermos em um copo de 300 ML, cada um toma em média <%= LittleCokeUtil.averageCokeByPersonFormatted(cokeDTO.getNextUsersList().size()) %>
-                    </p>
+            <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
+                <label for="_957gwvjvl">
+                    <span class="text-truncate-inline">
+                        <span class="text-truncate">Membros Atuais</span>
+                    </span>
+                </label>
+                <div class="clay-reorder">
+                    <select class="form-control form-control-inset" id="associated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_associated" multiple size="10">
+                        <% if(cokeDTO.getUsersInUserCokeList() != null) {
+                            for(User userInCoke : cokeDTO.getUsersInUserCokeList()) { %>
+                                <option value="<%= userInCoke.getUserId() %>"><%= userInCoke.getFullName() %></option>
+                            <% }
+                        } %>
+                    </select>
+                    <div class="clay-reorder-underlay form-control"></div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="form-group">
-                <div class="clay-dual-listbox">
-                    <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
-                        <label for="_9d5cxj5xm">
-                            <span class="text-truncate-inline">
-                                <span class="text-truncate">Possiveis Associados</span>
-                            </span>
-                        </label>
-            
-                        <div class="clay-reorder clay-reorder-footer-end">
-                            <select class="form-control form-control-inset" id="notAssociated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_notAssociated" multiple size="10">
-                                <% for(User userNotInCoke : cokeDTO.getUsersNotInUserCokeList() != null ? cokeDTO.getUsersNotInUserCokeList() : userList) { %>
-                                    <option value="<%= userNotInCoke.getUserId() %>"><%= userNotInCoke.getFullName() %></option>
-                                <% } %>
-                            </select>
-                            <div class="clay-reorder-underlay form-control"></div>
-                        </div>
-                    </div>
-
-                    <div class="clay-dual-listbox-item clay-dual-listbox-actions">
-                        <div class="btn-group-vertical">
-                            <button class="btn btn-monospaced btn-secondary btn-sm" type="button">
-                                <clay:icon symbol="caret-right" />
-                            </button>
-                            <button class="btn btn-monospaced btn-secondary btn-sm" type="button">
-                                <clay:icon symbol="caret-left" />
-                            </button>
-                        </div>
-                    </div>
-        
-                    <div class="clay-dual-listbox-item clay-dual-listbox-item-expand">
-                        <label for="_957gwvjvl">
-                            <span class="text-truncate-inline">
-                                <span class="text-truncate">Membros Atuais</span>
-                            </span>
-                        </label>
-                        <div class="clay-reorder">
-                            <select class="form-control form-control-inset" id="associated" name="_br_com_victor_littleCoke_web_LittleCokeWebPortlet_associated" multiple size="10">
-                                <% if(cokeDTO.getUsersInUserCokeList() != null) {
-                                    for(User userInCoke : cokeDTO.getUsersInUserCokeList()) { %>
-                                        <option value="<%= userInCoke.getUserId() %>"><%= userInCoke.getFullName() %></option>
-                                    <% }
-                                } %>
-                            </select>
-                            <div class="clay-reorder-underlay form-control"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <aui:button-row>
-                <aui:button type="submit"></aui:button>
-                <aui:button type="cancel" onClick="<%= backViewURL.toString() %>"></aui:button>
-            </aui:button-row>
-        </aui:form>
-    </c:otherwise>
-</c:choose>
+    <aui:button-row>
+        <aui:button type="submit"></aui:button>
+        <aui:button type="cancel" onClick="<%= backViewURL.toString() %>"></aui:button>
+    </aui:button-row>
+</aui:form>
 
 <script>
     document.querySelector('.clay-dual-listbox-actions button:nth-child(1)').addEventListener('click', function() {
@@ -250,14 +180,13 @@
 
     document.getElementById('refresh-btn').addEventListener('click', function() {
         AUI().use('aui-io-request', function(A){
-            A.io.request('<%=resourceURL.toString()%>', {
+            var url = '<portlet:resourceURL id="<%=MVCCommandNames.UPDATE_MEMBERS_LIST %>" />';
+            url += '?cokeId=' + <%= cokeId %>;
+            A.io.request(url, {
                 method: 'POST',
-                data: {
-                    cokeId: <%= cokeId %>,
-                },
                 on: {
                     complete: function() {
-                        location.reload();
+                        console.log('Lista atualizada!');
                     }
                 }
             });
@@ -283,4 +212,4 @@
             }
         });
     });
-</script> --%>
+</script> 

@@ -2,20 +2,31 @@ package br.com.victor.littleCoke.web.portlet.actions;
 
 import br.com.victor.coke.constants.CokeConstants;
 import br.com.victor.coke.model.Coke;
-import br.com.victor.coke.service.CokeLocalService;
+import br.com.victor.coke.model.UserCoke;
+import br.com.victor.coke.model.UserCokeModel;
+import br.com.victor.coke.model.dto.CokeDTO;
+import br.com.victor.coke.service.CokeService;
+import br.com.victor.coke.service.UserCokeService;
+import br.com.victor.coke.service.mondayIntegration.services.MondayIntegrationService;
 import br.com.victor.littleCoke.web.constants.MVCCommandNames;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
-import com.liferay.portal.kernel.servlet.SessionMessages;
-import com.liferay.portal.kernel.theme.PortletDisplay;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.WebKeys;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -33,34 +44,72 @@ public class EditCokeMVCRenderCommand implements MVCRenderCommand {
 
     @Override
     public String render(RenderRequest renderRequest, RenderResponse renderResponse) {
-//        Coke coke = null;
-        long cokeId = ParamUtil.getLong(renderRequest, CokeConstants.COKE_ID, 0);
+        try {
+            ServiceContext serviceContext = ServiceContextFactory.getInstance(Coke.class.getName(), renderRequest);
+            List<User> userList = _mondayIntegrationService.getUserMondayListDTO(serviceContext);
+            long cokeId = ParamUtil.getLong(renderRequest, CokeConstants.COKE_ID, 0);
+            Coke coke = _cokeService.getCoke(cokeId);
+            List<UserCoke> userCokeList = _userCokeService.getUserCokeByCokeId(coke.getCokeId());
+            CokeDTO cokeDTO = new CokeDTO();
+            List<User> usersInUserCokeList = new ArrayList<>();
+            List<UserCoke> userCokeInUserList = new ArrayList<>();
+            List<User> usersNotInUserCokeList;
+            List<User> nextUserList = new ArrayList<>();
 
+            userList
+                    .stream()
+                    .filter(user -> userCokeList.stream().anyMatch(userCoke -> userCoke.getUserId() == user.getUserId()))
+                    .forEach(user -> {
+                        usersInUserCokeList.add(user);
 
-//        if (assignmentId > 0) {
-//            // Call the service to get the assignment for editing.
-//            try {
-//                assignment = _assignmentService.getAssignment(assignmentId);
-//            } catch (PortalException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//
-//        ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
-//        // Set back icon visible.
-//        PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
-//        portletDisplay.setShowBackIcon(true);
-//        String redirect = renderRequest.getParameter("redirect");
-//        portletDisplay.setURLBack(redirect);
-//
-//        // Set assignment to the request attributes.
-//        renderRequest.setAttribute("assignment", assignment);
-//        renderRequest.setAttribute("assignmentClass", Assignment.class);
-//        SessionMessages.add(renderRequest, "assignmentUpdated");
+                        UserCoke userCoke = _userCokeService.getUserCokeByCokeIdAndUserId(coke.getCokeId(), user.getUserId());
 
-        return "/coke/edit_coke.jsp";
+                        userCokeInUserList.add(userCoke);
+                    });
+
+            usersNotInUserCokeList = userList.stream()
+                    .filter(userItem -> userCokeList.stream()
+                            .noneMatch(userCoke -> userCoke.getUserId() == userItem.getUserId()))
+                    .collect(Collectors.toList());
+
+            cokeDTO.setCoke(coke);
+            cokeDTO.setUsersInUserCokeList(usersInUserCokeList);
+            cokeDTO.setUsersNotInUserCokeList(usersNotInUserCokeList);
+
+            userCokeInUserList.sort(Comparator.comparing(UserCokeModel::getOrder));
+
+            userCokeInUserList.forEach(userCoke -> {
+                try {
+                    User user = _userLocalService.getUser(userCoke.getUserId());
+
+                    nextUserList.add(user);
+                } catch (PortalException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            cokeDTO.setUserCokeList(userCokeInUserList);
+            cokeDTO.setNextUsersList(nextUserList);
+
+            renderRequest.setAttribute("cokeDTO", cokeDTO);
+
+            return "/coke/edit_coke.jsp";
+        } catch (PortalException e) {
+            _log.error(e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
+    private final Log _log = LogFactoryUtil.getLog(EditCokeMVCRenderCommand.class);
+
     @Reference
-    private CokeLocalService _cokeLocalService;
+    private MondayIntegrationService _mondayIntegrationService;
+
+    @Reference
+    private CokeService _cokeService;
+
+    @Reference
+    private UserCokeService _userCokeService;
+
+    @Reference
+    private UserLocalService _userLocalService;
 }

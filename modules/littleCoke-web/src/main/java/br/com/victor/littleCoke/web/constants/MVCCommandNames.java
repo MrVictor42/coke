@@ -7,4 +7,5 @@ public class MVCCommandNames {
     public static final String EDIT_COKE = "/coke/edit";
     public static final String VIEW_COKE = "/coke/view";
     public static final String VIEW_COKE_LIST = "/coke/list/view";
+    public static final String UPDATE_MEMBERS_LIST = "/coke/update/members/list";
 }
