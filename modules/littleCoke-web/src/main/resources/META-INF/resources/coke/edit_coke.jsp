@@ -24,6 +24,10 @@
     <portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.VIEW_COKE_LIST %>"></portlet:param>
 </portlet:renderURL>
 
+<portlet:actionURL var="deleteCoke" name="<%=MVCCommandNames.DELETE_COKE %>">
+    <portlet:param name="cokeId" value="<%= String.valueOf(cokeId) %>" />
+</portlet:actionURL>
+
 <portlet:resourceURL var="resourceURL">
     <portlet:param name="cokeId" value="<%= String.valueOf(cokeId) %>" />
     <portlet:param name="mvcRenderCommandName" value="<%=MVCCommandNames.EDIT_COKE %>" />
@@ -152,6 +156,7 @@
     <aui:button-row>
         <aui:button type="submit"></aui:button>
         <aui:button type="cancel" onClick="<%= backViewURL.toString() %>"></aui:button>
+    	<aui:button type="delete" onClick="<%= deleteCoke.toString() %>" value="Excluir" style="float: right; color: #fff; background-color: #EB1313; border-color: #EB1313"></aui:button>
     </aui:button-row>
 </aui:form>
 

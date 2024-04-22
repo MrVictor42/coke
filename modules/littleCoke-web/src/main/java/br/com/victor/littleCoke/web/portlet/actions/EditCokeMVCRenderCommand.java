@@ -55,6 +55,7 @@ public class EditCokeMVCRenderCommand implements MVCRenderCommand {
             List<UserCoke> userCokeInUserList = new ArrayList<>();
             List<User> usersNotInUserCokeList;
             List<User> nextUserList = new ArrayList<>();
+            boolean canDelete = serviceContext.getUserId() == coke.getUserId();
 
             userList
                     .stream()
@@ -91,6 +92,7 @@ public class EditCokeMVCRenderCommand implements MVCRenderCommand {
             cokeDTO.setNextUsersList(nextUserList);
 
             renderRequest.setAttribute("cokeDTO", cokeDTO);
+            renderRequest.setAttribute("canDelete", canDelete);
 
             return "/coke/edit_coke.jsp";
         } catch (PortalException e) {

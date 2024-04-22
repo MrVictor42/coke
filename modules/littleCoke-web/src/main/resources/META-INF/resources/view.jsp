@@ -5,7 +5,7 @@
     <liferay-ui:message arguments='<%= SessionErrors.get(liferayPortletRequest, "serviceErrorDetails") %>' key="error.assignment-service-error" />
 </liferay-ui:error>
 <liferay-ui:success key="cokeAdded" message="coke-added" />
-<liferay-ui:success key="cokeUpdated" message="coke-updated-successfully" />
+<liferay-ui:success key="updatedCoke" message="updated-list" />
 <liferay-ui:success key="cokeDeleted" message="coke-deleted-successfully" />
 
 <% List<CokeDTO> cokeDTOList = (List<CokeDTO>) renderRequest.getAttribute("cokeDTOList"); %>
