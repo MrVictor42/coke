@@ -14,6 +14,7 @@
     List<User> userList = (List<User>) request.getAttribute("userList");
     List<UserCoke> userCokeList = null;
     List<CokeDTO> cokeDTOList = new ArrayList<>();
+    boolean canDelete = (Boolean) renderRequest.getAttribute("canDelete");
 
     if(cokeId > 0) {
         cokeDTO = (CokeDTO) request.getAttribute("cokeDTO");
@@ -156,7 +157,9 @@
     <aui:button-row>
         <aui:button type="submit"></aui:button>
         <aui:button type="cancel" onClick="<%= backViewURL.toString() %>"></aui:button>
-    	<aui:button type="delete" onClick="<%= deleteCoke.toString() %>" value="Excluir" style="float: right; color: #fff; background-color: #EB1313; border-color: #EB1313"></aui:button>
+        <% if(canDelete) { %>
+            <aui:button type="delete" onClick="<%= deleteCoke.toString() %>" value="Excluir" style="float: right; color: #fff; background-color: #EB1313; border-color: #EB1313"></aui:button>
+        <% } %>
     </aui:button-row>
 </aui:form>
 

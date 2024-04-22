@@ -40,46 +40,9 @@ public class UserCokeModelListener extends BaseModelListener<UserCoke> {
 
     @Override
     public void onAfterUpdate(UserCoke originalModel, UserCoke userCoke) throws ModelListenerException {
-        //            if (userCoke.getOrder() == CokeConstants.NEXT_TO_PAY) {
-//                // Supondo que você tenha as informações necessárias do usuário
-//                String userId = "39648087"; // ID do usuário no Monday
-//
-//                // Construir a consulta de mutação
-//                String query = "mutation { create_notification (user_id: \"" + userId + "\", target_id: 4265334181, text: \"This is a notification\", target_type: Post) { text } }";
-//
-//                // Construir o objeto JSON com a consulta
-//                JSONObject json = JSONFactoryUtil.createJSONObject();
-//                json.put("query", query);
-//
-//                // URL da API do Monday
-//                URL url = new URL("https://api.monday.com/v2");
-//                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//
-//                // Configurações da conexão HTTP
-//                conn.setRequestProperty("Accept", "application/json");
-//                conn.setRequestProperty("Authorization", _mondayConfiguration.getToken()	);
-//                conn.setRequestProperty("API-Version", "2023-10");
-//                conn.setRequestProperty("Access-Control-Allow-Origin", "*");
-//
-//                conn.setRequestMethod("POST");
-//                conn.setDoOutput(true);
-//
-//                // Enviar a consulta como uma solicitação POST
-//                try (OutputStream os = conn.getOutputStream()) {
-//                    byte[] input = json.toString().getBytes(StandardCharsets.UTF_8);
-//                    os.write(input, 0, input.length);
-//                }
-//
-//                // Ler a resposta da solicitação
-//                try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
-//                    StringBuilder response = new StringBuilder();
-//                    String responseLine;
-//                    while ((responseLine = br.readLine()) != null) {
-//                        response.append(responseLine.trim());
-//                    }
-//                    System.out.println(response.toString());
-//                }
-//            }
+        if (userCoke.getOrder() == CokeConstants.NEXT_TO_PAY) {
+
+        }
 
         super.onAfterUpdate(originalModel, userCoke);
     }
