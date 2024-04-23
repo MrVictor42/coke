@@ -35,6 +35,7 @@
         <column name="createDate" type="Date" />
         <column name="modifiedDate" type="Date" />
         <column name="order" type="int"/>
+        <column name="nextToPay" type="Boolean"/>
 
         <finder name="cokeId" return-type="Collection">
             <finder-column name="cokeId"/>

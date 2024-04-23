@@ -18,5 +18,6 @@ create table Coke_UserCoke (
 	position VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	order_ INTEGER
+	order_ INTEGER,
+	nextToPay BOOLEAN
 );

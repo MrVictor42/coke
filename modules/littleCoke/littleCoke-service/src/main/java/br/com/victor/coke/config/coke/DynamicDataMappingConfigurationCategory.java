@@ -1,6 +1,6 @@
-package br.com.victor.coke.config.monday;
+package br.com.victor.coke.config.coke;
 
-import br.com.victor.coke.constants.MondayConstants;
+import br.com.victor.coke.constants.CokeConstants;
 import com.liferay.configuration.admin.category.ConfigurationCategory;
 import org.osgi.service.component.annotations.Component;
 
@@ -10,16 +10,16 @@ public class DynamicDataMappingConfigurationCategory implements ConfigurationCat
 	
 	@Override
 	public String getCategoryIcon() {
-		return MondayConstants.CATEGORY_ICON;
+		return CokeConstants.CATEGORY_ICON;
 	}
 	
 	@Override
 	public String getCategorySection() {
-		return MondayConstants.CATEGORY_SECTION;
+		return CokeConstants.CATEGORY_SECTION;
 	}
 	
 	@Override
 	public String getCategoryKey() {
-		return MondayConstants.CATEGORY_KEY;
+		return CokeConstants.CATEGORY_KEY;
 	}
 }

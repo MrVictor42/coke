@@ -62,7 +62,7 @@ public class UserCokeCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -80,6 +80,8 @@ public class UserCokeCacheModel
 		sb.append(modifiedDate);
 		sb.append(", order=");
 		sb.append(order);
+		sb.append(", nextToPay=");
+		sb.append(nextToPay);
 		sb.append("}");
 
 		return sb.toString();
@@ -122,6 +124,7 @@ public class UserCokeCacheModel
 		}
 
 		userCokeImpl.setOrder(order);
+		userCokeImpl.setNextToPay(nextToPay);
 
 		userCokeImpl.resetOriginalValues();
 
@@ -142,6 +145,8 @@ public class UserCokeCacheModel
 		modifiedDate = objectInput.readLong();
 
 		order = objectInput.readInt();
+
+		nextToPay = objectInput.readBoolean();
 	}
 
 	@Override
@@ -170,6 +175,8 @@ public class UserCokeCacheModel
 		objectOutput.writeLong(modifiedDate);
 
 		objectOutput.writeInt(order);
+
+		objectOutput.writeBoolean(nextToPay);
 	}
 
 	public String uuid;
@@ -180,5 +187,6 @@ public class UserCokeCacheModel
 	public long createDate;
 	public long modifiedDate;
 	public int order;
+	public boolean nextToPay;
 
 }

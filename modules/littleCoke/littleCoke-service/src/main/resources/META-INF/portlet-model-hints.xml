@@ -21,5 +21,6 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="order" type="int" />
+		<field name="nextToPay" type="Boolean" />
 	</model>
 </model-hints>

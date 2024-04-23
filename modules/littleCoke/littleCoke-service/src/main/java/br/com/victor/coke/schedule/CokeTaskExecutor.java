@@ -1,8 +1,7 @@
 package br.com.victor.coke.schedule;
 
-import br.com.victor.coke.config.monday.MondayConfiguration;
+import br.com.victor.coke.config.coke.CokeConfiguration;
 import br.com.victor.coke.constants.CokeConstants;
-import br.com.victor.coke.constants.MondayConstants;
 import br.com.victor.coke.model.Coke;
 import br.com.victor.coke.model.UserCoke;
 import br.com.victor.coke.service.CokeLocalService;
@@ -24,7 +23,7 @@ import org.osgi.service.component.annotations.Reference;
 import java.util.*;
 
 @Component(
-    configurationPid = MondayConstants.PID_MONDAY_CONFIGURATION,
+    configurationPid = CokeConstants.PID_COKE_CONFIGURATION,
     property = {
         "dispatch.task.executor.name=" + CokeConstants.COKE_TASK_EXECUTOR_NAME,
         "dispatch.task.executor.type=" + CokeConstants.COKE_EXECUTOR_TYPE
@@ -35,7 +34,7 @@ public class CokeTaskExecutor extends BaseDispatchTaskExecutor {
 
     @Override
     public void doExecute(DispatchTrigger dispatchTrigger, DispatchTaskExecutorOutput dispatchTaskExecutorOutput) {
-        if (!CokeUtil.isConfigurationValid(dispatchTrigger, _mondayConfiguration)) {
+        if (!CokeUtil.isConfigurationValid(dispatchTrigger, _cokeConfiguration)) {
             _log.error("A Configuração do Monday Não Está Completa");
             return;
         }
@@ -58,6 +57,7 @@ public class CokeTaskExecutor extends BaseDispatchTaskExecutor {
                     for (int aux = 0; aux < userCokeList.size(); aux++) {
                         UserCoke userCoke = userCokeList.get(aux);
 
+                        userCoke.setNextToPay(aux == 0);
                         userCoke.setOrder(aux + 1);
                         _userCokeService.updateUserCokeOrder(userCoke.getUserCokeId(), userCoke.getOrder());
                     }
@@ -74,9 +74,9 @@ public class CokeTaskExecutor extends BaseDispatchTaskExecutor {
     @Activate
     @Modified
     protected void activate(Map<String, Object> properties) {
-        _mondayConfiguration = ConfigurableUtil.createConfigurable(MondayConfiguration.class, properties);
+        _cokeConfiguration = ConfigurableUtil.createConfigurable(CokeConfiguration.class, properties);
     }
-    private volatile MondayConfiguration _mondayConfiguration;
+    private volatile CokeConfiguration _cokeConfiguration;
 
     private final Log _log = LogFactoryUtil.getLog(CokeTaskExecutor.class);
 

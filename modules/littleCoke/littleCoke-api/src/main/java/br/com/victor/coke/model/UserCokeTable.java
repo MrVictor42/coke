@@ -48,6 +48,8 @@ public class UserCokeTable extends BaseTable<UserCokeTable> {
 		"modifiedDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<UserCokeTable, Integer> order = createColumn(
 		"order_", Integer.class, Types.INTEGER, Column.FLAG_DEFAULT);
+	public final Column<UserCokeTable, Boolean> nextToPay = createColumn(
+		"nextToPay", Boolean.class, Types.BOOLEAN, Column.FLAG_DEFAULT);
 
 	private UserCokeTable() {
 		super("Coke_UserCoke", UserCokeTable::new);

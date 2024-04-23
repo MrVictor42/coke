@@ -7,4 +7,4 @@ Liferay-Service: true
 
 Export-Package: \
     br.com.victor.coke.service.mondayIntegration.*,\
-    br.com.victor.coke.config.monday
+    br.com.victor.coke.config.coke

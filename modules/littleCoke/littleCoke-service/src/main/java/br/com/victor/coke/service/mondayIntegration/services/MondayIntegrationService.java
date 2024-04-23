@@ -1,7 +1,7 @@
 package br.com.victor.coke.service.mondayIntegration.services;
 
-import br.com.victor.coke.config.monday.MondayConfiguration;
-import br.com.victor.coke.constants.MondayConstants;
+import br.com.victor.coke.config.coke.CokeConfiguration;
+import br.com.victor.coke.constants.CokeConstants;
 import br.com.victor.coke.service.mondayIntegration.MondayIntegrationQuery;
 import br.com.victor.coke.service.mondayIntegration.util.MondayIntegrationUtil;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
@@ -34,14 +34,14 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Component(
-    configurationPid = MondayConstants.PID_MONDAY_CONFIGURATION,
+    configurationPid = CokeConstants.PID_COKE_CONFIGURATION,
     immediate = true,
     service = MondayIntegrationService.class
 )
 public class MondayIntegrationService {
 
     public List<User> getUserMondayListDTO(ServiceContext serviceContext) {
-        if(_mondayConfiguration.getMondayAPI().isEmpty() || _mondayConfiguration.getToken().isEmpty()) {
+        if(_cokeConfiguration.getMondayAPI().isEmpty() || _cokeConfiguration.getToken().isEmpty()) {
             _log.error("Configure as Credenciais do Monday");
 
             return null;
@@ -103,8 +103,8 @@ public class MondayIntegrationService {
         do {
             shouldRetry = false;
             JSONObject requestBody = JSONFactoryUtil.createJSONObject();
-            String token = _mondayConfiguration.getToken();
-            String apiURL = _mondayConfiguration.getMondayAPI();
+            String token = _cokeConfiguration.getToken();
+            String apiURL = _cokeConfiguration.getMondayAPI();
 
             requestBody.put("query", query);
 
@@ -182,9 +182,9 @@ public class MondayIntegrationService {
     @Activate
     @Modified
     protected void activate(Map<Object, Object> properties) {
-        _mondayConfiguration = ConfigurableUtil.createConfigurable(MondayConfiguration.class, properties);
+        _cokeConfiguration = ConfigurableUtil.createConfigurable(CokeConfiguration.class, properties);
     }
-    private volatile MondayConfiguration _mondayConfiguration;
+    private volatile CokeConfiguration _cokeConfiguration;
 
     private final Log _log = LogFactoryUtil.getLog(MondayIntegrationService.class);
 

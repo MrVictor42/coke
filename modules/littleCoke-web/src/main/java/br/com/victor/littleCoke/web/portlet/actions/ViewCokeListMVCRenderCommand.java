@@ -1,7 +1,6 @@
 package br.com.victor.littleCoke.web.portlet.actions;
 
 import br.com.victor.coke.constants.CokeConstants;
-import br.com.victor.coke.constants.MondayConstants;
 import br.com.victor.coke.model.Coke;
 import br.com.victor.coke.model.UserCoke;
 import br.com.victor.coke.model.UserCokeModel;
@@ -33,7 +32,7 @@ import java.util.List;
  * @author victor
  */
 @Component(
-    configurationPid = MondayConstants.PID_MONDAY_CONFIGURATION,
+    configurationPid = CokeConstants.PID_COKE_CONFIGURATION,
     immediate = true,
     property = {
         "javax.portlet.name=" + CokeConstants.LITTLE_COKE_WEB,

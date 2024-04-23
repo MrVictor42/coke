@@ -50,6 +50,7 @@ public class UserCokeWrapper
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("order", getOrder());
+		attributes.put("nextToPay", getNextToPay());
 
 		return attributes;
 	}
@@ -103,6 +104,12 @@ public class UserCokeWrapper
 		if (order != null) {
 			setOrder(order);
 		}
+
+		Boolean nextToPay = (Boolean)attributes.get("nextToPay");
+
+		if (nextToPay != null) {
+			setNextToPay(nextToPay);
+		}
 	}
 
 	@Override
@@ -138,6 +145,16 @@ public class UserCokeWrapper
 	@Override
 	public Date getModifiedDate() {
 		return model.getModifiedDate();
+	}
+
+	/**
+	 * Returns the next to pay of this user coke.
+	 *
+	 * @return the next to pay of this user coke
+	 */
+	@Override
+	public Boolean getNextToPay() {
+		return model.getNextToPay();
 	}
 
 	/**
@@ -243,6 +260,16 @@ public class UserCokeWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		model.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the next to pay of this user coke.
+	 *
+	 * @param nextToPay the next to pay of this user coke
+	 */
+	@Override
+	public void setNextToPay(Boolean nextToPay) {
+		model.setNextToPay(nextToPay);
 	}
 
 	/**

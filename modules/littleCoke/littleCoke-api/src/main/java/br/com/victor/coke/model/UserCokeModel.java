@@ -183,6 +183,20 @@ public interface UserCokeModel extends BaseModel<UserCoke> {
 	 */
 	public void setOrder(int order);
 
+	/**
+	 * Returns the next to pay of this user coke.
+	 *
+	 * @return the next to pay of this user coke
+	 */
+	public Boolean getNextToPay();
+
+	/**
+	 * Sets the next to pay of this user coke.
+	 *
+	 * @param nextToPay the next to pay of this user coke
+	 */
+	public void setNextToPay(Boolean nextToPay);
+
 	@Override
 	public UserCoke cloneWithOriginalValues();
 

@@ -36,6 +36,12 @@ public class UserCokeLocalServiceImpl extends UserCokeLocalServiceBaseImpl {
         userCoke.setPosition(position);
         userCoke.setOrder(order);
 
+        if(order == 0) { // primeiro a pagar
+            userCoke.setNextToPay(true);
+        } else {
+            userCoke.setNextToPay(false);
+        }
+
         return addUserCoke(userCoke);
     }
 
