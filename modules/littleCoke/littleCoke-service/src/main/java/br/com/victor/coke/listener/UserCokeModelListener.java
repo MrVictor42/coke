@@ -2,7 +2,9 @@ package br.com.victor.coke.listener;
 
 import br.com.victor.coke.config.coke.CokeConfiguration;
 import br.com.victor.coke.constants.CokeConstants;
+import br.com.victor.coke.model.Coke;
 import br.com.victor.coke.model.UserCoke;
+import br.com.victor.coke.service.CokeLocalService;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.ModelListenerException;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -47,6 +49,7 @@ public class UserCokeModelListener extends BaseModelListener<UserCoke> {
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
                 User user = _userLocalService.getUser(userCoke.getUserId());
+                Coke coke = _cokeLocalService.getCoke(userCoke.getCokeId());
 
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setRequestMethod("POST");
@@ -54,7 +57,7 @@ public class UserCokeModelListener extends BaseModelListener<UserCoke> {
 
                 jsonObject.put("username", "Coquinha BOT");
                 jsonObject.put("avatar_url", _cokeConfiguration.getAvatarURLDiscord());
-                jsonObject.put("content", "Hoje é o dia do cidadão ou cidadã pagar, e essa pessoa é: " + user.getFullName());
+                jsonObject.put("content", "Para as pessoas da bancada: " + coke.getName() + " ,hoje é o dia do cidadão ou cidadã pagar, e essa pessoa é: " + user.getFullName());
 
                 byte[] input = jsonObject.toJSONString().getBytes(StandardCharsets.UTF_8);
                 httpURLConnection.setFixedLengthStreamingMode(input.length);
@@ -66,7 +69,6 @@ public class UserCokeModelListener extends BaseModelListener<UserCoke> {
                 }
 
                 int code = httpURLConnection.getResponseCode();
-                System.out.println(code);
 
                 if (code == HttpURLConnection.HTTP_FORBIDDEN) {
                     System.out.println("Erro 403: Acesso negado. Verifique se o seu token de webhook é válido.");
@@ -90,4 +92,7 @@ public class UserCokeModelListener extends BaseModelListener<UserCoke> {
 
     @Reference
     private UserLocalService _userLocalService;
+
+    @Reference
+    private CokeLocalService _cokeLocalService;
 }
