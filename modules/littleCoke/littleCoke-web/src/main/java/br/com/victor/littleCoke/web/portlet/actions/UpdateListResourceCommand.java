@@ -34,7 +34,7 @@ public class UpdateListResourceCommand implements MVCResourceCommand {
     @Override
     public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
         try {
-            String url = resourceRequest.getCacheability();
+            String url = resourceRequest.getParameterMap().get("cokeId")[0];
             String[] parts = url.split("=");
             long cokeId = Long.parseLong(parts[1]);
             Coke coke = _cokeService.getCoke(cokeId);

@@ -188,8 +188,9 @@
 
     document.getElementById('refresh-btn').addEventListener('click', function() {
         AUI().use('aui-io-request', function(A){
+            var cokeId = <%= cokeId %>; // Passando o valor de cokeId do JSP para o JavaScript
             var url = '<portlet:resourceURL id="<%=MVCCommandNames.UPDATE_MEMBERS_LIST %>" />';
-            url += '?cokeId=' + <%= cokeId %>;
+            url += '?cokeId=' + cokeId;
             A.io.request(url, {
                 method: 'POST',
                 on: {
