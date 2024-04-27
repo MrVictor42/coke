@@ -158,7 +158,47 @@
         <aui:button type="submit"></aui:button>
         <aui:button type="cancel" onClick="<%= backViewURL.toString() %>"></aui:button>
         <% if(canDelete) { %>
-            <aui:button type="delete" onClick="<%= deleteCoke.toString() %>" value="Excluir" style="float: right; color: #fff; background-color: #EB1313; border-color: #EB1313"></aui:button>
+            <button class="btn btn-danger" style="float: right;" data-target="#clayModalDanger" data-toggle="modal" type="button">
+                Excluir
+            </button>
+            
+            <div aria-labelledby="clayModalDangerLabel" class="fade modal" id="clayModalDanger" role="dialog" tabindex="-1" style="display: none;" aria-hidden="true">
+                <div class="modal-danger modal-dialog modal-full-screen-sm-down">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-title" id="clayModalDangerLabel">
+                                <span class="modal-title-indicator">
+                                    <clay:icon symbol="trash" />
+                                </span>
+                                Excluir
+                            </div>
+                            <button aria-label="close" title="close" class="close" data-dismiss="modal" type="button">
+                                <span class="modal-title-indicator">
+                                    <clay:icon symbol="times" />
+                                </span>
+                            </button>
+                        </div>
+                        
+                        <div class="modal-body">
+                            <h4>Você Realmente Desejar ${cokeDTO.getCoke().name}?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="modal-item-last">
+                                <div class="btn-group">
+                                    <div class="btn-group-item">
+                                        <button class="btn btn-secondary" data-dismiss="modal" type="button">
+                                            Voltar
+                                        </button>
+                                    </div>
+                                    <div class="btn-group-item">
+                                        <aui:button class="btn btn-danger" onClick="<%= deleteCoke.toString() %>" value="Excluir" style="float: right; color: #fff; background-color: #EB1313; border-color: #EB1313"></aui:button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <% } %>
     </aui:button-row>
 </aui:form>
