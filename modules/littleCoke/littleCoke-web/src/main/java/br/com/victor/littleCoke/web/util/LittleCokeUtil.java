@@ -3,9 +3,6 @@ package br.com.victor.littleCoke.web.util;
 import com.liferay.portal.kernel.util.LocaleUtil;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class LittleCokeUtil {
@@ -25,12 +22,5 @@ public class LittleCokeUtil {
         double quantityPerPerson = cokeTotal / quantityMembers;
 
         return String.format("%.2f ml de Coca-Cola.", quantityPerPerson);
-    }
-
-    public static int memberSince(Date date) {
-        LocalDate dateReported = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate dateCurrent = LocalDate.now();
-
-        return (int) ChronoUnit.DAYS.between(dateReported, dateCurrent);
     }
 }

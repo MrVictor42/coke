@@ -66,7 +66,6 @@
                                     <div class="autofit-col autofit-col-expand autofit-col-gutters">
                                         <section class="autofit-section">
                                             <h3 class="card-title"><%= (next + 1) + "º " + nextUser.getFullName() %></h3>
-                                            <h4 class="card-subtitle mb-2 text-muted">Membro há: <%= LittleCokeUtil.memberSince(nextUser.getCreateDate()) %> dia(s)</h4>
                                         </section>
                                     </div>
                                 </div>
